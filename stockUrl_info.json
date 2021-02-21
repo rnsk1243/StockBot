@@ -1,0 +1,7 @@
+{
+  "UserAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
+  "URL001": "http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",
+  "URL002": "https://finance.naver.com/item/sise_day.nhn?code={}",
+  "URL003": "https://finance.naver.com/item/sise_day.nhn?code={}&page={}",
+  "URL004": ""
+}

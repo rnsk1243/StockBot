@@ -1,0 +1,7 @@
+dbInfo.json
+Test.py
+*.log
+__pycache__/
+*.idea/
+*.py[cod]
+*$py.class
