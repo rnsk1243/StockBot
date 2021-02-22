@@ -9,8 +9,9 @@ sys.path.append('C:\StockBot')
 class MarketDB:
     def __init__(self):
         try:
-            with open('.\dbInfo.json', 'r', encoding='utf-8') as dbInfo_json, \
-                    open('.\StockDB\sql.json', 'r', encoding='utf-8') as sql_json:
+            """【..\*.json】は最上位フォルダから一階層下のフォルダから実行の基準"""
+            with open('C:\StockBot\dbInfo.json', 'r', encoding='utf-8') as dbInfo_json, \
+                    open('C:\StockBot\StockDB\sql.json', 'r', encoding='utf-8') as sql_json:
                 dbInfo = json.load(dbInfo_json)
                 self.__sql = json.load(sql_json)
                 host = dbInfo['host']

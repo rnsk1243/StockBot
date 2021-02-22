@@ -1,3 +1,3 @@
 color a
-cd C:\StockBot
+cd C:\StockBot\StockDB
 python C:\StockBot\StockDB\DBUpdaterProcess.py section1

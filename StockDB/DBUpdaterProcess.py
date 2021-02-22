@@ -30,14 +30,14 @@ class MyProcess(multiprocessing.Process):
 
 def execute_daily(arg1):
     try:
-        with open('config.json', 'r', encoding='utf-8') as in_file:
+        with open('C:\StockBot\config.json', 'r', encoding='utf-8') as in_file:
             config = json.load(in_file)
             pages_to_fetch = config[arg1]['pages_to_fetch']
             if pages_to_fetch == "None":
                 pages_to_fetch = None
             core_num = config[arg1]['core_num']
     except FileNotFoundError:
-        with open('./config.json', 'w', encoding='utf-8') as out_file:
+        with open('C:\StockBot\config.json', 'w', encoding='utf-8') as out_file:
             pages_to_fetch = 1
             core_num = 5
             config = \

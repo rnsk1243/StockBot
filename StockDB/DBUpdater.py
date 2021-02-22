@@ -9,10 +9,10 @@ sys.path.append('C:\StockBot')
 class DBUpdater:  
     def __init__(self):
         try:
-
-            with open('.\dbInfo.json', 'r', encoding='utf-8') as dbInfo_json, \
-                    open('.\StockDB\sql.json', 'r', encoding='utf-8') as sql_json, \
-                    open('.\stockUrl_info.json', 'r', encoding='utf-8') as url_json:
+            """【..\*.json】は最上位フォルダから一階層下のフォルダから実行の基準"""
+            with open('C:\StockBot\dbInfo.json', 'r', encoding='utf-8') as dbInfo_json, \
+                    open('C:\StockBot\StockDB\sql.json', 'r', encoding='utf-8') as sql_json, \
+                    open('C:\StockBot\stockUrl_info.json', 'r', encoding='utf-8') as url_json:
                 dbInfo = json.load(dbInfo_json)
                 self.__sql = json.load(sql_json)
                 self.__url = json.load(url_json)
