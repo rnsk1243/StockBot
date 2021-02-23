@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from StockDB import Analyzer
 
 mk = Analyzer.MarketDB()
-df = mk.get_daily_price('삼성전자', '2018-05-05')
+df = mk.get_stock_safe_new_data('카카오') #mk.get_daily_price('삼성전자', '2018-05-05')
 
 df['MA20'] = df['close'].rolling(window=20).mean()  # ①平均
 df['stddev'] = df['close'].rolling(window=20).std()  # ②標準偏差

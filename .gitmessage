@@ -1,30 +1,30 @@
-[branchname]
-# ==== Emojis ====
-# ✏️  :pencil2: Writing docs
-# 🐛  :bug: Fix bugs
-# 👍  :+1: Feature improvements
-# ✨  :sparkles: Additional partial feature
-# 🎉  :tada: Grand major features added to celebrate
-# ♻️  :recycle :Refactoring
-# 🚿  :shower: Removal of obsolete functions or features.
-# 💚  :green_heart: Modification and improvement of testing and CI
-# 👕  :shirt: Fixing of errors found by Lint.
-# 🚀  :rocket: Performance improvement
-# 🆙  :up: Updates, such as dependent package
-# 🔒  :lock: Limit of the range of new features
-# 👮  :cop: Security-related improvements
-# ==== Format ====
-# :emoji: Subject #issue No.
-#
-# Commit body...
-# ==== The Seven Rules ====
-# 1. Separate subject from body with a blank line
-# 2. Limit the subject line to 50 characters
-# 3. Capitalize the subject line
-# 4. Do not end the subject line with a period
-# 5. Use the imperative mood in the subject line
-# 6. Wrap the body at 72 characters
-# 7. Use the body to explain what and why vs. how
+[支店名]
+＃====絵文字====
+＃✏️：pencil2：ドキュメントを書く
+＃🐛：bug：バグを修正
+＃👍：+1：機能の改善
+＃✨：sparkles：追加の部分機能
+＃🎉：tada：祝うために追加された壮大な主要機能
+＃♻️：リサイクル：リファクタリング
+＃🚿：shower：廃止された機能または機能の削除。
+＃💚：green_heart：テストとCIの変更と改善
+＃👕：shirt：Lintによって検出されたエラーの修正。
+＃🚀：rocket：パフォーマンスの向上
+＃🆙：up：依存パッケージなどの更新
+＃🔒：lock：新機能の範囲の制限
+＃👮：cop：セキュリティ関連の改善
+＃====フォーマット====
+＃：emoji：件名#issue No.
+＃
+＃コミットボディ...
+＃==== 7つのルール====
+＃1。件名と本文を空白行で区切ります
+＃2。件名を50文字に制限します
+＃3。件名を大文字にします
+＃4。件名をピリオドで終わらせないでください
+＃5。件名に命令法を使用する
+＃6。体を72文字で包む
+＃7。本文を使用して、何を、なぜ、どのように説明するか
 #
 # How to Write a Git Commit Message http://chris.beams.io/posts/git-commit/
 # for http://memo.goodpatch.co/2016/07/beautiful-commits-with-emojis/

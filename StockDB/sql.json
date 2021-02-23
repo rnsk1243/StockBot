@@ -12,7 +12,10 @@
   "SELECT_001": "SELECT * FROM company_info",
   "SELECT_002": "SELECT max(last_update) FROM company_info",
   "SELECT_003": "SELECT * FROM daily_price WHERE (daily_price.code, daily_price.date) IN (SELECT daily_price.code, MIN(daily_price.date) FROM daily_price GROUP BY daily_price.code)",
-  "SELECT_004": "SELECT * FROM daily_price WHERE code = '{}' and date >= '{}' and date <= '{}'"
+  "SELECT_004": "SELECT * FROM daily_price WHERE code = '{}' and date >= '{}' and date <= '{}'",
+  "SELECT_005": "SELECT MAX(daily_price.date) FROM daily_price WHERE daily_price.code = '{}' AND daily_price.open = '0'",
+  "SELECT_006": "SELECT *\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.date > IFNULL((\nSELECT MAX(daily_price.date)\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.open = '0'), '1900-01-01')",
+  "SELECT_007": "SELECT *\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.date < IFNULL((\nSELECT MIN(daily_price.date)\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.open = '0'), '1900-01-01')"
 
 }
 
