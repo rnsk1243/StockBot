@@ -31,7 +31,7 @@ class MarketDB:
             print(f"dbInfo.jsonファイルを見つかりません。 {str(e)}")
 
         except Exception as e:
-            print('Exception occured __getLastPage:', str(e))
+            print('Exception occured MarketDB init:', str(e))
         
     def __del__(self):
         """소멸자: MariaDB 연결 해제"""

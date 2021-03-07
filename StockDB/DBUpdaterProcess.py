@@ -91,4 +91,8 @@ if __name__ == '__main__':
     args = sys.argv
     execute_daily(args[1])
     print(f"time = {time.time() - start_time}")
+    # mycreon = co.Creon()
+    # mycreon.LoginCreon()
+    # mycreon.CheckCreonSystem()
+    # print("----")
 
