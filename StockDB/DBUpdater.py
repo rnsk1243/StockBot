@@ -31,7 +31,6 @@ class DBUpdater:
                 curs.execute(self.__sql['CREATE_002'])
             self.__conn.commit()
             self.__codes = {}
-            self.__update_comp_info()
 
         except FileNotFoundError as e:
             print(f"dbInfo.jsonファイルを見つかりません。 {str(e)}")
@@ -43,30 +42,28 @@ class DBUpdater:
         """소멸자: MariaDB 연결 해제"""
         self.__conn.close() 
      
-    def __read_krx_code(self):
-        """KRX로부터 상장기업 목록 파일을 읽어와서 데이터프레임으로 반환"""
-        krx = pd.read_html(self.__url['URL001'], header=0)[0]
-        krx = krx[['종목코드', '회사명']]
-        krx = krx.rename(columns={'종목코드': 'code', '회사명': 'company'})
-        krx.code = krx.code.map('{:06d}'.format)
-        return krx
-    
-    def __update_comp_info(self):
-        """종목코드를 company_info 테이블에 업데이트 한 후 딕셔너리에 저장"""
-        df = pd.read_sql(self.__sql['SELECT_001'], self.__conn)
-        for idx in range(len(df)):
-            self.__codes[df['code'].values[idx]] = df['company'].values[idx]
-        print('종목코드 딕셔너리에 저장 완료')
+    # def __read_krx_code(self):
+    #     """KRX로부터 상장기업 목록 파일을 읽어와서 데이터프레임으로 반환"""
+    #     krx = pd.read_html(self.__url['URL001'], header=0)[0]
+    #     krx = krx[['종목코드', '회사명']]
+    #     krx = krx.rename(columns={'종목코드': 'code', '회사명': 'company'})
+    #     krx.code = krx.code.map('{:06d}'.format)
+    #     return krx
 
+    def UpdateStockInfo(self, dfStockInfo):
+        """
+            종목코드를 company_info 테이블에 업데이트 한 후 딕셔너리에 저장
+            株項目一覧をDBに書き込む　
+        　　- dfStockInfo : 株項目DataFrame
+        """
         with self.__conn.cursor() as curs:
             curs.execute(self.__sql['SELECT_002'])
             rs = curs.fetchone()
             today = datetime.today().strftime('%Y-%m-%d')
             if rs[0] == None or rs[0].strftime('%Y-%m-%d') < today:
-                krx = self.__read_krx_code()
-                for idx in range(len(krx)):
-                    code = krx.code.values[idx]
-                    company = krx.company.values[idx]
+                for idx in range(len(dfStockInfo)):
+                    code = dfStockInfo.code.values[idx]
+                    company = dfStockInfo.company.values[idx]
                     curs.execute(self.__sql['REPLACE_001'].format(code, company, today))
                     self.__codes[code] = company
                     tmnow = datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -74,7 +71,12 @@ class DBUpdater:
                         f"VALUES ({code}, {company}, {today})")
                 self.__conn.commit()
                 print('종목코드 commit 완료')
+            else:
+                df = pd.read_sql(self.__sql['SELECT_001'], self.__conn)
+                for idx in range(len(df)):
+                    self.__codes[df['code'].values[idx]] = df['company'].values[idx]
 
+        print('종목코드 딕셔너리에 저장 완료')
         self.__codes_keys = list(self.__codes.keys())
         self.__codes_values = list(self.__codes.values())
 

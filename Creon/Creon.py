@@ -6,13 +6,19 @@ import win32com.client
 from logging import config, getLogger
 import pandas as pd
 
+LT_TRADE_REQUEST = 0
+LT_NONTRADE_REQUEST = 1
+LT_SUBSCRIBE = 2
+
 class Creon:
     def __init__(self):
         try:
             with open('C:\StockBot\creonInfo.json', 'r', encoding='utf-8') as creonInfo_json, \
-                    open('C:\StockBot\logging.json', 'r', encoding='utf-8') as logging_json:
+                    open('C:\StockBot\logging.json', 'r', encoding='utf-8') as logging_json, \
+                    open('C:\StockBot\Creon\creonConfig.json', 'r', encoding='utf-8') as creonConfig_json:
                 creonInfo = json.load(creonInfo_json)
                 config.dictConfig(json.load(logging_json))
+                self.__creonConfig = json.load(creonConfig_json)
                 self.__logger = getLogger(__name__)
                 self.__id = creonInfo['id']
                 self.__pwd = creonInfo['pwd']
@@ -21,6 +27,7 @@ class Creon:
                 self.__cpStatus = win32com.client.Dispatch('CpUtil.CpCybos')
                 self.__cpTradeUtil = win32com.client.Dispatch('CpTrade.CpTdUtil')
                 self.__objStockChart = win32com.client.Dispatch('CpSysDib.StockChart')
+                self.__objCpCodeMgr = win32com.client.Dispatch("CpUtil.CpCodeMgr")
 
         except FileNotFoundError as e:
             self.__logger.error(f"reonInfo.jsonファイルを見つかりません。 {str(e)}")
@@ -30,7 +37,7 @@ class Creon:
             self.__logger.error(f"Exception occured Creon init : {str(e)}")
 
 
-    def __LoginCreon(self):
+    def LoginCreon(self):
         os.system('taskkill /IM coStarter* /F /T')
         os.system('taskkill /IM CpStart* /F /T')
         os.system('wmic process where "name like \'%coStarter%\'" call terminate')
@@ -39,7 +46,7 @@ class Creon:
 
         app = application.Application()
         app.start(f"{self.__path} /prj:cp /id:{self.__id} /pwd:{self.__pwd} /pwdcert:{self.__pwdcert} /autostart")
-        time.sleep(60)
+        time.sleep(90)
         self.__logger.info('Creonログイン完了')
 
     def CheckCreonSystem(self):
@@ -63,49 +70,153 @@ class Creon:
         self.__logger.info('CREONPLUSEシステムつながりチェック True')
         return True
 
-    # 차트 요청 - 기간 기준으로
-    def RequestFromTo(self, code, fromDate, toDate):
-        print(code, fromDate, toDate)
-        # 연결 여부 체크
-        bConnect = self.__cpStatus.IsConnect
-        if (bConnect == 0):
-            print("PLUS가 정상적으로 연결되지 않음. ")
-            return False
+    def __CheckandWait(self, type):
+        remainCount = self.__cpStatus.GetLimitRemainCount(type)
+        self.__logger.info(f"limitType : {type} / 잔여카운트 : {remainCount}")
+        if remainCount <= 0:
+            self.__logger.info(f"시세/주문 요청대기 : {self.__cpStatus.LimitRequestRemainTime}")
+            time.sleep(self.__cpStatus.LimitRequestRemainTime / 1000)
 
-        self.__objStockChart.SetInputValue(0, code)  # 종목코드
-        self.__objStockChart.SetInputValue(1, ord('1'))  # 기간으로 받기
-        self.__objStockChart.SetInputValue(2, toDate)  # To 날짜
-        self.__objStockChart.SetInputValue(3, fromDate)  # From 날짜
-        # self.objStockChart.SetInputValue(4, 500)  # 최근 500일치
-        self.__objStockChart.SetInputValue(5, [0, 2, 3, 4, 5, 8])  # 날짜,시가,고가,저가,종가,거래량
-        self.__objStockChart.SetInputValue(6, ord('D'))  # '차트 주기 - 일간 차트 요청
-        self.__objStockChart.SetInputValue(9, ord('1'))  # 수정주가 사용
-        self.__objStockChart.BlockRequest()
+    # Chart情報取得
+    def RequestChartAmount(self, code, chartType = None, requestAmount = None):
+        """
+        株価のChart情報取得を行う。行う際に最近順で取得する。
+        :param code: 株式コード
+        :param chartType: Chart区分
+        :param requestAmount: 取得数（Noneの場合、最後まで取得）
+        :return: pandas.DataFrame
+        """
+        result = pd.DataFrame()
+        stockDateList = []
+        stockTimeList = []
+        stockOpenList = []
+        stockHighList = []
+        stockLowList = []
+        stockCloseList = []
+        stockDiffList = []
+        stockVolumeList = []
 
-        rqStatus = self.__objStockChart.GetDibStatus()
-        rqRet = self.__objStockChart.GetDibMsg1()
-        print("통신상태", rqStatus, rqRet)
-        if rqStatus != 0:
-            exit()
+        if chartType is None:
+            chartType = self.__creonConfig['StockChart']['Chart区分']['value']
+        if requestAmount is None:
+            requestAmount = self.__creonConfig['StockChart']['要請数']['value']
 
-        len = self.__objStockChart.GetHeaderValue(3)
+        pType1 = self.__creonConfig['StockChart']['要請区分']['type']
+        pValue1 = self.__creonConfig['StockChart']['要請区分']['value']
+        pType2 = self.__creonConfig['StockChart']['要請数']['type']
+        pValue2 = requestAmount
+        pType3 = self.__creonConfig['StockChart']['要請内容']['type']
+        pValue3 = self.__creonConfig['StockChart']['要請内容']['内容List']
+        pType4 = self.__creonConfig['StockChart']['Chart区分']['type']
+        pValue4 = chartType
+        pType5 = self.__creonConfig['StockChart']['ギャップ補正有無']['type']
+        pValue5 = self.__creonConfig['StockChart']['ギャップ補正有無']['value']
+        pType6 = self.__creonConfig['StockChart']['修正株株価適用有無']['type']
+        pValue6 = self.__creonConfig['StockChart']['修正株株価適用有無']['value']
+        pType7 = self.__creonConfig['StockChart']['取引量区分']['type']
+        pValue7 = self.__creonConfig['StockChart']['取引量区分']['value']
 
-        df = pd.DataFrame()
+        self.__logger.info(f"code : {code}")
+        self.__logger.info(f"要請区分 : {pType1}")
+        self.__logger.info(f"要請区分value : {pValue1}")
+        self.__logger.info(f"要請数 : {pType2}")
+        self.__logger.info(f"要請数value : {pValue2}")
+        self.__logger.info(f"要請内容 : {pType3}")
+        self.__logger.info(f"要請内容value : {pValue3}")
+        self.__logger.info(f"Chart区分 : {pType4}")
+        self.__logger.info(f"Chart区分value : {pValue4}")
+        self.__logger.info(f"ギャップ補正有無 : {pType5}")
+        self.__logger.info(f"ギャップ補正有無value : {pValue5}")
+        self.__logger.info(f"修正株株価適用有無 : {pType6}")
+        self.__logger.info(f"修正株株価適用有無value : {pValue6}")
+        self.__logger.info(f"取引量区分 : {pType7}")
+        self.__logger.info(f"取引量区分value : {pValue7}")
+        # code
+        self.__objStockChart.SetInputValue(0, code)
+        # 要請区分
+        self.__objStockChart.SetInputValue(pType1, ord(pValue1))
+        # 全要請数
+        self.__objStockChart.SetInputValue(pType2, pValue2)
+        # 要請内容
+        self.__objStockChart.SetInputValue(pType3, pValue3)
+        # 'Chart区分
+        self.__objStockChart.SetInputValue(pType4, ord(pValue4))
+        # ギャップ補正有無
+        self.__objStockChart.SetInputValue(pType5, ord(pValue5))
+        # 修正株株価適用有無
+        self.__objStockChart.SetInputValue(pType6, ord(pValue6))
+        # 取引量区分
+        self.__objStockChart.SetInputValue(pType7, ord(pValue7))
 
-        for i in range(len):
-            print(self.__objStockChart.GetDataValue(0, i))
-            print(self.__objStockChart.GetDataValue(1, i))
-            print(self.__objStockChart.GetDataValue(2, i))
-            print(self.__objStockChart.GetDataValue(3, i))
-            print(self.__objStockChart.GetDataValue(4, i))
-            print(self.__objStockChart.GetDataValue(5, i))
-            # df['date'] = self.__objStockChart.GetDataValue(0, i)
-            # df['open'] = self.__objStockChart.GetDataValue(1, i)
-            # df['high'] = self.__objStockChart.GetDataValue(2, i)
-            # df['low'] = self.__objStockChart.GetDataValue(3, i)
-            # df['close'] = self.__objStockChart.GetDataValue(4, i)
-            # #df['diff'] = abs(self.__objStockChart.GetDataValue(4, i) - self.__objStockChart.GetDataValue(1, i))
-            # df['volume'] = self.__objStockChart.GetDataValue(5, i)
+        requestedAmount = 0
+        while pValue2 > requestedAmount:
+            self.__CheckandWait(LT_NONTRADE_REQUEST)
+            self.__objStockChart.BlockRequest()
+            # rqStatus = self.__objStockChart.GetDibStatus()
+            # rqRet = self.__objStockChart.GetDibMsg1()
+            # print("통신상태", rqStatus, rqRet)
+            # if rqStatus != 0:
+            #     exit()
 
-        #print(len)
-        return df
+            curRequestedAmount = self.__objStockChart.GetHeaderValue(3)  # 수신개수
+            if curRequestedAmount <= 1:
+                self.__logger.info(f"code : {code} / 가져온 데이터 총 갯수 : {requestedAmount}")
+                break
+            else:
+                self.__logger.info(f"수신갯수: {curRequestedAmount}")
+                requestedAmount += curRequestedAmount
+
+            for i in range(curRequestedAmount):
+                stockDateList.append(self.__objStockChart.GetDataValue(0, i))
+                stockTimeList.append(self.__objStockChart.GetDataValue(1, i))
+                stockOpenList.append(self.__objStockChart.GetDataValue(2, i))
+                stockHighList.append(self.__objStockChart.GetDataValue(3, i))
+                stockLowList.append(self.__objStockChart.GetDataValue(4, i))
+                stockCloseList.append(self.__objStockChart.GetDataValue(5, i))
+                stockDiffList.append(self.__objStockChart.GetDataValue(6, i))
+                stockVolumeList.append(self.__objStockChart.GetDataValue(7, i))
+
+        result = pd.DataFrame({'date':stockDateList,
+                               'time':stockTimeList,
+                               'open':stockOpenList,
+                               'high':stockHighList,
+                               'low': stockLowList,
+                               'close': stockCloseList,
+                               'diff': stockDiffList,
+                               'volume': stockVolumeList,
+                               }, index=[i for i in range(1, requestedAmount+1)])
+
+        return result
+
+    """株の情報を取得する"""
+    def SearchStockInfo(self):
+
+        stockCodeList = []
+        stockNameList = []
+
+        # 종목코드 리스트 구하기
+        stockList1 = self.__objCpCodeMgr.GetStockListByMarket(1)  # 거래소
+        stockList2 = self.__objCpCodeMgr.GetStockListByMarket(2)  # 코스닥
+        lenStockInfo = len(stockList1) + len(stockList2)
+
+        for i, code in enumerate(stockList1):
+            #secondCode = self.__objCpCodeMgr.GetStockSectionKind(code) # 副 区分コード
+            #stdPrice = self.__objCpCodeMgr.GetStockStdPrice(code)      # 基準価額
+            name = self.__objCpCodeMgr.CodeToName(code) # 株名称
+            stockCodeList.append(code)
+            stockNameList.append(name)
+            self.__logger.info(f"code : {code} // company : {name}")
+
+        for i, code in enumerate(stockList2):
+            #secondCode = self.__objCpCodeMgr.GetStockSectionKind(code) # 副 区分コード
+            #stdPrice = self.__objCpCodeMgr.GetStockStdPrice(code)      # 基準価額
+            name = self.__objCpCodeMgr.CodeToName(code) # 株名称
+            stockCodeList.append(code)
+            stockNameList.append(name)
+            self.__logger.info(f"code : {code} // company : {name}")
+
+        dfStockInfo = pd.DataFrame({'code':stockCodeList,
+                                    'company':stockNameList},
+                                   index=[i for i in range(1,lenStockInfo+1)])
+
+        return dfStockInfo
