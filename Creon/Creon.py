@@ -9,6 +9,7 @@ import pandas as pd
 LT_TRADE_REQUEST = 0
 LT_NONTRADE_REQUEST = 1
 LT_SUBSCRIBE = 2
+MAX_REQUEST_NUM = 2221
 
 class Creon:
     def __init__(self):
@@ -77,16 +78,75 @@ class Creon:
             self.__logger.info(f"시세/주문 요청대기 : {self.__cpStatus.LimitRequestRemainTime}")
             time.sleep(self.__cpStatus.LimitRequestRemainTime / 1000)
 
+    def __transformDataFrameDB(self, df, chartType):
+        """
+        株価情報をDBに書き込むためにDBテーブルに変換する。
+        :param df: 変換対象DataFrame
+        :param chartType: Chart区分("D","W","M","m")
+        :return: 返還後のDataFrame
+        """
+        self.__logger.info(f"chartType = {chartType}")
+        f_weekday = lambda x: x.weekday()
+
+        if chartType == "T":
+
+            df['time'] = df['time'].astype(str)
+            df['date'] = df['date'].astype(str)
+            df['date'] = df['date'].str.cat(df['time'], sep=' ')
+            df['date'] = pd.to_datetime(df['date'], format='%Y%m%d %H%M')
+            df['weekday'] = df['date'].apply(f_weekday)
+            df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
+            df = df[['date', 'weekday', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            return df
+
+        elif chartType == "m":
+
+            df['time'] = df['time'].astype(str)
+            df['date'] = df['date'].astype(str)
+            df['date'] = df['date'].str.cat(df['time'], sep=' ')
+            df['date'] = pd.to_datetime(df['date'], format='%Y%m%d %H%M')
+            df['weekday'] = df['date'].apply(f_weekday)
+            df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
+            df = df[['date', 'weekday', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            return df
+
+        elif chartType == "D":
+
+            df['date'] = pd.to_datetime(df['date'], format='%Y%m%d')
+            df['weekday'] = df['date'].apply(f_weekday)
+            df = df[['date', 'weekday', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            return df
+
+        elif chartType == "W":
+
+            df['date'] = df['date'].astype(str)
+            df['week'] = df['date'].str[-2:-1]
+            df['date'] = pd.to_datetime(df['date'].str[:-2], format='%Y%m')
+            df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
+            df = df[['date', 'week', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            return df
+
+        elif chartType == "M":
+
+            df['date'] = df['date'].astype(str)
+            df['date'] = pd.to_datetime(df['date'].str[:-2], format='%Y%m')
+            df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
+            df = df[['date', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            return df
+
+        else:
+            return None
+
     # Chart情報取得
     def RequestChartAmount(self, code, chartType = None, requestAmount = None):
         """
         株価のChart情報取得を行う。行う際に最近順で取得する。
         :param code: 株式コード
-        :param chartType: Chart区分
+        :param chartType: Chart区分("D","W","M","m","T")以外の場合Noneをリターンする。
         :param requestAmount: 取得数（Noneの場合、最後まで取得）
         :return: pandas.DataFrame
         """
-        result = pd.DataFrame()
+
         stockDateList = []
         stockTimeList = []
         stockOpenList = []
@@ -148,23 +208,19 @@ class Creon:
         # 取引量区分
         self.__objStockChart.SetInputValue(pType7, ord(pValue7))
 
-        requestedAmount = 0
-        while pValue2 > requestedAmount:
-            self.__CheckandWait(LT_NONTRADE_REQUEST)
-            self.__objStockChart.BlockRequest()
+        requestedAmount = 0 #受信データ数累計
+        while pValue2 > requestedAmount: #要請数が受信データ累計より大きい場合、受信繰り返す。
+            self.__CheckandWait(LT_NONTRADE_REQUEST) #要請可能か？チェック
+            self.__objStockChart.BlockRequest() #受信したデータ以降のデータを要請する。
             # rqStatus = self.__objStockChart.GetDibStatus()
             # rqRet = self.__objStockChart.GetDibMsg1()
             # print("통신상태", rqStatus, rqRet)
             # if rqStatus != 0:
             #     exit()
 
-            curRequestedAmount = self.__objStockChart.GetHeaderValue(3)  # 수신개수
-            if curRequestedAmount <= 1:
-                self.__logger.info(f"code : {code} / 가져온 데이터 총 갯수 : {requestedAmount}")
-                break
-            else:
-                self.__logger.info(f"수신갯수: {curRequestedAmount}")
-                requestedAmount += curRequestedAmount
+            curRequestedAmount = self.__objStockChart.GetHeaderValue(3)  # 受信した数
+            self.__logger.info(f"受信数: {curRequestedAmount}")
+            requestedAmount += curRequestedAmount
 
             for i in range(curRequestedAmount):
                 stockDateList.append(self.__objStockChart.GetDataValue(0, i))
@@ -176,6 +232,9 @@ class Creon:
                 stockDiffList.append(self.__objStockChart.GetDataValue(6, i))
                 stockVolumeList.append(self.__objStockChart.GetDataValue(7, i))
 
+            if curRequestedAmount < MAX_REQUEST_NUM:
+                break
+
         result = pd.DataFrame({'date':stockDateList,
                                'time':stockTimeList,
                                'open':stockOpenList,
@@ -186,17 +245,20 @@ class Creon:
                                'volume': stockVolumeList,
                                }, index=[i for i in range(1, requestedAmount+1)])
 
-        return result
+        self.__logger.info(f"code : {code} / 取得したデータ数 : {requestedAmount}")
+        return self.__transformDataFrameDB(result, chartType)
 
-    """株の情報を取得する"""
     def SearchStockInfo(self):
-
+        """
+        株の情報を取得する
+        :return:
+        """
         stockCodeList = []
         stockNameList = []
 
-        # 종목코드 리스트 구하기
-        stockList1 = self.__objCpCodeMgr.GetStockListByMarket(1)  # 거래소
-        stockList2 = self.__objCpCodeMgr.GetStockListByMarket(2)  # 코스닥
+        # 株式コードリスト取得
+        stockList1 = self.__objCpCodeMgr.GetStockListByMarket(1)  # 取引マーケット
+        stockList2 = self.__objCpCodeMgr.GetStockListByMarket(2)  # KOSDAQ(コスダック)
         lenStockInfo = len(stockList1) + len(stockList2)
 
         for i, code in enumerate(stockList1):
@@ -218,5 +280,4 @@ class Creon:
         dfStockInfo = pd.DataFrame({'code':stockCodeList,
                                     'company':stockNameList},
                                    index=[i for i in range(1,lenStockInfo+1)])
-
         return dfStockInfo
