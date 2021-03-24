@@ -47,7 +47,7 @@ class Creon:
 
         app = application.Application()
         app.start(f"{self.__path} /prj:cp /id:{self.__id} /pwd:{self.__pwd} /pwdcert:{self.__pwdcert} /autostart")
-        time.sleep(90)
+        time.sleep(60)
         self.__logger.info('Creonログイン完了')
 
     def CheckCreonSystem(self):
@@ -96,7 +96,7 @@ class Creon:
             df['date'] = pd.to_datetime(df['date'], format='%Y%m%d %H%M')
             df['weekday'] = df['date'].apply(f_weekday)
             df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
-            df = df[['date', 'weekday', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            df = df[['dailyCount', 'date', 'weekday', 'open', 'high', 'low', 'close', 'diff', 'volume']]
             return df
 
         elif chartType == "m":
@@ -107,7 +107,7 @@ class Creon:
             df['date'] = pd.to_datetime(df['date'], format='%Y%m%d %H%M')
             df['weekday'] = df['date'].apply(f_weekday)
             df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
-            df = df[['date', 'weekday', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            df = df[['dailyCount', 'date', 'weekday', 'open', 'high', 'low', 'close', 'diff', 'volume']]
             return df
 
         elif chartType == "D":
@@ -147,14 +147,17 @@ class Creon:
         :return: pandas.DataFrame
         """
 
-        stockDateList = []
-        stockTimeList = []
-        stockOpenList = []
-        stockHighList = []
-        stockLowList = []
-        stockCloseList = []
-        stockDiffList = []
-        stockVolumeList = []
+        dailyCountList = []  #一つの種類に対して1日分の株株価の数番号(１番号がスタートの株価)
+        dailyCountList2 = [] #要請数の通りに取得した株価の数番号
+        stockDateList = []   #日付
+        stockTimeList = []   #時間
+        stockOpenList = []   #Open
+        stockHighList = []   #High
+        stockLowList = []    #Low
+        stockCloseList = []  #Close
+        stockDiffList = []   #Diff
+        stockVolumeList = [] #Volume
+        dailyCount = 0
 
         if chartType is None:
             chartType = self.__creonConfig['StockChart']['Chart区分']['value']
@@ -221,8 +224,20 @@ class Creon:
             curRequestedAmount = self.__objStockChart.GetHeaderValue(3)  # 受信した数
             self.__logger.info(f"受信数: {curRequestedAmount}")
             requestedAmount += curRequestedAmount
-
+            oldDate = self.__objStockChart.GetDataValue(0, 0)
+            tempList = []
+            isNextDate = False
             for i in range(curRequestedAmount):
+                if pValue4 == 'T' or pValue4 == 'm':
+                    newDate = self.__objStockChart.GetDataValue(0, i)
+                    if oldDate == newDate:
+                        dailyCount += 1
+                    else:
+                        oldDate = newDate
+                        dailyCount = 1
+                        isNextDate = True
+                    tempList.append(dailyCount)
+
                 stockDateList.append(self.__objStockChart.GetDataValue(0, i))
                 stockTimeList.append(self.__objStockChart.GetDataValue(1, i))
                 stockOpenList.append(self.__objStockChart.GetDataValue(2, i))
@@ -231,19 +246,45 @@ class Creon:
                 stockCloseList.append(self.__objStockChart.GetDataValue(5, i))
                 stockDiffList.append(self.__objStockChart.GetDataValue(6, i))
                 stockVolumeList.append(self.__objStockChart.GetDataValue(7, i))
+            #end for
+
+            tempList = list(reversed(tempList))  # リスト要素逆順にする。1,2,3,...,99,..
+            if isNextDate is False:
+                dailyCountList = tempList + dailyCountList  # リスト結合
+            else:
+                #日替りの場合
+                tempList1 = tempList[:tempList.index(1) + 1]
+                tempList2 = tempList[tempList.index(1) + 1:]
+                dailyCountList = tempList2 + dailyCountList  # リスト結合
+                dailyCountList2 = dailyCountList2 + dailyCountList
+                dailyCountList = tempList1
 
             if curRequestedAmount < MAX_REQUEST_NUM:
-                break
+                #取得した結果がMAX_REQUEST_NUMより小さかったら目標まで取得したとみなしてwhile抜ける
+                break #end while
 
-        result = pd.DataFrame({'date':stockDateList,
-                               'time':stockTimeList,
-                               'open':stockOpenList,
-                               'high':stockHighList,
-                               'low': stockLowList,
-                               'close': stockCloseList,
-                               'diff': stockDiffList,
-                               'volume': stockVolumeList,
-                               }, index=[i for i in range(1, requestedAmount+1)])
+        if pValue4 == 'T' or pValue4 == 'm':
+            dailyCountList2 = dailyCountList2 + dailyCountList
+            result = pd.DataFrame({'dailyCount': dailyCountList2,
+                                   'date': stockDateList,
+                                   'time': stockTimeList,
+                                   'open': stockOpenList,
+                                   'high': stockHighList,
+                                   'low': stockLowList,
+                                   'close': stockCloseList,
+                                   'diff': stockDiffList,
+                                   'volume': stockVolumeList,
+                                   }, index=[i for i in range(1, requestedAmount + 1)])
+        else:
+            result = pd.DataFrame({'date': stockDateList,
+                                   'time': stockTimeList,
+                                   'open': stockOpenList,
+                                   'high': stockHighList,
+                                   'low': stockLowList,
+                                   'close': stockCloseList,
+                                   'diff': stockDiffList,
+                                   'volume': stockVolumeList,
+                                   }, index=[i for i in range(1, requestedAmount + 1)])
 
         self.__logger.info(f"code : {code} / 取得したデータ数 : {requestedAmount}")
         return self.__transformDataFrameDB(result, chartType)
