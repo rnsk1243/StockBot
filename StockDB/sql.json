@@ -5,7 +5,11 @@
 
   "": "REPLACE文",
   "REPLACE_001": "REPLACE INTO company_info (code, company, last_update) VALUES ('{}', '{}', '{}')",
-  "REPLACE_002": "REPLACE INTO daily_price VALUES ('{}', '{}', {}, {}, {}, {}, {}, {})",
+  "REPLACE_002": "REPLACE INTO daily_price_month VALUES ('{}', '{}', {}, {}, {}, {}, {}, {})",
+  "REPLACE_003": "REPLACE INTO daily_price_week VALUES ('{}', '{}', {}, {}, {}, {}, {}, {}, {})",
+  "REPLACE_004": "REPLACE INTO daily_price_day VALUES ('{}', '{}', {}, {}, {}, {}, {}, {}, {})",
+  "REPLACE_005": "REPLACE INTO daily_price_min VALUES ('{}', {}, '{}', {}, {}, {}, {}, {}, {}, {})",
+  "REPLACE_006": "REPLACE INTO daily_price_tick VALUES ('{}', {}, '{}', {}, {}, {}, {}, {}, {}, {})",
 
   "": "SELECT文",
   "SELECT_999": "SELECT * FROM company_info WHERE company_info.company = '{}'",
