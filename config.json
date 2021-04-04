@@ -1,1 +1,16 @@
-{"section1": {"pages_to_fetch": 1, "core_num": 5}, "section2": {"pages_to_fetch": "None", "core_num": 10}}
+{
+  "section_daily":
+  {
+    "threadAmount": 2,
+    "is_All": false,
+    "is_T": false
+  },
+
+  "section_all":
+  {
+    "threadAmount": 2,
+    "is_All": true,
+    "is_T": false
+  }
+
+}
