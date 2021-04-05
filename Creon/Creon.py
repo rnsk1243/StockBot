@@ -4,7 +4,7 @@ import ctypes
 import win32com.client
 import logging.handlers
 import pandas as pd
-from StockDB import DBUpdater as DBU
+from StockDB import DBUpdater as dbu
 from datetime import datetime
 
 LT_TRADE_REQUEST = 0
@@ -14,12 +14,12 @@ MAX_REQUEST_NUM = 2221
 
 
 class Creon:
-    def __init__(self, threadNum):
+    def __init__(self, threadNum = 1):
         try:
             with open('C:/StockBot/Creon/creonConfig.json', 'r', encoding='utf-8') as creonConfig_json:
                 self.__threadNum = threadNum
-                self.__setLogger() #loggingを初期化する。
-                self.__dbu = DBU.DBUpdater()
+                self.__set_logger() #loggingを初期化する。
+                self.__dbu = dbu.DBUpdater()
 
                 self.__creonConfig = json.load(creonConfig_json)
                 self.__cpStatus = win32com.client.Dispatch('CpUtil.CpCybos')
@@ -36,7 +36,7 @@ class Creon:
             print(f"Exception occured Creon init : {str(e)}")
             self.__logger.error(f"Exception occured Creon init : {str(e)}")
 
-    def __setLogger(self):
+    def __set_logger(self):
         """
         Logging初期化
         self.__threadNum(Int) thread番号によって格納するファイル名CreonLog_01~05.logを決める
@@ -49,16 +49,16 @@ class Creon:
                 self.__logger = logging.getLogger(__name__)
                 self.__logger.setLevel(logging.DEBUG)
                 timeFH = logging.handlers.TimedRotatingFileHandler(filename=
-                                                                   loggingInfo['CreonLoggingInfo']['logFileNameArrayCreon'][self.__threadNum-1],
+                                                                   loggingInfo['Creon']['logFileNameArrayCreon'][self.__threadNum-1],
                                                                    interval=1, backupCount=30, encoding='utf-8', when='MIDNIGHT')
-                timeFH.setLevel(loggingInfo['CreonLoggingInfo']['logLevel']['SET_VALUE'])
+                timeFH.setLevel(loggingInfo['Creon']['logLevel']['SET_VALUE'])
                 # timeFH.setFormatter(loggingInfo['formatters']['logFileFormatter'])
                 timeFH.setFormatter(logging.Formatter(loggingInfo['formatters']['logFileFormatter']['format']))
                 #timeFH.setFormatter(logging.Formatter("%(asctime)s|%(levelname)-8s|%(name)s|%(funcName)s|%(message)s"))
                 self.__logger.addHandler(timeFH)
 
         except FileNotFoundError as e:
-            print(f"CreonInfo.jsonファイルを見つかりません。 {str(e)}")
+            print(f"logging.jsonファイルを見つかりません。 {str(e)}")
             self.__logger.error(f"C:\\StockBot\\logging.jsonファイルを見つかりません。: {str(e)}")
 
         except Exception as e:
@@ -67,7 +67,7 @@ class Creon:
 
         return
 
-    def CheckCreonSystem(self):
+    def check_creon_system(self):
         """CREONPLUSEシステムつながりチェックする"""
         # 管理者権限で実行したのか
         if not ctypes.windll.shell32.IsUserAnAdmin():
@@ -87,7 +87,7 @@ class Creon:
         self.__logger.info('CREONPLUSEシステムつながりチェック True')
         return True
 
-    def __CheckandWait(self, type):
+    def __check_and_wait(self, type):
         remainCount = self.__cpStatus.GetLimitRemainCount(type)
         self.__logger.debug(f"残り要請Count : {remainCount}")
         # print(f"残り要請Count : {remainCount}")
@@ -96,7 +96,7 @@ class Creon:
             print(f"データ要請待機 : {self.__cpStatus.LimitRequestRemainTime/1000}秒")
             time.sleep(self.__cpStatus.LimitRequestRemainTime / 1000)
 
-    def __transformDataFrameDB(self, df, chartType):
+    def __transform_data_frame_db(self, df, chartType):
         """
         株価情報をDBに書き込むためにDBテーブルに変換する。
         :param df: 変換対象DataFrame
@@ -156,7 +156,7 @@ class Creon:
             return None
 
     # Chart情報取得
-    def __requestChartAmount(self, code, chartType=None, requestAmount=None, isDaily_m_T=True):
+    def __request_chart_amount(self, code, chartType=None, requestAmount=None, isDaily_m_T=True):
         """
         株価のChart情報取得を行う。行う際に最近順で取得する。
         :param code:(String) 株式コード
@@ -234,7 +234,7 @@ class Creon:
         requestedAmount = 0  # 受信データ数累計
         result_DWM = pd.DataFrame()
         while pValue2 > requestedAmount:  # 要請数が受信データ累計より大きい場合、受信繰り返す。
-            self.__CheckandWait(LT_NONTRADE_REQUEST)  # 要請可能か？チェック
+            self.__check_and_wait(LT_NONTRADE_REQUEST)  # 要請可能か？チェック
             self.__objStockChart.BlockRequest()  # 受信したデータ以降のデータを要請する。
 
             curRequestedAmount = self.__objStockChart.GetHeaderValue(3)  # 受信した数
@@ -285,7 +285,7 @@ class Creon:
                                                }, index=[i for i in range(1, dailyCount + 1)])
 
                         oldDate = newDate
-                        result_Tm = self.__transformDataFrameDB(result, chartType)
+                        result_Tm = self.__transform_data_frame_db(result, chartType)
                         # for row in result_Tm.itertuples(name='count'):
                             #self.__logger.debug(row)
 
@@ -341,7 +341,7 @@ class Creon:
                                        'volume': stockVolumeList,
                                        }, index=[i for i in range(1, dailyCount + 1)])
 
-                result_DWM = self.__transformDataFrameDB(result, chartType).append(result_DWM)
+                result_DWM = self.__transform_data_frame_db(result, chartType).append(result_DWM)
 
                 dailyCountList = []
                 stockDateList = []  # 日付
@@ -375,7 +375,7 @@ class Creon:
 
         return None
 
-    def __requestStockInfo(self):
+    def __request_stock_info(self):
         """
         株の情報を取得する
         :return:(pandas.DataFrame) 株情報
@@ -414,7 +414,7 @@ class Creon:
 
         return dfStockInfo
 
-    def UpdateStockPrice(self, threadAmount, is_All=False, is_T=False):
+    def update_stock_price(self, threadAmount, is_All=False, is_T=False):
         """
         本日の株価を取得します。
         :param threadAmount:(Int) スレッド数
@@ -431,7 +431,7 @@ class Creon:
         #     return None
 
         #取得しようとする株コード
-        dfStockInfo = self.__requestStockInfo()
+        dfStockInfo = self.__request_stock_info()
 
         splitAmount = (int)(dfStockInfo.shape[0]/threadAmount)
 
@@ -450,12 +450,12 @@ class Creon:
             #当日のみ取得
             for stock in df_targetStockInfo.itertuples(name='stock'):
                 self.__logger.debug(f"【当日】 code : {stock.code} // 取得スタート...")
-                self.__requestChartAmount(stock.code, 'M', 1, False)
-                self.__requestChartAmount(stock.code, 'W', 1, False)
-                self.__requestChartAmount(stock.code, 'D', 1, False)
-                self.__requestChartAmount(stock.code, 'm', 1, True)
+                self.__request_chart_amount(code=stock.code, chartType='M', requestAmount=1, isDaily_m_T=False)
+                self.__request_chart_amount(code=stock.code, chartType='W', requestAmount=1, isDaily_m_T=False)
+                self.__request_chart_amount(code=stock.code, chartType='D', requestAmount=1, isDaily_m_T=False)
+                self.__request_chart_amount(code=stock.code, chartType='m', requestAmount=1, isDaily_m_T=True)
                 if is_T is True:
-                    self.__requestChartAmount(stock.code, 'T', 1, True)
+                    self.__request_chart_amount(code=stock.code, chartType='T', requestAmount=1, isDaily_m_T=True)
                 complitStockCount += 1
 
                 if complitStockCount % 5 == 0:
@@ -471,12 +471,12 @@ class Creon:
             #全日付取得
             for stock in df_targetStockInfo.itertuples(name='stock'):
                 self.__logger.debug(f"【全日】 code : {stock.code} // 取得スタート...")
-                self.__requestChartAmount(stock.code, 'M')
-                self.__requestChartAmount(stock.code, 'W')
-                self.__requestChartAmount(stock.code, 'D')
-                self.__requestChartAmount(stock.code, 'm')
+                self.__request_chart_amount(code=stock.code, chartType='M', isDaily_m_T=False)
+                self.__request_chart_amount(code=stock.code, chartType='W', isDaily_m_T=False)
+                self.__request_chart_amount(code=stock.code, chartType='D', isDaily_m_T=False)
+                self.__request_chart_amount(code=stock.code, chartType='m', isDaily_m_T=False)
                 if is_T is True:
-                    self.__requestChartAmount(stock.code, 'T')
+                    self.__request_chart_amount(code=stock.code, chartType='T', isDaily_m_T=False)
                 complitStockCount += 1
 
                 if complitStockCount % 3 == 0:
@@ -490,5 +490,13 @@ class Creon:
                 self.__logger.info(f"【全日】 code : 【\t{stock.code}\t】 // 取得完了")
         return None
 
-    #할것 완료%만들기 / DB넣고 / 배치파일로만들기 / 분까지만 하고 틱은 따로 필요한 주식만 받도록 하기
+    def test(self, code):
+        print(f"【全日】 code : {code} // 取得スタート...")
+        self.__logger.debug(f"【全日】 code : {code} // 取得スタート...")
+        self.__request_chart_amount(code, 'M')
+        self.__request_chart_amount(code, 'W')
+        self.__request_chart_amount(code, 'D')
+        self.__request_chart_amount(code, 'm')
+        self.__logger.info(f"【全日】 code : 【\t{code}\t】 // 取得完了")
+        print(f"【全日】 code : 【\t{code}\t】 // 取得完了")
 

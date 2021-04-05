@@ -34,7 +34,7 @@
       "format": "%(asctime)s|%(levelname)-8s|%(name)s|%(funcName)s|%(message)s"
     }
   },
-  "CreonLoggingInfo":
+  "Creon":
   {
     "logFileNameArrayCreon": ["C:/StockBot/log/CreonLog_01.log"
                             ,"C:/StockBot/log/CreonLog_02.log"
@@ -51,6 +51,23 @@
                             ,"C:/StockBot/log/CreonLog_13.log"
                             ,"C:/StockBot/log/CreonLog_14.log"
                             ,"C:/StockBot/log/CreonLog_15.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
+  },
+  "DBUpdater":
+  {
+    "logFileNameArrayDBUpdater": ["C:/StockBot/log/DBUpdaterLog_01.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_02.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_03.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_04.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_05.log"],
     "logLevel":
     {
       "SET_VALUE": 20,

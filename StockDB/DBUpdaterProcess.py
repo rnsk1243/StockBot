@@ -20,7 +20,7 @@ class MyProcess(multiprocessing.Process):
     def run(self):
         # myco = co.Creon("C:\StockBot\log\log_updateStockPrice.log")
         myco = co.Creon(self.threadNum)
-        myco.UpdateStockPrice(threadAmount=self.threadAmount, is_All=self.is_All, is_T=self.is_T)
+        myco.update_stock_price(threadAmount=self.threadAmount, is_All=self.is_All, is_T=self.is_T)
 
 def execute_daily(arg1):
     try:
