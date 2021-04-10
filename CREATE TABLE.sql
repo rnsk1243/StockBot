@@ -1,5 +1,4 @@
 CREATE TABLE `daily_price_month` (
-	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 	`code` VARCHAR(20) NOT NULL,
 	`date` DATETIME NOT NULL,
 	`open` BIGINT(20) NULL DEFAULT NULL,
@@ -8,18 +7,17 @@ CREATE TABLE `daily_price_month` (
 	`close` BIGINT(20) NULL DEFAULT NULL,
 	`diff` BIGINT(20) NULL DEFAULT NULL,
 	`volume` BIGINT(20) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`, `code`),
-	UNIQUE INDEX `date` (`date`)
+	PRIMARY KEY (`code`, `date`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
 
 
+
 ----------------------------------------
 
 CREATE TABLE `daily_price_week` (
-	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 	`code` VARCHAR(20) NOT NULL,
 	`date` DATETIME NOT NULL,
 	`week` SMALLINT(6) NOT NULL,
@@ -29,17 +27,16 @@ CREATE TABLE `daily_price_week` (
 	`close` BIGINT(20) NULL DEFAULT NULL,
 	`diff` BIGINT(20) NULL DEFAULT NULL,
 	`volume` BIGINT(20) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`, `code`),
-	UNIQUE INDEX `DATE` (`date`, `week`)
+	PRIMARY KEY (`code`, `week`, `date`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
 
 ----------------------------------------
 
 CREATE TABLE `daily_price_day` (
-	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 	`code` VARCHAR(20) NOT NULL,
 	`date` DATETIME NOT NULL,
 	`week` SMALLINT(6) NULL DEFAULT NULL,
@@ -49,19 +46,17 @@ CREATE TABLE `daily_price_day` (
 	`close` BIGINT(20) NULL DEFAULT NULL,
 	`diff` BIGINT(20) NULL DEFAULT NULL,
 	`volume` BIGINT(20) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`, `code`),
-	UNIQUE INDEX `date` (`date`)
+	PRIMARY KEY (`code`, `date`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
 
 ----------------------------------------
 
 CREATE TABLE `daily_price_min` (
-	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 	`code` VARCHAR(20) NOT NULL,
-	`dailyCount` BIGINT(20) NOT NULL,
 	`date` DATETIME NOT NULL,
 	`week` SMALLINT(6) NULL DEFAULT NULL,
 	`open` BIGINT(20) NULL DEFAULT NULL,
@@ -70,17 +65,16 @@ CREATE TABLE `daily_price_min` (
 	`close` BIGINT(20) NULL DEFAULT NULL,
 	`diff` BIGINT(20) NULL DEFAULT NULL,
 	`volume` BIGINT(20) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`, `code`),
-	UNIQUE INDEX `dailyCount` (`dailyCount`, `date`)
+	PRIMARY KEY (`code`, `date`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
 
 ----------------------------------------
 
 CREATE TABLE `daily_price_tick` (
-	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 	`code` VARCHAR(20) NOT NULL,
 	`dailyCount` BIGINT(20) NOT NULL,
 	`date` DATETIME NOT NULL,
@@ -91,9 +85,9 @@ CREATE TABLE `daily_price_tick` (
 	`close` BIGINT(20) NULL DEFAULT NULL,
 	`diff` BIGINT(20) NULL DEFAULT NULL,
 	`volume` BIGINT(20) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`, `code`),
-	UNIQUE INDEX `dailyCount` (`dailyCount`, `date`)
+	PRIMARY KEY (`code`, `dailyCount`, `date`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+

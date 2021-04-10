@@ -1,16 +1,26 @@
 {
-  "section_daily":
+    "section_daily_day":
   {
-    "threadAmount": 2,
-    "is_All": false,
-    "is_T": false
+    "threadAmount": 1
   },
 
-  "section_all":
+  "section_daily_day_all":
   {
-    "threadAmount": 2,
-    "is_All": true,
-    "is_T": false
-  }
+    "threadAmount": 10
+  },
 
+  "section_M":
+  {
+    "threadAmount": 1
+  },
+
+  "section_W":
+  {
+    "threadAmount": 5
+  },
+
+    "section_m":
+  {
+    "threadAmount": 10
+  }
 }

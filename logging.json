@@ -67,7 +67,12 @@
                             ,"C:/StockBot/log/DBUpdaterLog_02.log"
                             ,"C:/StockBot/log/DBUpdaterLog_03.log"
                             ,"C:/StockBot/log/DBUpdaterLog_04.log"
-                            ,"C:/StockBot/log/DBUpdaterLog_05.log"],
+                            ,"C:/StockBot/log/DBUpdaterLog_05.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_06.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_07.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_08.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_09.log"
+                            ,"C:/StockBot/log/DBUpdaterLog_10.log"],
     "logLevel":
     {
       "SET_VALUE": 20,

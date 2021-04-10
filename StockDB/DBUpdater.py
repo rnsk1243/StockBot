@@ -100,7 +100,7 @@ class DBUpdater:
                 for idx in range(len(df)):
                     self.__codes[df['code'].values[idx]] = df['company'].values[idx]
 
-        print(f'株情報Update完了。数：【{stockInfoNum}】')
+        print(f'Thread Num:【{self.__threadNum}】 / 株情報Update完了。数：【{stockInfoNum}】')
         self.__logger.info(f'株情報Update完了。数：【{stockInfoNum}】')
         # self.__codes_keys = list(self.__codes.keys())
         # self.__codes_values = list(self.__codes.values())
@@ -114,51 +114,52 @@ class DBUpdater:
         :return: None
         """
         goalAmount = len(df)
-        excu_result = 0
         print(f"DB insert スタート：code:【{code}】、type:【{chartType}】、len:【{goalAmount}】")
         self.__logger.info(f"DB insert スタート：code:【{code}】、type:【{chartType}】、len:【{goalAmount}】")
         try:
             with self.__conn.cursor() as curs:
+                excu_result = 0
                 for r in df.itertuples():
 
                     if chartType == 'T': #tick Chart
 
                         excu_result += curs.execute(self.__sql['REPLACE_006'].format(
-                            0, code, r.dailyCount, r.date, r.week, r.open, r.high, r.low, r.close, r.diff, r.volume))
+                            code, r.dailyCount, r.date, r.week, r.open, r.high, r.low, r.close, r.diff, r.volume))
 
                     elif chartType == 'm': #分 Chart
 
                         excu_result += curs.execute(self.__sql['REPLACE_005'].format(
-                            0, code, r.dailyCount, r.date, r.week, r.open, r.high, r.low, r.close, r.diff, r.volume))
+                            code, r.date, r.week, r.open, r.high, r.low, r.close, r.diff, r.volume))
 
                     elif chartType == 'D': #日 Chart
 
                         excu_result += curs.execute(self.__sql['REPLACE_004'].format(
-                            0, code, r.date, r.week, r.open, r.high, r.low, r.close, r.diff, r.volume))
+                            code, r.date, r.week, r.open, r.high, r.low, r.close, r.diff, r.volume))
 
                     elif chartType == 'W': #週 Chart
 
                         excu_result += curs.execute(self.__sql['REPLACE_003'].format(
-                            0, code, r.date, r.week, r.open, r.high, r.low, r.close, r.diff, r.volume))
+                            code, r.date, r.week, r.open, r.high, r.low, r.close, r.diff, r.volume))
 
                     elif chartType == 'M': #月 Chart
 
                         excu_result += curs.execute(self.__sql['REPLACE_002'].format(
-                            0, code, r.date, r.open, r.high, r.low, r.close, r.diff, r.volume))
+                            code, r.date, r.open, r.high, r.low, r.close, r.diff, r.volume))
 
                     else:
                         self.__logger.error(f"type:【{chartType}】は扱えません。")
                         return None
 
-                    self.__logger.debug(f"excu_result:【{excu_result}】、type:【{chartType}】、execute:【{r}】")
                     self.__conn.commit()
+                    self.__logger.debug(f"excu_result:【{excu_result}】、type:【{chartType}】、execute:【{r}】")
+
 
                 if goalAmount == excu_result:
-                    print(f"insert正常。code:【{code}】、type:【{chartType}】、commit数:【{excu_result}】")
-                    self.__logger.info(f"insert正常。code:【{code}】、type:【{chartType}】、commit数:【{excu_result}】")
+                    print(f"insert【挿入】。code:【{code}】、type:【{chartType}】、影響がある行数数:【{excu_result}】")
+                    self.__logger.info(f"insert【挿入】。code:【{code}】、type:【{chartType}】、影響がある行数:【{excu_result}】")
                 else:
-                    print(f"insert異常。code:【{code}】、goalAmount:【{goalAmount}】、excu_result:【{excu_result}】")
-                    self.__logger.error(f"insert異常。code:【{code}】、goalAmount:【{goalAmount}】、excu_result:【{excu_result}】")
+                    print(f"insert【更新＆挿入】。code:【{code}】、入れようとした行数:【{goalAmount}】、影響がある行数:【{excu_result}】")
+                    self.__logger.error(f"insert【更新＆挿入】。code:【{code}】、入れようとした行数:【{goalAmount}】、影響がある行数:【{excu_result}】")
 
                 # print('[{}] #{:04d} {} ({}) : {} rows > REPLACE INTO daily_' \
                 #       'price [OK]'.format(datetime.now().strftime('%Y-%m-%d%H:%M'),

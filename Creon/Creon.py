@@ -19,12 +19,12 @@ class Creon:
             with open('C:/StockBot/Creon/creonConfig.json', 'r', encoding='utf-8') as creonConfig_json:
                 self.__threadNum = threadNum
                 self.__set_logger() #loggingを初期化する。
-                self.__dbu = dbu.DBUpdater()
+                self.__dbu = dbu.DBUpdater(self.__threadNum)
 
                 self.__creonConfig = json.load(creonConfig_json)
                 self.__cpStatus = win32com.client.Dispatch('CpUtil.CpCybos')
                 self.__cpTradeUtil = win32com.client.Dispatch('CpTrade.CpTdUtil')
-                self.__objStockChart = win32com.client.Dispatch('CpSysDib.StockChart')
+
                 self.__objCpCodeMgr = win32com.client.Dispatch("CpUtil.CpCodeMgr")
                 self.__logger.info('Creon init 成功')
 
@@ -114,7 +114,8 @@ class Creon:
             df['date'] = pd.to_datetime(df['date'], format='%Y%m%d %H%M')
             df['week'] = df['date'].apply(f_weekday)
             df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
-            df = df[['dailyCount', 'date', 'week', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            df = df[['date', 'week', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            # df = df[['dailyCount', 'date', 'week', 'open', 'high', 'low', 'close', 'diff', 'volume']]
             return df
 
         elif chartType == "m":
@@ -125,13 +126,14 @@ class Creon:
             df['date'] = pd.to_datetime(df['date'], format='%Y%m%d %H%M')
             df['week'] = df['date'].apply(f_weekday)
             df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
-            df = df[['dailyCount', 'date', 'week', 'open', 'high', 'low', 'close', 'diff', 'volume']]
+            df = df[['date', 'week', 'open', 'high', 'low', 'close', 'diff', 'volume']]
             return df
 
         elif chartType == "D":
 
             df['date'] = pd.to_datetime(df['date'], format='%Y%m%d')
             df['week'] = df['date'].apply(f_weekday)
+            df['diff'] = df['close'].diff(-1).fillna(0).astype(int)
             df = df[['date', 'week', 'open', 'high', 'low', 'close', 'diff', 'volume']]
             return df
 
@@ -155,34 +157,16 @@ class Creon:
         else:
             return None
 
-    # Chart情報取得
-    def __request_chart_amount(self, code, chartType=None, requestAmount=None, isDaily_m_T=True):
+    def __set_request_obj(self, code, chartType, requestAmount):
         """
-        株価のChart情報取得を行う。行う際に最近順で取得する。
-        :param code:(String) 株式コード
-        :param chartType:(String) Chart区分("D","W","M","m","T")以外の場合Noneをリターンする。
-        :param requestAmount:(Int) 取得数（Noneの場合、最後まで取得）
-        :param isDaily_m_T:(Bool) 当日のデータを取得のとき、Chart区分がmまたはTの場合Ture,その以外はFalseに指定
-        :return: None
+        通信オブジェクトを初期化する。
+        :param code 株コード
+        :param chartType: グラフタイプ（'M','W','D','m','T'）
+        :param requestAmount: 要請数
+        :return: 通信オブジェクト
         """
-        dailyCountList = []  # 臨時に集めた番号
-        stockDateList = []  # 日付
-        stockTimeList = []  # 時間
-        stockOpenList = []  # Open
-        stockHighList = []  # High
-        stockLowList = []  # Low
-        stockCloseList = []  # Close
-        stockDiffList = []  # Diff
-        stockVolumeList = []  # Volume
-        dailyCount = 0
 
-
-        if chartType is None: # Chart区分
-            chartType = self.__creonConfig['StockChart']['Chart区分']['value']
-        if requestAmount is None: # Creonにある全データを取得する。
-            requestAmount = self.__creonConfig['StockChart']['要請数']['value']
-        if isDaily_m_T is True: #当日のデータだけを取得する。
-            requestAmount = self.__creonConfig['StockChart']['要請数']['daily']
+        objStockChart = win32com.client.Dispatch('CpSysDib.StockChart')
 
         pType1 = self.__creonConfig['StockChart']['要請区分']['type']
         pValue1 = self.__creonConfig['StockChart']['要請区分']['value']
@@ -215,144 +199,90 @@ class Creon:
         self.__logger.debug(f"取引量区分 : {pType7}")
         self.__logger.debug(f"取引量区分value : {pValue7}")
         # code
-        self.__objStockChart.SetInputValue(0, code)
+        objStockChart.SetInputValue(0, code)
         # 要請区分
-        self.__objStockChart.SetInputValue(pType1, ord(pValue1))
+        objStockChart.SetInputValue(pType1, ord(pValue1))
         # 全要請数
-        self.__objStockChart.SetInputValue(pType2, pValue2)
+        objStockChart.SetInputValue(pType2, pValue2)
         # 要請内容
-        self.__objStockChart.SetInputValue(pType3, pValue3)
+        objStockChart.SetInputValue(pType3, pValue3)
         # 'Chart区分
-        self.__objStockChart.SetInputValue(pType4, ord(pValue4))
+        objStockChart.SetInputValue(pType4, ord(pValue4))
         # ギャップ補正有無
-        self.__objStockChart.SetInputValue(pType5, ord(pValue5))
+        objStockChart.SetInputValue(pType5, ord(pValue5))
         # 修正株株価適用有無
-        self.__objStockChart.SetInputValue(pType6, ord(pValue6))
+        objStockChart.SetInputValue(pType6, ord(pValue6))
         # 取引量区分
-        self.__objStockChart.SetInputValue(pType7, ord(pValue7))
+        objStockChart.SetInputValue(pType7, ord(pValue7))
+
+        return objStockChart
+
+    def request_chart_day(self, code, is_all=True):
+        """
+        月、週データを取得
+        :param code: 株コード
+        :param is_all:全日 or 一日
+        :return: None
+        """
+
+        chartType = 'D'
+        if is_all is True:
+            goal_amount = 9999999
+        else:
+            goal_amount = 1
+
+        objStockChart = self.__set_request_obj(code, 'D', goal_amount)
 
         requestedAmount = 0  # 受信データ数累計
-        result_DWM = pd.DataFrame()
-        while pValue2 > requestedAmount:  # 要請数が受信データ累計より大きい場合、受信繰り返す。
+        while goal_amount > requestedAmount:  # 要請数が受信データ累計より大きい場合、受信繰り返す。
             self.__check_and_wait(LT_NONTRADE_REQUEST)  # 要請可能か？チェック
-            self.__objStockChart.BlockRequest()  # 受信したデータ以降のデータを要請する。
+            objStockChart.BlockRequest()  # 受信したデータ以降のデータを要請する。
 
-            curRequestedAmount = self.__objStockChart.GetHeaderValue(3)  # 受信した数
+            curRequestedAmount = objStockChart.GetHeaderValue(3)  # 受信した数
             if curRequestedAmount == 0:
                 break
 
             self.__logger.debug(f"受信数: {curRequestedAmount}")
-            requestedAmount += curRequestedAmount
-            oldDate = self.__objStockChart.GetDataValue(0, 0)
+
+            stockDateList = []  # 日付
+            stockTimeList = []  # 時間
+            stockOpenList = []  # Open
+            stockHighList = []  # High
+            stockLowList = []  # Low
+            stockCloseList = []  # Close
+            stockDiffList = []  # Diff
+            stockVolumeList = []  # Volume
 
             for i in range(curRequestedAmount):
-                if pValue4 == 'T' or pValue4 == 'm':
-                    newDate = self.__objStockChart.GetDataValue(0, i)
-                    if oldDate == newDate:
-                        dailyCount += 1
-                        dailyCountList.append(dailyCount)
-                        oldDate = self.__objStockChart.GetDataValue(0, i)
 
-                        stockDateList.append(self.__objStockChart.GetDataValue(0, i))
-                        stockTimeList.append(self.__objStockChart.GetDataValue(1, i))
-                        stockOpenList.append(self.__objStockChart.GetDataValue(2, i))
-                        stockHighList.append(self.__objStockChart.GetDataValue(3, i))
-                        stockLowList.append(self.__objStockChart.GetDataValue(4, i))
-                        stockCloseList.append(self.__objStockChart.GetDataValue(5, i))
-                        stockDiffList.append(self.__objStockChart.GetDataValue(6, i))
-                        stockVolumeList.append(self.__objStockChart.GetDataValue(7, i))
-
-                    if oldDate != newDate or curRequestedAmount < MAX_REQUEST_NUM:
-
-                        stockDateList = list(reversed(stockDateList))
-                        stockTimeList = list(reversed(stockTimeList))
-                        stockOpenList = list(reversed(stockOpenList))
-                        stockHighList = list(reversed(stockHighList))
-                        stockLowList = list(reversed(stockLowList))
-                        stockCloseList = list(reversed(stockCloseList))
-                        stockDiffList = list(reversed(stockDiffList))
-                        stockVolumeList = list(reversed(stockVolumeList))
-
-                        result = pd.DataFrame({'dailyCount': dailyCountList,
-                                               'date': stockDateList,
-                                               'time': stockTimeList,
-                                               'open': stockOpenList,
-                                               'high': stockHighList,
-                                               'low': stockLowList,
-                                               'close': stockCloseList,
-                                               'diff': stockDiffList,
-                                               'volume': stockVolumeList,
-                                               }, index=[i for i in range(1, dailyCount + 1)])
-
-                        oldDate = newDate
-                        result_Tm = self.__transform_data_frame_db(result, chartType)
-                        # for row in result_Tm.itertuples(name='count'):
-                            #self.__logger.debug(row)
-
-                        # ------------DB INSERT--------------
-                        self.__dbu.replace_into_db(code, result_Tm, pValue4)
-                        # ------------DB INSERT--------------
-
-                        dailyCountList = []
-                        stockDateList = []  # 日付
-                        stockTimeList = []  # 時間
-                        stockOpenList = []  # Open
-                        stockHighList = []  # High
-                        stockLowList = []  # Low
-                        stockCloseList = []  # Close
-                        stockDiffList = []  # Diff
-                        stockVolumeList = []  # Volume
-                        dailyCount = 0
-
-                        if isDaily_m_T is True:
-                            return None
-
-                else: # Chart区分がT,m以外の場合
-                    dailyCount += 1
-                    dailyCountList.append(dailyCount)
-                    stockDateList.append(self.__objStockChart.GetDataValue(0, i))
-                    stockTimeList.append(self.__objStockChart.GetDataValue(1, i))
-                    stockOpenList.append(self.__objStockChart.GetDataValue(2, i))
-                    stockHighList.append(self.__objStockChart.GetDataValue(3, i))
-                    stockLowList.append(self.__objStockChart.GetDataValue(4, i))
-                    stockCloseList.append(self.__objStockChart.GetDataValue(5, i))
-                    stockDiffList.append(self.__objStockChart.GetDataValue(6, i))
-                    stockVolumeList.append(self.__objStockChart.GetDataValue(7, i))
+                stockDateList.append(objStockChart.GetDataValue(0, i))
+                stockTimeList.append(objStockChart.GetDataValue(1, i))
+                stockOpenList.append(objStockChart.GetDataValue(2, i))
+                stockHighList.append(objStockChart.GetDataValue(3, i))
+                stockLowList.append(objStockChart.GetDataValue(4, i))
+                stockCloseList.append(objStockChart.GetDataValue(5, i))
+                stockDiffList.append(objStockChart.GetDataValue(6, i))
+                stockVolumeList.append(objStockChart.GetDataValue(7, i))
 
             # --------------------------end for----------------------------------------
-            if pValue4 != 'T' and pValue4 != 'm':
-                stockDateList = list(reversed(stockDateList))
-                stockTimeList = list(reversed(stockTimeList))
-                stockOpenList = list(reversed(stockOpenList))
-                stockHighList = list(reversed(stockHighList))
-                stockLowList = list(reversed(stockLowList))
-                stockCloseList = list(reversed(stockCloseList))
-                stockDiffList = list(reversed(stockDiffList))
-                stockVolumeList = list(reversed(stockVolumeList))
 
-                result = pd.DataFrame({'dailyCount': dailyCountList,
-                                       'date': stockDateList,
-                                       'time': stockTimeList,
-                                       'open': stockOpenList,
-                                       'high': stockHighList,
-                                       'low': stockLowList,
-                                       'close': stockCloseList,
-                                       'diff': stockDiffList ,
-                                       'volume': stockVolumeList,
-                                       }, index=[i for i in range(1, dailyCount + 1)])
+            result = pd.DataFrame({'date': stockDateList,
+                                   'time': stockTimeList,
+                                   'open': stockOpenList,
+                                   'high': stockHighList,
+                                   'low': stockLowList,
+                                   'close': stockCloseList,
+                                   'diff': stockDiffList,
+                                   'volume': stockVolumeList,
+                                   })
 
-                result_DWM = self.__transform_data_frame_db(result, chartType).append(result_DWM)
+            result = self.__transform_data_frame_db(result, chartType)
 
-                dailyCountList = []
-                stockDateList = []  # 日付
-                stockTimeList = []  # 時間
-                stockOpenList = []  # Open
-                stockHighList = []  # High
-                stockLowList = []  # Low
-                stockCloseList = []  # Close
-                stockDiffList = []  # Diff
-                stockVolumeList = []  # Volume
-                dailyCount = 0
+            # ------------DB INSERT--------------
+            self.__dbu.replace_into_db(code, result, chartType)
+            # ------------DB INSERT--------------
+            requestedAmount += curRequestedAmount
+
 
             if curRequestedAmount < MAX_REQUEST_NUM:
                 self.__logger.debug('Creonにある全データを取得した。')
@@ -361,21 +291,301 @@ class Creon:
                 # 取得した結果がMAX_REQUEST_NUMより小さかったら目標まで取得したとみなしてwhile抜ける
                 break  # end
 
-        if pValue4 != 'T' and pValue4 != 'm':
+        return None
 
-            result_DWM['Index'] = [i for i in range(1, requestedAmount + 1)]
-            result_DWM = result_DWM.set_index('Index')
+    def request_chart_all(self, code, chartType):
+        """
+        月、週、分の全日データを取得
+        :param code: 株コード
+        :param chartType:'M','W','m'
+        :return: None
+        """
 
-            # for row in result_DWM.itertuples(name='count'):
-            #     self.__logger.debug(row)
+        goal_amount = 9999999
+
+        objStockChart = self.__set_request_obj(code, chartType, goal_amount)
+
+        requestedAmount = 0  # 受信データ数累計
+        while goal_amount > requestedAmount:  # 要請数が受信データ累計より大きい場合、受信繰り返す。
+            self.__check_and_wait(LT_NONTRADE_REQUEST)  # 要請可能か？チェック
+            objStockChart.BlockRequest()  # 受信したデータ以降のデータを要請する。
+
+            curRequestedAmount = objStockChart.GetHeaderValue(3)  # 受信した数
+            if curRequestedAmount == 0:
+                break
+
+            self.__logger.debug(f"受信数: {curRequestedAmount}")
+
+            stockDateList = []  # 日付
+            stockTimeList = []  # 時間
+            stockOpenList = []  # Open
+            stockHighList = []  # High
+            stockLowList = []  # Low
+            stockCloseList = []  # Close
+            stockDiffList = []  # Diff
+            stockVolumeList = []  # Volume
+
+            for i in range(curRequestedAmount):
+
+                stockDateList.append(objStockChart.GetDataValue(0, i))
+                stockTimeList.append(objStockChart.GetDataValue(1, i))
+                stockOpenList.append(objStockChart.GetDataValue(2, i))
+                stockHighList.append(objStockChart.GetDataValue(3, i))
+                stockLowList.append(objStockChart.GetDataValue(4, i))
+                stockCloseList.append(objStockChart.GetDataValue(5, i))
+                stockDiffList.append(objStockChart.GetDataValue(6, i))
+                stockVolumeList.append(objStockChart.GetDataValue(7, i))
+
+            # --------------------------end for----------------------------------------
+
+            result = pd.DataFrame({'date': stockDateList,
+                                   'time': stockTimeList,
+                                   'open': stockOpenList,
+                                   'high': stockHighList,
+                                   'low': stockLowList,
+                                   'close': stockCloseList,
+                                   'diff': stockDiffList,
+                                   'volume': stockVolumeList,
+                                   })
+
+            result = self.__transform_data_frame_db(result, chartType)
 
             # ------------DB INSERT--------------
-            self.__dbu.replace_into_db(code, result_DWM, pValue4)
+            self.__dbu.replace_into_db(code, result, chartType)
             # ------------DB INSERT--------------
+            requestedAmount += curRequestedAmount
+
+            if curRequestedAmount < MAX_REQUEST_NUM:
+                self.__logger.debug('Creonにある全データを取得した。')
+                self.__logger.debug(f"code : {code} / 取得したデータ数 : {requestedAmount}")
+
+                # 取得した結果がMAX_REQUEST_NUMより小さかったら目標まで取得したとみなしてwhile抜ける
+                break  # end
 
         return None
 
-    def __request_stock_info(self):
+    #
+    # # Chart情報取得
+    # def __request_chart_amount(self, code, chartType=None, requestAmount=None, isDaily_m_T=True):
+    #     """
+    #     株価のChart情報取得を行う。行う際に最近順で取得する。
+    #     :param code:(String) 株式コード
+    #     :param chartType:(String) Chart区分("D","W","M","m","T")以外の場合Noneをリターンする。
+    #     :param requestAmount:(Int) 取得数（Noneの場合、最後まで取得）
+    #     :param isDaily_m_T:(Bool) 当日のデータを取得のとき、Chart区分がmまたはTの場合Ture,その以外はFalseに指定
+    #     :return: None
+    #     """
+    #     dailyCountList = []  # 臨時に集めた番号
+    #     stockDateList = []  # 日付
+    #     stockTimeList = []  # 時間
+    #     stockOpenList = []  # Open
+    #     stockHighList = []  # High
+    #     stockLowList = []  # Low
+    #     stockCloseList = []  # Close
+    #     stockDiffList = []  # Diff
+    #     stockVolumeList = []  # Volume
+    #     dailyCount = 0
+    #
+    #
+    #     if chartType is None: # Chart区分
+    #         chartType = self.__creonConfig['StockChart']['Chart区分']['value']
+    #     if requestAmount is None: # Creonにある全データを取得する。
+    #         requestAmount = self.__creonConfig['StockChart']['要請数']['value']
+    #     if isDaily_m_T is True: #当日のデータだけを取得する。
+    #         requestAmount = self.__creonConfig['StockChart']['要請数']['daily']
+    #
+    #     pType1 = self.__creonConfig['StockChart']['要請区分']['type']
+    #     pValue1 = self.__creonConfig['StockChart']['要請区分']['value']
+    #     pType2 = self.__creonConfig['StockChart']['要請数']['type']
+    #     pValue2 = requestAmount
+    #     pType3 = self.__creonConfig['StockChart']['要請内容']['type']
+    #     pValue3 = self.__creonConfig['StockChart']['要請内容']['内容List']
+    #     pType4 = self.__creonConfig['StockChart']['Chart区分']['type']
+    #     pValue4 = chartType
+    #     pType5 = self.__creonConfig['StockChart']['ギャップ補正有無']['type']
+    #     pValue5 = self.__creonConfig['StockChart']['ギャップ補正有無']['value']
+    #     pType6 = self.__creonConfig['StockChart']['修正株株価適用有無']['type']
+    #     pValue6 = self.__creonConfig['StockChart']['修正株株価適用有無']['value']
+    #     pType7 = self.__creonConfig['StockChart']['取引量区分']['type']
+    #     pValue7 = self.__creonConfig['StockChart']['取引量区分']['value']
+    #
+    #     self.__logger.debug(f"code : {code}")
+    #     self.__logger.debug(f"要請区分 : {pType1}")
+    #     self.__logger.debug(f"要請区分value : {pValue1}")
+    #     self.__logger.debug(f"要請数 : {pType2}")
+    #     self.__logger.debug(f"要請数value : {pValue2}")
+    #     self.__logger.debug(f"要請内容 : {pType3}")
+    #     self.__logger.debug(f"要請内容value : {pValue3}")
+    #     self.__logger.debug(f"Chart区分 : {pType4}")
+    #     self.__logger.debug(f"Chart区分value : {pValue4}")
+    #     self.__logger.debug(f"ギャップ補正有無 : {pType5}")
+    #     self.__logger.debug(f"ギャップ補正有無value : {pValue5}")
+    #     self.__logger.debug(f"修正株株価適用有無 : {pType6}")
+    #     self.__logger.debug(f"修正株株価適用有無value : {pValue6}")
+    #     self.__logger.debug(f"取引量区分 : {pType7}")
+    #     self.__logger.debug(f"取引量区分value : {pValue7}")
+    #     # code
+    #     self.__objStockChart.SetInputValue(0, code)
+    #     # 要請区分
+    #     self.__objStockChart.SetInputValue(pType1, ord(pValue1))
+    #     # 全要請数
+    #     self.__objStockChart.SetInputValue(pType2, pValue2)
+    #     # 要請内容
+    #     self.__objStockChart.SetInputValue(pType3, pValue3)
+    #     # 'Chart区分
+    #     self.__objStockChart.SetInputValue(pType4, ord(pValue4))
+    #     # ギャップ補正有無
+    #     self.__objStockChart.SetInputValue(pType5, ord(pValue5))
+    #     # 修正株株価適用有無
+    #     self.__objStockChart.SetInputValue(pType6, ord(pValue6))
+    #     # 取引量区分
+    #     self.__objStockChart.SetInputValue(pType7, ord(pValue7))
+    #
+    #     requestedAmount = 0  # 受信データ数累計
+    #     result_DWM = pd.DataFrame()
+    #     while pValue2 > requestedAmount:  # 要請数が受信データ累計より大きい場合、受信繰り返す。
+    #         self.__check_and_wait(LT_NONTRADE_REQUEST)  # 要請可能か？チェック
+    #         self.__objStockChart.BlockRequest()  # 受信したデータ以降のデータを要請する。
+    #
+    #         curRequestedAmount = self.__objStockChart.GetHeaderValue(3)  # 受信した数
+    #         if curRequestedAmount == 0:
+    #             break
+    #
+    #         self.__logger.debug(f"受信数: {curRequestedAmount}")
+    #         requestedAmount += curRequestedAmount
+    #         oldDate = self.__objStockChart.GetDataValue(0, 0)
+    #
+    #         for i in range(curRequestedAmount):
+    #             if pValue4 == 'T' or pValue4 == 'm':
+    #                 newDate = self.__objStockChart.GetDataValue(0, i)
+    #                 if oldDate == newDate:
+    #                     dailyCount += 1
+    #                     dailyCountList.append(dailyCount)
+    #                     oldDate = self.__objStockChart.GetDataValue(0, i)
+    #
+    #                     stockDateList.append(self.__objStockChart.GetDataValue(0, i))
+    #                     stockTimeList.append(self.__objStockChart.GetDataValue(1, i))
+    #                     stockOpenList.append(self.__objStockChart.GetDataValue(2, i))
+    #                     stockHighList.append(self.__objStockChart.GetDataValue(3, i))
+    #                     stockLowList.append(self.__objStockChart.GetDataValue(4, i))
+    #                     stockCloseList.append(self.__objStockChart.GetDataValue(5, i))
+    #                     stockDiffList.append(self.__objStockChart.GetDataValue(6, i))
+    #                     stockVolumeList.append(self.__objStockChart.GetDataValue(7, i))
+    #
+    #                 if oldDate != newDate or curRequestedAmount < MAX_REQUEST_NUM:
+    #
+    #                     stockDateList = list(reversed(stockDateList))
+    #                     stockTimeList = list(reversed(stockTimeList))
+    #                     stockOpenList = list(reversed(stockOpenList))
+    #                     stockHighList = list(reversed(stockHighList))
+    #                     stockLowList = list(reversed(stockLowList))
+    #                     stockCloseList = list(reversed(stockCloseList))
+    #                     stockDiffList = list(reversed(stockDiffList))
+    #                     stockVolumeList = list(reversed(stockVolumeList))
+    #
+    #                     result = pd.DataFrame({'dailyCount': dailyCountList,
+    #                                            'date': stockDateList,
+    #                                            'time': stockTimeList,
+    #                                            'open': stockOpenList,
+    #                                            'high': stockHighList,
+    #                                            'low': stockLowList,
+    #                                            'close': stockCloseList,
+    #                                            'diff': stockDiffList,
+    #                                            'volume': stockVolumeList,
+    #                                            }, index=[i for i in range(1, dailyCount + 1)])
+    #
+    #                     oldDate = newDate
+    #                     result_Tm = self.__transform_data_frame_db(result, chartType)
+    #                     # for row in result_Tm.itertuples(name='count'):
+    #                         #self.__logger.debug(row)
+    #
+    #                     # ------------DB INSERT--------------
+    #                     self.__dbu.replace_into_db(code, result_Tm, pValue4)
+    #                     # ------------DB INSERT--------------
+    #
+    #                     dailyCountList = []
+    #                     stockDateList = []  # 日付
+    #                     stockTimeList = []  # 時間
+    #                     stockOpenList = []  # Open
+    #                     stockHighList = []  # High
+    #                     stockLowList = []  # Low
+    #                     stockCloseList = []  # Close
+    #                     stockDiffList = []  # Diff
+    #                     stockVolumeList = []  # Volume
+    #                     dailyCount = 0
+    #
+    #                     if isDaily_m_T is True:
+    #                         return None
+    #
+    #             else: # Chart区分がT,m以外の場合
+    #                 dailyCount += 1
+    #                 dailyCountList.append(dailyCount)
+    #                 stockDateList.append(self.__objStockChart.GetDataValue(0, i))
+    #                 stockTimeList.append(self.__objStockChart.GetDataValue(1, i))
+    #                 stockOpenList.append(self.__objStockChart.GetDataValue(2, i))
+    #                 stockHighList.append(self.__objStockChart.GetDataValue(3, i))
+    #                 stockLowList.append(self.__objStockChart.GetDataValue(4, i))
+    #                 stockCloseList.append(self.__objStockChart.GetDataValue(5, i))
+    #                 stockDiffList.append(self.__objStockChart.GetDataValue(6, i))
+    #                 stockVolumeList.append(self.__objStockChart.GetDataValue(7, i))
+    #
+    #         # --------------------------end for----------------------------------------
+    #         if pValue4 != 'T' and pValue4 != 'm':
+    #             stockDateList = list(reversed(stockDateList))
+    #             stockTimeList = list(reversed(stockTimeList))
+    #             stockOpenList = list(reversed(stockOpenList))
+    #             stockHighList = list(reversed(stockHighList))
+    #             stockLowList = list(reversed(stockLowList))
+    #             stockCloseList = list(reversed(stockCloseList))
+    #             stockDiffList = list(reversed(stockDiffList))
+    #             stockVolumeList = list(reversed(stockVolumeList))
+    #
+    #             result = pd.DataFrame({'dailyCount': dailyCountList,
+    #                                    'date': stockDateList,
+    #                                    'time': stockTimeList,
+    #                                    'open': stockOpenList,
+    #                                    'high': stockHighList,
+    #                                    'low': stockLowList,
+    #                                    'close': stockCloseList,
+    #                                    'diff': stockDiffList ,
+    #                                    'volume': stockVolumeList,
+    #                                    }, index=[i for i in range(1, dailyCount + 1)])
+    #
+    #             result_DWM = self.__transform_data_frame_db(result, chartType).append(result_DWM)
+    #
+    #             dailyCountList = []
+    #             stockDateList = []  # 日付
+    #             stockTimeList = []  # 時間
+    #             stockOpenList = []  # Open
+    #             stockHighList = []  # High
+    #             stockLowList = []  # Low
+    #             stockCloseList = []  # Close
+    #             stockDiffList = []  # Diff
+    #             stockVolumeList = []  # Volume
+    #             dailyCount = 0
+    #
+    #         if curRequestedAmount < MAX_REQUEST_NUM:
+    #             self.__logger.debug('Creonにある全データを取得した。')
+    #             self.__logger.debug(f"code : {code} / 取得したデータ数 : {requestedAmount}")
+    #
+    #             # 取得した結果がMAX_REQUEST_NUMより小さかったら目標まで取得したとみなしてwhile抜ける
+    #             break  # end
+    #
+    #     if pValue4 != 'T' and pValue4 != 'm':
+    #
+    #         result_DWM['Index'] = [i for i in range(1, requestedAmount + 1)]
+    #         result_DWM = result_DWM.set_index('Index')
+    #
+    #         # for row in result_DWM.itertuples(name='count'):
+    #         #     self.__logger.debug(row)
+    #
+    #         # ------------DB INSERT--------------
+    #         self.__dbu.replace_into_db(code, result_DWM, pValue4)
+    #         # ------------DB INSERT--------------
+    #
+    #     return None
+
+    def request_stock_info(self):
         """
         株の情報を取得する
         :return:(pandas.DataFrame) 株情報
@@ -394,7 +604,7 @@ class Creon:
             name = self.__objCpCodeMgr.CodeToName(code)  # 株名称
             stockCodeList.append(code)
             stockNameList.append(name)
-            # self.__logger.info(f"code : {code} // company : {name}")
+            self.__logger.info(f"code : {code} // company : {name}")
 
         for i, code in enumerate(stockList2):
             # secondCode = self.__objCpCodeMgr.GetStockSectionKind(code) # 副 区分コード
@@ -402,7 +612,7 @@ class Creon:
             name = self.__objCpCodeMgr.CodeToName(code)  # 株名称
             stockCodeList.append(code)
             stockNameList.append(name)
-            # self.__logger.info(f"code : {code} // company : {name}")
+            self.__logger.info(f"code : {code} // company : {name}")
 
         dfStockInfo = pd.DataFrame({'code': stockCodeList,
                                     'company': stockNameList},
@@ -414,89 +624,198 @@ class Creon:
 
         return dfStockInfo
 
-    def update_stock_price(self, threadAmount, is_All=False, is_T=False):
+    def split_df_stock(self, dfStockInfo, threadAmount):
         """
-        本日の株価を取得します。
-        :param threadAmount:(Int) スレッド数
-        :param threadNum:(Int) スレッド番号
-        :param is_All:(Bool) 全日付の株データを取得するかを選択(defalue-false:取得しなく当日のみ取得)
-        :param is_T:(Bool) Tickデータを取得するかを選択(defalue-True:取得)
-        :return:
+        thread数で株データframeを分ける
+        :param dfStockInfo: データframe
+        :param threadAmount: thread数
+        :return: 分けたデータframe
         """
 
-        self.__logger.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 本日の株価を取得します。")
         threadNum = self.__threadNum
-        # if threadNum < 1:
-        #     self.__logger.error(f"threadNum : {threadNum} ／は1以上にしてください。")
-        #     return None
-
-        #取得しようとする株コード
-        dfStockInfo = self.__request_stock_info()
-
-        splitAmount = (int)(dfStockInfo.shape[0]/threadAmount)
+        splitAmount = (int)(dfStockInfo.shape[0] / threadAmount)
 
         if threadNum == 1:
-            df_targetStockInfo = dfStockInfo[:splitAmount]
+            result = dfStockInfo[:splitAmount]
         elif threadNum == threadAmount:
-            df_targetStockInfo = dfStockInfo[(threadNum - 1) * splitAmount:]
+            result = dfStockInfo[(threadNum - 1) * splitAmount:]
         else:
-            df_targetStockInfo = dfStockInfo[(threadNum - 1) * splitAmount:(threadNum) * splitAmount]
+            result = dfStockInfo[(threadNum - 1) * splitAmount:(threadNum) * splitAmount]
 
-        targetStockCount = len(df_targetStockInfo)
-        complitStockCount = 0
+        return result
 
-        if is_All is False:
+    # def update_stock_price_mwd(self, threadAmount, is_All=False):
+    #     """
+    #     株価を取得します。月、週、日
+    #     :param threadAmount:(Int) スレッド数
+    #     :param is_All:(Bool) 全日付の株データを取得するかを選択(defalue-false:取得しなく当日のみ取得)
+    #     :return:
+    #     """
+    #
+    #     self.__logger.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 本日の株価を取得します。")
+    #     threadNum = self.__threadNum
+    #     if threadNum < 1:
+    #         self.__logger.error(f"threadNum : {threadNum} ／は1以上にしてください。")
+    #         return None
+    #
+    #     #取得しようとする株コード
+    #     dfStockInfo = self.__request_stock_info()
+    #     #thread数で株データframeを分ける
+    #     df_targetStockInfo = self.__split_df_stock(dfStockInfo,threadAmount)
+    #
+    #     targetStockCount = len(df_targetStockInfo)
+    #     complitStockCount = 0
+    #
+    #     if is_All is False:
+    #
+    #         #当日のみ取得
+    #         for stock in df_targetStockInfo.itertuples(name='stock'):
+    #             self.__logger.debug(f"【当日 月、週、日】 code : {stock.code} // 取得スタート...")
+    #             self.__request_chart_amount(code=stock.code, chartType='M', requestAmount=1, isDaily_m_T=False)
+    #             self.__request_chart_amount(code=stock.code, chartType='W', requestAmount=1, isDaily_m_T=False)
+    #             self.__request_chart_amount(code=stock.code, chartType='D', requestAmount=1, isDaily_m_T=False)
+    #             complitStockCount += 1
+    #
+    #             if complitStockCount % 5 == 0:
+    #                 print(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #                 self.__logger.info(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #
+    #             self.__logger.info(f"【当日 月、週、日】 code : 【\t{stock.code}\t】 // 取得完了")
+    #     else:
+    #         #全日付取得
+    #         for stock in df_targetStockInfo.itertuples(name='stock'):
+    #             self.__logger.debug(f"【全日 月、週、日】 code : {stock.code} // 取得スタート...")
+    #             self.__request_chart_amount(code=stock.code, chartType='M', isDaily_m_T=False)
+    #             self.__request_chart_amount(code=stock.code, chartType='W', isDaily_m_T=False)
+    #             self.__request_chart_amount(code=stock.code, chartType='D', isDaily_m_T=False)
+    #             complitStockCount += 1
+    #
+    #             if complitStockCount % 3 == 0:
+    #                 print(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #                 self.__logger.info(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #
+    #             self.__logger.info(f"【全日 月、週、日】 code : 【\t{stock.code}\t】 // 取得完了")
+    #     return None
+    #
+    # def update_stock_price_m(self, threadAmount, is_All=False):
+    #     """
+    #     分の株価を取得します。
+    #     :param threadAmount:(Int) スレッド数
+    #     :param is_All:(Bool) 全日付の株データを取得するかを選択(defalue-false:取得しなく当日のみ取得)
+    #     :return:
+    #     """
+    #
+    #     self.__logger.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 本日の株価を取得します。")
+    #     threadNum = self.__threadNum
+    #     # if threadNum < 1:
+    #     #     self.__logger.error(f"threadNum : {threadNum} ／は1以上にしてください。")
+    #     #     return None
+    #
+    #     #取得しようとする株コード
+    #     dfStockInfo = self.__request_stock_info()
+    #     #thread数で株データframeを分ける
+    #     df_targetStockInfo = self.__split_df_stock(dfStockInfo,threadAmount)
+    #
+    #     targetStockCount = len(df_targetStockInfo)
+    #     complitStockCount = 0
+    #
+    #     if is_All is False:
+    #
+    #         #当日のみ取得
+    #         for stock in df_targetStockInfo.itertuples(name='stock'):
+    #             self.__logger.debug(f"【当日】 分 code : {stock.code} // 取得スタート...")
+    #             self.__request_chart_amount(code=stock.code, chartType='m', requestAmount=1, isDaily_m_T=True)
+    #             complitStockCount += 1
+    #
+    #             if complitStockCount % 5 == 0:
+    #                 print(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #                 self.__logger.info(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #
+    #             self.__logger.info(f"【当日】 分 code : 【\t{stock.code}\t】 // 取得完了")
+    #     else:
+    #         #全日付取得
+    #         for stock in df_targetStockInfo.itertuples(name='stock'):
+    #             self.__logger.debug(f"【全日】 分 code : {stock.code} // 取得スタート...")
+    #             self.__request_chart_amount(code=stock.code, chartType='m', isDaily_m_T=False)
+    #             complitStockCount += 1
+    #
+    #             if complitStockCount % 3 == 0:
+    #                 print(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #                 self.__logger.info(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #
+    #             self.__logger.info(f"【全日】 分 code : 【\t{stock.code}\t】 // 取得完了")
+    #     return None
 
-            #当日のみ取得
-            for stock in df_targetStockInfo.itertuples(name='stock'):
-                self.__logger.debug(f"【当日】 code : {stock.code} // 取得スタート...")
-                self.__request_chart_amount(code=stock.code, chartType='M', requestAmount=1, isDaily_m_T=False)
-                self.__request_chart_amount(code=stock.code, chartType='W', requestAmount=1, isDaily_m_T=False)
-                self.__request_chart_amount(code=stock.code, chartType='D', requestAmount=1, isDaily_m_T=False)
-                self.__request_chart_amount(code=stock.code, chartType='m', requestAmount=1, isDaily_m_T=True)
-                if is_T is True:
-                    self.__request_chart_amount(code=stock.code, chartType='T', requestAmount=1, isDaily_m_T=True)
-                complitStockCount += 1
-
-                if complitStockCount % 5 == 0:
-                    print(f"thread番号：【{threadNum}】"
-                                       f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
-                                       f" 【完了({complitStockCount}/{targetStockCount})】")
-                    self.__logger.info(f"thread番号：【{threadNum}】"
-                                       f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
-                                       f" 【完了({complitStockCount}/{targetStockCount})】")
-
-                self.__logger.info(f"【当日】 code : 【\t{stock.code}\t】 // 取得完了")
-        else:
-            #全日付取得
-            for stock in df_targetStockInfo.itertuples(name='stock'):
-                self.__logger.debug(f"【全日】 code : {stock.code} // 取得スタート...")
-                self.__request_chart_amount(code=stock.code, chartType='M', isDaily_m_T=False)
-                self.__request_chart_amount(code=stock.code, chartType='W', isDaily_m_T=False)
-                self.__request_chart_amount(code=stock.code, chartType='D', isDaily_m_T=False)
-                self.__request_chart_amount(code=stock.code, chartType='m', isDaily_m_T=False)
-                if is_T is True:
-                    self.__request_chart_amount(code=stock.code, chartType='T', isDaily_m_T=False)
-                complitStockCount += 1
-
-                if complitStockCount % 3 == 0:
-                    print(f"thread番号：【{threadNum}】"
-                                       f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
-                                       f" 【完了({complitStockCount}/{targetStockCount})】")
-                    self.__logger.info(f"thread番号：【{threadNum}】"
-                                       f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
-                                       f" 【完了({complitStockCount}/{targetStockCount})】")
-
-                self.__logger.info(f"【全日】 code : 【\t{stock.code}\t】 // 取得完了")
-        return None
-
-    def test(self, code):
-        print(f"【全日】 code : {code} // 取得スタート...")
-        self.__logger.debug(f"【全日】 code : {code} // 取得スタート...")
-        self.__request_chart_amount(code, 'M')
-        self.__request_chart_amount(code, 'W')
-        self.__request_chart_amount(code, 'D')
-        self.__request_chart_amount(code, 'm')
-        self.__logger.info(f"【全日】 code : 【\t{code}\t】 // 取得完了")
-        print(f"【全日】 code : 【\t{code}\t】 // 取得完了")
+    # def update_stock_price_t(self, threadAmount, is_All=False):
+    #     """
+    #     tick株価を取得します。
+    #     :param threadAmount:(Int) スレッド数
+    #     :param is_All:(Bool) 全日付の株データを取得するかを選択(defalue-false:取得しなく当日のみ取得)
+    #     :return:
+    #     """
+    #
+    #     self.__logger.info(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 本日の株価を取得します。")
+    #     threadNum = self.__threadNum
+    #     # if threadNum < 1:
+    #     #     self.__logger.error(f"threadNum : {threadNum} ／は1以上にしてください。")
+    #     #     return None
+    #
+    #     #取得しようとする株コード
+    #     dfStockInfo = self.__request_stock_info()
+    #     #thread数で株データframeを分ける
+    #     df_targetStockInfo = self.__split_df_stock(dfStockInfo,threadAmount)
+    #
+    #     targetStockCount = len(df_targetStockInfo)
+    #     complitStockCount = 0
+    #
+    #     if is_All is False:
+    #
+    #         #当日のみ取得
+    #         for stock in df_targetStockInfo.itertuples(name='stock'):
+    #             self.__logger.debug(f"【当日】 tick code : {stock.code} // 取得スタート...")
+    #             self.__request_chart_amount(code=stock.code, chartType='T', requestAmount=1, isDaily_m_T=True)
+    #             complitStockCount += 1
+    #
+    #             if complitStockCount % 5 == 0:
+    #                 print(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #                 self.__logger.info(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #
+    #             self.__logger.info(f"【当日】 tick code : 【\t{stock.code}\t】 // 取得完了")
+    #     else:
+    #         #全日付取得
+    #         for stock in df_targetStockInfo.itertuples(name='stock'):
+    #             self.__logger.debug(f"【全日】 tick code : {stock.code} // 取得スタート...")
+    #             self.__request_chart_amount(code=stock.code, chartType='T', isDaily_m_T=False)
+    #             complitStockCount += 1
+    #
+    #             if complitStockCount % 3 == 0:
+    #                 print(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #                 self.__logger.info(f"thread番号：【{threadNum}】"
+    #                                    f" 【{(int)(100*(complitStockCount / targetStockCount))}%...】"
+    #                                    f" 【完了({complitStockCount}/{targetStockCount})】")
+    #
+    #             self.__logger.info(f"【全日】 tick code : 【\t{stock.code}\t】 // 取得完了")
+    #     return None
 
