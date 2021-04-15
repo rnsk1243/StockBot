@@ -2,17 +2,17 @@ import pandas as pd
 import pymysql, json
 from datetime import datetime
 import sys
-import logging.handlers
-sys.path.append('C:\StockBot')
+from Logging import MyLogging as mylog
+sys.path.append('C:/StockBot')
 
 class DBUpdater:  
-    def __init__(self, threadNum = 1):
+    def __init__(self, thread_num=1):
         try:
-            """【..\*.json】は最上位フォルダから一階層下のフォルダから実行の基準"""
-            with open('C:\StockBot\dbInfo.json', 'r', encoding='utf-8') as dbInfo_json, \
-                    open('C:\StockBot\StockDB\sql.json', 'r', encoding='utf-8') as sql_json:
-                self.__threadNum = threadNum
-                self.__set_logger()  # loggingを初期化する。
+            """【../*.json】は最上位フォルダから一階層下のフォルダから実行の基準"""
+            with open('C:/StockBot/dbInfo.json', 'r', encoding='utf-8') as dbInfo_json, \
+                    open('C:/StockBot/StockDB/sql.json', 'r', encoding='utf-8') as sql_json:
+                self.__thread_num = thread_num
+                self.__logger = mylog.MyLogging(class_name=DBUpdater.__name__, thread_num=thread_num)
                 dbInfo = json.load(dbInfo_json)
                 self.__sql = json.load(sql_json)
                 host = dbInfo['host']
@@ -29,46 +29,9 @@ class DBUpdater:
 
         except FileNotFoundError as e:
             print(f"jsonファイルを見つかりません。 {str(e)}")
-            self.__logger.error(f"jsonファイルを見つかりません。 {str(e)}")
 
         except Exception as e:
-            print('Exception occured DBUpdater init:', str(e))
-            self.__logger.error(f"Exception occured DBUpdater init : {str(e)}")
-               
-    def __del__(self):
-        """소멸자: MariaDB 연결 해제"""
-        self.__conn.close()
-
-    def __set_logger(self):
-        """
-        Logging初期化
-        self.__threadNum(Int) thread番号によって格納するファイル名DBUpdaterLog_01~05.logを決める
-        :return:
-        """
-
-        try:
-            with open('C:/StockBot/logging.json', 'r', encoding='utf-8') as logging_json:
-                loggingInfo = json.load(logging_json)
-                self.__logger = logging.getLogger(__name__)
-                self.__logger.setLevel(logging.DEBUG)
-                timeFH = logging.handlers.TimedRotatingFileHandler(filename=
-                                                                   loggingInfo['DBUpdater']['logFileNameArrayDBUpdater'][self.__threadNum-1],
-                                                                   interval=1, backupCount=30, encoding='utf-8', when='MIDNIGHT')
-                timeFH.setLevel(loggingInfo['DBUpdater']['logLevel']['SET_VALUE'])
-                # timeFH.setFormatter(loggingInfo['formatters']['logFileFormatter'])
-                timeFH.setFormatter(logging.Formatter(loggingInfo['formatters']['logFileFormatter']['format']))
-                #timeFH.setFormatter(logging.Formatter("%(asctime)s|%(levelname)-8s|%(name)s|%(funcName)s|%(message)s"))
-                self.__logger.addHandler(timeFH)
-
-        except FileNotFoundError as e:
-            print(f"logging.jsonファイルを見つかりません。 {str(e)}")
-            self.__logger.error(f"C:\\StockBot\\logging.jsonファイルを見つかりません。: {str(e)}")
-
-        except Exception as e:
-            print(f"Exception occured DBUpdater __setLogger : {str(e)}")
-            self.__logger.error(f"Exception occured DBUpdater __setLogger : {str(e)}")
-
-        return
+            self.__logger.write_log(f"Exception occured DBUpdater init : {str(e)}", log_lv=2)
 
     def UpdateStockInfo(self, dfStockInfo):
         """
@@ -88,20 +51,16 @@ class DBUpdater:
                     curs.execute(self.__sql['REPLACE_001'].format(code, company, today))
                     self.__codes[code] = company
                     tmnow = datetime.now().strftime('%Y-%m-%d %H:%M')
-                    print(f"[{tmnow}] #{idx+1:04d} REPLACE INTO company_info "\
-                        f"VALUES ({code}, {company}, {today})")
-                    self.__logger.info(f"[{tmnow}] #{idx + 1:04d} REPLACE INTO company_info " \
-                          f"VALUES ({code}, {company}, {today})")
+                    self.__logger.write_log(f"[{tmnow}] #{idx + 1:04d} REPLACE INTO company_info " \
+                          f"VALUES ({code}, {company}, {today})", log_lv=2, is_con_print=False)
                     self.__conn.commit()
-                print('株コード commit 完了。')
-                self.__logger.info('株コード commit 完了。')
+                self.__logger.write_log('株コード commit 完了。', log_lv=2)
             else:
                 df = pd.read_sql(self.__sql['SELECT_001'], self.__conn)
                 for idx in range(len(df)):
                     self.__codes[df['code'].values[idx]] = df['company'].values[idx]
 
-        print(f'Thread Num:【{self.__threadNum}】 / 株情報Update完了。数：【{stockInfoNum}】')
-        self.__logger.info(f'株情報Update完了。数：【{stockInfoNum}】')
+        self.__logger.write_log(f'Thread Num:【{self.__thread_num}】 / 株情報Update完了。数：【{stockInfoNum}】', log_lv=2)
         # self.__codes_keys = list(self.__codes.keys())
         # self.__codes_values = list(self.__codes.values())
 
@@ -114,8 +73,7 @@ class DBUpdater:
         :return: None
         """
         goalAmount = len(df)
-        print(f"DB insert スタート：code:【{code}】、type:【{chartType}】、len:【{goalAmount}】")
-        self.__logger.info(f"DB insert スタート：code:【{code}】、type:【{chartType}】、len:【{goalAmount}】")
+        self.__logger.write_log(f"DB insert スタート：code:【{code}】、type:【{chartType}】、len:【{goalAmount}】", log_lv=2)
         try:
             with self.__conn.cursor() as curs:
                 excu_result = 0
@@ -147,24 +105,19 @@ class DBUpdater:
                             code, r.date, r.open, r.high, r.low, r.close, r.diff, r.volume))
 
                     else:
-                        self.__logger.error(f"type:【{chartType}】は扱えません。")
+                        self.__logger.write_log(f"type:【{chartType}】は扱えません。", log_lv=4)
                         return None
 
                     self.__conn.commit()
-                    self.__logger.debug(f"excu_result:【{excu_result}】、type:【{chartType}】、execute:【{r}】")
-
-
+                    self.__logger.write_log(f"excu_result:【{excu_result}】、type:【{chartType}】、execute:【{r}】", log_lv=1, is_con_print=False)
                 if goalAmount == excu_result:
-                    print(f"insert【挿入】。code:【{code}】、type:【{chartType}】、影響がある行数数:【{excu_result}】")
-                    self.__logger.info(f"insert【挿入】。code:【{code}】、type:【{chartType}】、影響がある行数:【{excu_result}】")
+                    self.__logger.write_log(f"insert【挿入】。code:【{code}】、type:【{chartType}】、影響がある行数:【{excu_result}】", log_lv=2)
                 else:
-                    print(f"insert【更新＆挿入】。code:【{code}】、入れようとした行数:【{goalAmount}】、影響がある行数:【{excu_result}】")
-                    self.__logger.error(f"insert【更新＆挿入】。code:【{code}】、入れようとした行数:【{goalAmount}】、影響がある行数:【{excu_result}】")
+                    self.__logger.write_log(f"insert【更新＆挿入】。code:【{code}】、入れようとした行数:【{goalAmount}】、影響がある行数:【{excu_result}】", log_lv=2)
 
                 # print('[{}] #{:04d} {} ({}) : {} rows > REPLACE INTO daily_' \
                 #       'price [OK]'.format(datetime.now().strftime('%Y-%m-%d%H:%M'),
                 #                           chartType, self.__codes[code], code, len(df)))
         except Exception as e:
-            print(f"Exception occured __replace_into_db:code:【{code}】、type:【{chartType}】、len:【{goalAmount}】、エラー内容：【{str(e)}】")
-            self.__logger.error(f"Exception occured __replace_into_db:code:【{code}】、type:【{chartType}】、len:【{goalAmount}】、エラー内容：【{str(e)}】")
+            self.__logger.write_log(f"Exception occured __replace_into_db:code:【{code}】、type:【{chartType}】、len:【{goalAmount}】、エラー内容：【{str(e)}】", log_lv=5)
             return None

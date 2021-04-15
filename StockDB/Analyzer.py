@@ -119,49 +119,49 @@ class MarketDB:
             code, start_date, end_date), self.__conn)
         df = self.__index_to_datetime(df)
 
-        if isStockSplit is True:
-            stockPriceChangeDate = pd.read_sql(self.__sql['SELECT_005'].format(
-                code), self.__conn)
-            maxDate = stockPriceChangeDate['MAX(daily_price.date)'][0] #株が分割または併合された日
-
-            if maxDate is not None:
-                startDate = maxDate + timedelta(days=1) #株が分割または併合された日の翌日から検索
-                df = df[startDate:]
-            else:
-                pass
-
-        return df
-
-    def get_stock_safe_new_data(self, code):
-        """株式分割または株式併合が行った以降の情報のみ検索"""
-
-        if code in self.__codes_keys:
-            pass
-        elif code in self.__codes_values:
-            idx = self.__codes_values.index(code)
-            code = self.__codes_keys[idx]
-        else:
-            print(f"ValueError: Code({code}) doesn't exist.")
-
-        df = pd.read_sql(self.__sql['SELECT_006'].format(
-            code, code), self.__conn)
-        df = self.__index_to_datetime(df)
+        # if isStockSplit is True:
+        #     stockPriceChangeDate = pd.read_sql(self.__sql['SELECT_005'].format(
+        #         code), self.__conn)
+        #     maxDate = stockPriceChangeDate['MAX(daily_price.date)'][0] #株が分割または併合された日
+        #
+        #     if maxDate is not None:
+        #         startDate = maxDate + timedelta(days=1) #株が分割または併合された日の翌日から検索
+        #         df = df[startDate:]
+        #     else:
+        #         pass
 
         return df
 
-    def get_stock_safe_old_data(self, code):
-        """株式分割または株式併合が行った以降の情報のみ検索"""
-
-        if code in self.__codes_keys:
-            pass
-        elif code in self.__codes_values:
-            idx = self.__codes_values.index(code)
-            code = self.__codes_keys[idx]
-        else:
-            print(f"ValueError: Code({code}) doesn't exist.")
-
-        df = pd.read_sql(self.__sql['SELECT_007'].format(
-            code, code), self.__conn)
-        df = self.__index_to_datetime(df)
-
-        return df
+    # def get_stock_safe_new_data(self, code):
+    #     """株式分割または株式併合が行った以降の情報のみ検索"""
+    #
+    #     if code in self.__codes_keys:
+    #         pass
+    #     elif code in self.__codes_values:
+    #         idx = self.__codes_values.index(code)
+    #         code = self.__codes_keys[idx]
+    #     else:
+    #         print(f"ValueError: Code({code}) doesn't exist.")
+    #
+    #     df = pd.read_sql(self.__sql['SELECT_006'].format(
+    #         code, code), self.__conn)
+    #     df = self.__index_to_datetime(df)
+    #
+    #     return df
+    #
+    # def get_stock_safe_old_data(self, code):
+    #     """株式分割または株式併合が行った以降の情報のみ検索"""
+    #
+    #     if code in self.__codes_keys:
+    #         pass
+    #     elif code in self.__codes_values:
+    #         idx = self.__codes_values.index(code)
+    #         code = self.__codes_keys[idx]
+    #     else:
+    #         print(f"ValueError: Code({code}) doesn't exist.")
+    #
+    #     df = pd.read_sql(self.__sql['SELECT_007'].format(
+    #         code, code), self.__conn)
+    #     df = self.__index_to_datetime(df)
+    #
+    #     return df

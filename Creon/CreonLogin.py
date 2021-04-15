@@ -1,21 +1,14 @@
 from pywinauto import application
 import time
 import os, json
-from logging import config, getLogger
+from Logging import MyLogging as mylog
 
 class CreonLogin:
     def __init__(self):
         try:
-            with open('C:/StockBot/logging.json', 'r', encoding='utf-8') as logging_json:
-                loggingInfo = json.load(logging_json)
-                config.dictConfig(loggingInfo)
-                self.__logger = getLogger(__name__)
-
-        except FileNotFoundError as e:
-            self.__logger.error(f"C:\\StockBot\\logging.jsonファイルを見つかりません。 {str(e)}")
-
+            self.__logger = mylog.MyLogging(class_name=CreonLogin.__name__)
         except Exception as e:
-            self.__logger.error(f"Exception occured CreonLogin init : {str(e)}")
+            self.__logger.write_log(f"Exception occured CreonLogin init : {str(e)}", log_lv=5)
 
     def LoginCreon(self):
         """
@@ -35,12 +28,9 @@ class CreonLogin:
                 app = application.Application()
                 app.start(f"{creonInfo['path']} /prj:cp /id:{creonInfo['id']} /pwd:{creonInfo['pwd']} /pwdcert:{creonInfo['pwdcert']} /autostart")
                 time.sleep(60)
-                self.__logger.info('Creonログイン完了')
+                self.__logger.write_log('Creonログイン完了', log_lv=2)
 
         except FileNotFoundError as e:
-            print(f"C:\\StockBot\\creonInfo.jsonファイルを見つかりません。 {str(e)}")
-            self.__logger.error(f"C:\\StockBot\\creonInfo.jsonファイルを見つかりません。 {str(e)}")
-
+            self.__logger.write_log(f"C:\\StockBot\\creonInfo.jsonファイルを見つかりません。 {str(e)}", log_lv=4)
         except Exception as e:
-            print(f"Exception occured LoginCreon : {str(e)}")
-            self.__logger.error(f"Exception occured LoginCreon : {str(e)}")
+            self.__logger.write_log(f"Exception occured LoginCreon : {str(e)}", log_lv=5)

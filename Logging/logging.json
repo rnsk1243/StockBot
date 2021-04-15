@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "disable_existing_loggers": true,
+  "root": {
+    "level": "DEBUG",
+    "handlers": [
+      "consoleHandler",
+      "logFileHandler"
+    ]
+  },
+  "handlers": {
+    "consoleHandler": {
+      "class": "logging.StreamHandler",
+      "level": "INFO",
+      "formatter": "consoleFormatter",
+      "stream": "ext://sys.stdout"
+    },
+    "logFileHandler": {
+      "class": "logging.handlers.TimedRotatingFileHandler",
+      "level": "DEBUG",
+      "formatter": "logFileFormatter",
+      "filename": "C:/StockBot/log/AppLog.log",
+      "when": "midnight",
+      "interval": 1,
+      "backupCount": 30,
+      "encoding": "utf-8"
+    }
+  },
+  "formatters": {
+    "consoleFormatter": {
+      "format": "[%(levelname)-8s]%(funcName)s - %(message)s"
+    },
+    "logFileFormatter": {
+      "format": "%(asctime)s|%(levelname)-8s|%(name)s|%(funcName)s|%(message)s"
+    }
+  },
+  "Creon":
+  {
+    "logFileNameArray": ["C:/StockBot/log/Creon/CreonLog_01.log",
+                         "C:/StockBot/log/Creon/CreonLog_02.log",
+                         "C:/StockBot/log/Creon/CreonLog_03.log",
+                         "C:/StockBot/log/Creon/CreonLog_04.log",
+                         "C:/StockBot/log/Creon/CreonLog_05.log",
+                         "C:/StockBot/log/Creon/CreonLog_06.log",
+                         "C:/StockBot/log/Creon/CreonLog_07.log",
+                         "C:/StockBot/log/Creon/CreonLog_08.log",
+                         "C:/StockBot/log/Creon/CreonLog_09.log",
+                         "C:/StockBot/log/Creon/CreonLog_10.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
+  },
+  "DBUpdater":
+  {
+    "logFileNameArray": ["C:/StockBot/log/DBUpdater/DBUpdaterLog_01.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_02.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_03.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_04.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_05.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_06.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_07.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_08.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_09.log",
+                         "C:/StockBot/log/DBUpdater/DBUpdaterLog_10.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
+  },
+  "MyProcess":
+  {
+    "logFileNameArray": ["C:/StockBot/log/MyProcess/MyProcessLog_01.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_02.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_03.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_04.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_05.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_06.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_07.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_08.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_09.log",
+                         "C:/StockBot/log/MyProcess/MyProcessLog_10.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
+  },
+  "CreonLogin":
+  {
+    "logFileNameArray": ["C:/StockBot/log/CreonLogin/CreonLoginLog_01.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
+  },
+  "StockIgnore":
+  {
+    "logFileNameArray": ["C:/StockBot/log/StockIgnore/StockIgnoreLog_01.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_02.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_03.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_04.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_05.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_06.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_07.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_08.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_09.log",
+                         "C:/StockBot/log/StockIgnore/StockIgnoreLog_10.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
+  }
+}

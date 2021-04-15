@@ -1,0 +1,36 @@
+{
+  "section_daily_day":
+  {
+    "threadAmount": 1,
+    "is_select_update": true,
+    "update_stock_list": ["A0059301","A000180","A0002102","A000230"]
+  },
+
+  "section_daily_day_all":
+  {
+    "threadAmount": 10,
+    "is_select_update": true,
+    "update_stock_list": ["A005930","A000180","A000210","A000230"]
+  },
+
+  "section_M":
+  {
+    "threadAmount": 1,
+    "is_select_update": true,
+    "update_stock_list": ["A005930","A000180","A000210","A000230"]
+  },
+
+  "section_W":
+  {
+    "threadAmount": 5,
+    "is_select_update": true,
+    "update_stock_list": ["A005930","A000180","A000210","A000230"]
+  },
+
+    "section_m":
+  {
+    "threadAmount": 10,
+    "is_select_update": false,
+    "update_stock_list": ["A005930","A000180","A000210","A000230"]
+  }
+}
