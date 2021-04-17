@@ -1,11 +1,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from StockDB import Analyzer, DBUpdater
+from StockDB import MarketDB, DBUpdater
 import sys
 sys.path.append('C:\StockBot')
 
-mk = Analyzer.MarketDB()
+mk = MarketDB.MarketDB()
 stocks = ['삼성전자', 'SK하이닉스', '현대자동차', 'NAVER']
 df = pd.DataFrame()
 for s in stocks:

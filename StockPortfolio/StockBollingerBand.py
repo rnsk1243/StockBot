@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
-from StockDB import Analyzer
+from StockDB import MarketDB
 
-mk = Analyzer.MarketDB()
+mk = MarketDB.MarketDB()
 df = mk.get_stock_safe_new_data('카카오') #mk.get_daily_price('삼성전자', '2018-05-05')
 
 df['MA20'] = df['close'].rolling(window=20).mean()  # ①平均

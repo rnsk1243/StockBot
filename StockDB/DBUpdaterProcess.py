@@ -95,14 +95,14 @@ class MyProcess(multiprocessing.Process):
 
 def execute_daily(arg1):
     try:
-        with open('C:/StockBot/update_price_stock_config.json', 'r', encoding='utf-8') as upsc:
-            dai_con = json.load(upsc)
+        with open('C:/StockBot/update_price_stock_config.json', 'r', encoding='utf-8') as upsc_json:
+            dai_con = json.load(upsc_json)
             thread_amount = dai_con[arg1]['threadAmount']
             is_select_update = dai_con[arg1]['is_select_update']
             update_stock_list = dai_con[arg1]['update_stock_list']
 
     except FileNotFoundError as e:
-        print(f"config.jsonファイルを見つかりません。 {str(e)}")
+        print(f"update_price_stock_config.jsonファイルを見つかりません。 {str(e)}")
         # logger.error(f"config.jsonファイルを見つかりません。 {str(e)}")
 
     except Exception as e:
