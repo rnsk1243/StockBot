@@ -128,31 +128,42 @@ class MarketDB:
         self.__logger.write_log(f"start_date is initialized to {start_date.strftime('%Y-%m-%d %H:%M:%S')}", log_lv=1)
         return sql, start_date, is_sort, method_name
 
-    def __df_sort(self, df):
-        if 'week' in df.columns:
+    def __df_week_sort(self, df):
+        """
+        date,weekを昇順に整列する。
+        :param df: 整列対象のデータプライム
+        :return: 正常：dataframe、異常：None
+        """
+        if df is None:
+            return None
+        if 'week' in df.columns and 'date' in df.columns:
             df = df.sort_values(['date', 'week'])
             df = df.reset_index(drop=True)
+        else:
+            self.__logger.write_log(f"up_downカラムが無いので、株価チェックできない。",log_lv=3)
+            return None
 
         return df
 
     def check_stock_price(self, stock_name, chart_type, df):
         """
         株価をチェックする。
-        株価分析、株価併合が発生したか
+        株価分割、株価併合が発生したか
         :param stock_name: 株名前
         :param chart_type: Chart区分("D","W","M","m")
         :param df: stock dataframe
-        :return: True:株価正常 False:株価異常
+        :return: True:株価正常 False:株価分割併合発生 None:異常
         """
+        if df is None:
+            return None
         if 'up_down' in df.columns:
-
-            abs_up_down = np.absolute(df['up_down'].values)
-
-            for row in abs_up_down:
-                if row > 30:  # 変化率30％超えたか
+            for row in df.itertuples(name='stock'):
+                if np.absolute(row.up_down) > 30:  # 変化率30％超えたか
                     stock_code = self.get_stock_code(stock_name=stock_name)
                     if stock_code is None:
-                        self.__logger.write_log(f"株価異常です。株名前：{stock_name} / json追記失敗（株名前異常）", log_lv=4)
+                        self.__logger.write_log(f"株価異常です。株名前：{stock_name} "
+                                                f"内容：【{row}】"
+                                                f"/ json追記失敗（株名前異常）", log_lv=4)
                         return False
 
                     try:
@@ -166,7 +177,9 @@ class MarketDB:
 
                         with open('C:/StockBot/update_price_stock_config.json', 'w', encoding='utf-8') as w_upsc_json:
                             json.dump(upsc, w_upsc_json, indent="\t")
-                            self.__logger.write_log(f"株価異常です。株名前：{stock_name} / json追記完了", log_lv=3)
+                            self.__logger.write_log(f"株価異常です。株名前：{stock_name} "
+                                                    f"内容：【{row}】"
+                                                    f" json追記完了", log_lv=3)
                             return False
 
                     except FileNotFoundError as e:
@@ -182,8 +195,7 @@ class MarketDB:
 
         else:
             self.__logger.write_log(f"up_downカラムが無いので、株価チェックできない。",log_lv=3)
-            return False
-
+            return None
 
     def get_stock_code(self, stock_name):
         """
@@ -203,21 +215,47 @@ class MarketDB:
         return code
 
     def add_diff(self, df):
+        """
+        diffカラムを追加＆更新する。closeカラムが必要です。
+        :param df: 株価データプライム
+        :return: 株価データプライム（dataframe） 異常：None
+        """
+        if df is None:
+            return None
         if 'close' in df.columns:
             df['diff'] = df['close'].diff(1).fillna(0).astype(int)
         else:
             self.__logger.write_log(f"カラム（close）が無い",log_lv=3)
+            return None
+
         return df
 
     def add_up_down(self, df):
+        """
+        up_downカラムを追加＆更新する。close,diffカラムが必要です。
+        :param df: 株価データプライム
+        :return: 株価データプライム（dataframe） 異常：None
+        """
+        if df is None:
+            return None
         if 'close' in df.columns and 'diff' in df.columns:
-
             diff_val = df['diff'].values
             close_val = df['close'].values
-            df['up_down'] = ((diff_val / close_val) * 100).round(1)
-
+            if diff_val.shape == close_val.shape:
+                diff_val = np.roll(diff_val, -1)  # 1個ずらす。
+                up_down_ndarray = ((diff_val / close_val) * 100).round(1)  # 上がり下がり%値
+                up_down_ndarray = np.roll(up_down_ndarray,1)  # ずらしたことを元通りにする。
+                up_down_ndarray[0] = 0.0
+                df['up_down'] = up_down_ndarray
+            else:
+                self.__logger.write_log(f"shapeが合わないため、分けられません。"
+                                        f"diffのshape{diff_val.shape},"
+                                        f"closeのshape{close_val.shape}", log_lv=3)
+                return None
         else:
             self.__logger.write_log(f"カラム（close, diff）が無い",log_lv=3)
+            return None
+
         return df
 
     def get_stock_price(self, code, chart_type="D", start_date=None, end_date=None):
@@ -235,7 +273,6 @@ class MarketDB:
 
         if start_date is None:
             start_date = def_val[1]
-
         else:
             start_date = self.__date_normalization(start_date)
 
@@ -259,61 +296,16 @@ class MarketDB:
             code, start_date, end_date), self.__conn)
 
         if is_sort is True:
-            df = self.__df_sort(df)
+            df = self.__df_week_sort(df)
 
         df = self.add_diff(df)
         df = self.add_up_down(df)
+        check_result = self.check_stock_price(stock_name=code, chart_type=chart_type, df=df)
 
-        #df = self.__index_to_datetime(df)
-
-        # if isStockSplit is True:
-        #     stockPriceChangeDate = pd.read_sql(self.__sql['SELECT_005'].format(
-        #         code), self.__conn)
-        #     maxDate = stockPriceChangeDate['MAX(daily_price.date)'][0] #株が分割または併合された日
-        #
-        #     if maxDate is not None:
-        #         startDate = maxDate + timedelta(days=1) #株が分割または併合された日の翌日から検索
-        #         df = df[startDate:]
-        #     else:
-        #         pass
-
-        return df
-
-
-
-
-    # def get_stock_safe_new_data(self, code):
-    #     """株式分割または株式併合が行った以降の情報のみ検索"""
-    #
-    #     if code in self.__codes_keys:
-    #         pass
-    #     elif code in self.__codes_values:
-    #         idx = self.__codes_values.index(code)
-    #         code = self.__codes_keys[idx]
-    #     else:
-    #         print(f"ValueError: Code({code}) doesn't exist.")
-    #
-    #     df = pd.read_sql(self.__sql['SELECT_006'].format(
-    #         code, code), self.__conn)
-    #     df = self.__index_to_datetime(df)
-    #
-    #     return df
-    #
-    # def get_stock_safe_old_data(self, code):
-    #     """株式分割または株式併合が行った以降の情報のみ検索"""
-    #
-    #     if code in self.__codes_keys:
-    #         pass
-    #     elif code in self.__codes_values:
-    #         idx = self.__codes_values.index(code)
-    #         code = self.__codes_keys[idx]
-    #     else:
-    #         print(f"ValueError: Code({code}) doesn't exist.")
-    #
-    #     df = pd.read_sql(self.__sql['SELECT_007'].format(
-    #         code, code), self.__conn)
-    #     df = self.__index_to_datetime(df)
-    #
-    #     return df
-
-
+        if check_result is None:
+            self.__logger.write_log(f"株価取得異常発生", log_lv=4)
+        elif check_result is False:
+            self.__logger.write_log(f"株コード：{code}は分割または併合発生のため、アップデート必要", log_lv=3)
+        else:
+            self.__logger.write_log(f"【正常】株コード：{code} / 取得完了。取得件数：{len(df)}", log_lv=1)
+            return df

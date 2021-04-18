@@ -2,13 +2,26 @@ from pywinauto import application
 import time
 import os, json
 from Logging import MyLogging as mylog
+import win32com.client
 
 class CreonLogin:
     def __init__(self):
         try:
             self.__logger = mylog.MyLogging(class_name=CreonLogin.__name__)
+            self.__cpStatus = win32com.client.Dispatch('CpUtil.CpCybos')
         except Exception as e:
             self.__logger.write_log(f"Exception occured CreonLogin init : {str(e)}", log_lv=5)
+
+    def check_login_creon(self):
+        """
+        creonにログインされているか確認
+        :return: True:ログイン状態 False:非ログイン状態
+        """
+        if (self.__cpStatus.IsConnect == 0):
+            self.__logger.write_log('check_creon_system() : IsConnect == 0', log_lv=1)
+            return False
+        else:
+            return True
 
     def LoginCreon(self):
         """

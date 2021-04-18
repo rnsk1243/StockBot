@@ -7,4 +7,3 @@ __pycache__/
 *.py[cod]
 *$py.class
 log/
-ignore_stock.json

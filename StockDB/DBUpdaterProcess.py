@@ -141,7 +141,8 @@ if __name__ == '__main__':
     args = sys.argv
 
     loginCreon = cl.CreonLogin()
-    loginCreon.LoginCreon()
+    if loginCreon.check_login_creon() is False:
+        loginCreon.LoginCreon()
 
     execute_daily(args[1])
     print(f"time = {time.time() - start_time}")
