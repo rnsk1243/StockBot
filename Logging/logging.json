@@ -147,5 +147,31 @@
       "ERROR": 40,
       "CRITICAL": 50
     }
+  },
+  "SharpeIndex":
+  {
+    "logFileNameArray": ["C:/StockBot/log/SharpeIndex/SharpeIndexLog_01.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
+  },
+  "DualMomentum":
+  {
+    "logFileNameArray": ["C:/StockBot/log/DualMomentum/DualMomentumLog_01.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
   }
 }

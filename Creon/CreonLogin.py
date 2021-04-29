@@ -40,7 +40,7 @@ class CreonLogin:
 
                 app = application.Application()
                 app.start(f"{creonInfo['path']} /prj:cp /id:{creonInfo['id']} /pwd:{creonInfo['pwd']} /pwdcert:{creonInfo['pwdcert']} /autostart")
-                time.sleep(60)
+                time.sleep(180)
                 self.__logger.write_log('Creonログイン完了', log_lv=2)
 
         except FileNotFoundError as e:

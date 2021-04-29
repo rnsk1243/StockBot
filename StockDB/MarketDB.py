@@ -71,6 +71,9 @@ class MarketDB:
         :param date: "4桁の年に"
         :return: 正常：正規化した日付(string) 、異常：None
         """
+        if type(date) is not str:
+            return date
+
         date_split = re.split('\D+', date)
         if date[0] == '':
             date_split = date_split[1:]
@@ -236,35 +239,44 @@ class MarketDB:
         :param df: 株価データプライム
         :return: 株価データプライム（dataframe） 異常：None
         """
-        if df is None:
-            return None
-        if 'close' in df.columns and 'diff' in df.columns:
-            diff_val = df['diff'].values
-            close_val = df['close'].values
-            if diff_val.shape == close_val.shape:
-                diff_val = np.roll(diff_val, -1)  # 1個ずらす。
-                up_down_ndarray = ((diff_val / close_val) * 100).round(1)  # 上がり下がり%値
-                up_down_ndarray = np.roll(up_down_ndarray,1)  # ずらしたことを元通りにする。
-                up_down_ndarray[0] = 0.0
-                df['up_down'] = up_down_ndarray
-            else:
-                self.__logger.write_log(f"shapeが合わないため、分けられません。"
-                                        f"diffのshape{diff_val.shape},"
-                                        f"closeのshape{close_val.shape}", log_lv=3)
+
+        try:
+            if df is None:
                 return None
-        else:
-            self.__logger.write_log(f"カラム（close, diff）が無い",log_lv=3)
+            if 'close' in df.columns and 'diff' in df.columns:
+                diff_val = df['diff'].values
+                close_val = df['close'].values
+                if diff_val.shape == close_val.shape:
+                    diff_val = np.roll(diff_val, -1)  # 1個ずらす。
+                    up_down_ndarray = ((diff_val / close_val) * 100).round(1)  # 上がり下がり%値
+                    up_down_ndarray = np.roll(up_down_ndarray, 1)  # ずらしたことを元通りにする。
+                    up_down_ndarray[0] = 0.0
+                    df['up_down'] = up_down_ndarray
+                else:
+                    self.__logger.write_log(f"shapeが合わないため、分けられません。"
+                                            f"diffのshape{diff_val.shape},"
+                                            f"closeのshape{close_val.shape}", log_lv=3)
+                    return None
+            else:
+                self.__logger.write_log(f"カラム（close, diff）が無い", log_lv=3)
+                return None
+
+            return df
+
+        except Exception as e:
+            self.__logger.write_log(f"Exception occured check_stock_price : {str(e)}", log_lv=5)
+            self.__logger.write_log(f"Exception occured check_stock_price : {str(df)}", log_lv=5)
             return None
 
-        return df
+
 
     def get_stock_price(self, code, chart_type="D", start_date=None, end_date=None):
         """
         株価を取得する。
         :param code: 株コードまたは株の名前
         :param chart_type: Chart区分("D","W","M","m") デフォルト値："D"
-        :param start_date: 検索スタート日　デフォルト：本日から1年前
-        :param end_date: 検索End日　デフォルト：本日
+        :param start_date: 検索スタート日　デフォルト：本日から1年前 (※4桁年)
+        :param end_date: 検索End日　デフォルト：本日 (※4桁年)
         :return: dataframe
         """
         def_val = self.__set_search_default(chart_type=chart_type)
@@ -304,8 +316,37 @@ class MarketDB:
 
         if check_result is None:
             self.__logger.write_log(f"株価取得異常発生", log_lv=4)
+            return None
         elif check_result is False:
             self.__logger.write_log(f"株コード：{code}は分割または併合発生のため、アップデート必要", log_lv=3)
+            return None
         else:
             self.__logger.write_log(f"【正常】株コード：{code} / 取得完了。取得件数：{len(df)}", log_lv=1)
             return df
+
+    def get_stock_close(self, code, start_date=None, end_date=None):
+        """
+        start_dateと end_dateの
+        close株価を取得する。
+        :param code: 株コードまたは株の名前
+        :param start_date: 検索スタート日　デフォルト：30日前 (※4桁年)
+        :param end_date: 検索End日　デフォルト：本日 (※4桁年)
+        :return: list['code', 'company', 'old_price', 'new_price', 'returns']
+        """
+        if start_date is None:
+            start_date = datetime.today() - timedelta(days=30)
+
+        stock_price = self.get_stock_price(code, "D", start_date, end_date)
+
+        if stock_price is not None:
+            stock_code = self.get_stock_code(code)
+            stock_name = self.__codes[stock_code]
+            stock_old_price = stock_price.iloc[0]['close']
+            stock_new_price = stock_price.iloc[len(stock_price)-1]['close']
+            stock_returns = (stock_new_price / stock_old_price - 1) * 100
+
+            return [stock_code, stock_name, stock_old_price, stock_new_price, stock_returns]
+
+        else:
+            self.__logger.write_log(f"【異常】メソッド：【get_stock_close】失敗", log_lv=1)
+            return None

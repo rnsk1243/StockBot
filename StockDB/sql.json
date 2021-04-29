@@ -23,7 +23,16 @@
   "SELECT_008": "SELECT * FROM daily_price_week WHERE code = '{}' and date >= '{}' and date <= '{}'",
   "SELECT_009": "SELECT MAX(daily_price.date) FROM daily_price WHERE daily_price.code = '{}' AND daily_price.open = '0'",
   "SELECT_010": "SELECT *\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.date > IFNULL((\nSELECT MAX(daily_price.date)\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.open = '0'), '1900-01-01')",
-  "SELECT_011": "SELECT *\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.date < IFNULL((\nSELECT MIN(daily_price.date)\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.open = '0'), '1900-01-01')"
+  "SELECT_011": "SELECT *\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.date < IFNULL((\nSELECT MIN(daily_price.date)\nFROM daily_price\nWHERE daily_price.code = '{}' AND daily_price.open = '0'), '1900-01-01')",
+  "SELECT_012": "",
+  "SELECT_013": "",
+  "SELECT_014": "",
+  "SELECT_015": "",
+  "SELECT_016": "",
+  "SELECT_017": "",
+  "SELECT_018": "",
+  "SELECT_019": ""
+
 
 }
 
