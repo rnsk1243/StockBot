@@ -89,7 +89,7 @@ class DualMomentum:
         df = df[['code', 'company', 'old_price', 'new_price', 'returns']]
         df = df.sort_values(by='returns', ascending=False)
 
-        df.to_excel(f'C:\StockBot\\resultExcel\get_abs_momentum_{days}_days.xlsx', sheet_name=f'abs_momentum_{days}_days')
+        df.to_excel(f'C:/StockBot/resultExcel/momentum/get_abs_momentum_{days}_days.xlsx', sheet_name=f'abs_momentum_{days}_days')
         self.__logger.write_log(f'絶対モメンタム：\n{df}', log_lv=2)
         self.__logger.write_log(f"Abs momentum【{start_date_abs} ~ {end_date_abs}】：{df['returns'].mean().round(2)}%", log_lv=2)
 

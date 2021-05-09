@@ -2,35 +2,32 @@
 	"section_daily_day": {
 		"threadAmount": 10,
 		"is_select_update": false,
-		"update_stock_list": [
-
-		]
+		"update_stock_list": []
 	},
 	"section_daily_day_all": {
-	"threadAmount": 1,
+		"threadAmount": 1,
 		"is_select_update": true,
 		"update_stock_list": [
-			"A035720"
+			"A302440",
+			"A035720",
+			"A003550",
+			"A003550",
+			"A003550"
 		]
 	},
 	"section_M": {
 		"threadAmount": 1,
 		"is_select_update": true,
-		"update_stock_list": [
-		]
+		"update_stock_list": []
 	},
 	"section_W": {
 		"threadAmount": 1,
 		"is_select_update": true,
-		"update_stock_list": [
-
-		]
+		"update_stock_list": []
 	},
 	"section_m": {
 		"threadAmount": 1,
 		"is_select_update": true,
-		"update_stock_list": [
-
-		]
+		"update_stock_list": []
 	}
 }

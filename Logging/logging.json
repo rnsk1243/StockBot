@@ -173,5 +173,31 @@
       "ERROR": 40,
       "CRITICAL": 50
     }
+  },
+  "ElderTradeSystem":
+  {
+    "logFileNameArray": ["C:/StockBot/log/ElderTradeSystem/ElderTradeSystemLog_01.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
+  },
+  "BackTest":
+  {
+    "logFileNameArray": ["C:/StockBot/log/BackTest/BackTestLog_01.log"],
+    "logLevel":
+    {
+      "SET_VALUE": 20,
+      "DEBUG": 10,
+      "INFO": 20,
+      "WARNING": 30,
+      "ERROR": 40,
+      "CRITICAL": 50
+    }
   }
 }

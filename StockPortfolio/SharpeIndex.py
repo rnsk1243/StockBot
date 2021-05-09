@@ -1,9 +1,9 @@
 import json
 from Logging import MyLogging as mylog
-from itertools import combinations
 import numpy as np
 from StockDB import MarketDB as MD
 import pandas as pd
+from Utility import Tools as tool
 
 
 class SharpeIndex:
@@ -26,29 +26,13 @@ class SharpeIndex:
         except Exception as e:
             self.__logger.write_log(f"Exception occured {self} init : {str(e)}", log_lv=2)
 
-    def __get_stock_combination(self, target_list, split_target_list, combi_r):
-        """
-        listをsplit_target_list数に分けて、分けたリストでcombi_r数分抽出の全場合の数をリターンする。
-        :param target_list:ターゲットリスト
-        :param split_target_list:リスト分割数
-        :param combi_r:分割リストから何個抽出するか
-        :return:全場合の数 List[tuple]
-        """
-
-        stock_list = list(np.array_split(target_list, split_target_list))
-        combination_list = []
-        for tmp_list in stock_list:
-            combination_list.append(list(combinations(tmp_list, combi_r)))
-
-        return combination_list
-
     def get_sharpe_day(self, select_stock_amount):
         """
         sharpe_indexを取得する。市価総額1~100、101~200から一番利益が大きい株を返却
         :param select_stock_amount: 選ぶ株の数
         :return: dataframe
         """
-        target_combi_list = self.__get_stock_combination(self.__stock_list_100,
+        target_combi_list = tool.get_stock_combination(self.__stock_list_100,
                                                    20, 3)
         for stock_list in target_combi_list:
             for stock_tuple in stock_list:

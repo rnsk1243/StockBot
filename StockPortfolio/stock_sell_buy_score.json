@@ -1,0 +1,2819 @@
+{
+	"stock_list": {
+		"삼성전자": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.72,
+			"score_buy": 73.4,
+			"score_sell": -4.3,
+			"benefit_money": 3378456.4784053173
+		},
+		"SK하이닉스": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 3.13,
+			"score_buy": 72.7,
+			"score_sell": 9.9,
+			"benefit_money": 4951754.219653178
+		},
+		"NAVER": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.67,
+			"score_buy": 71.8,
+			"score_sell": 13.1,
+			"benefit_money": 2316711.3992921673
+		},
+		"LG화학": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.59,
+			"score_buy": 74.6,
+			"score_sell": -5.2,
+			"benefit_money": 3828156.41025641
+		},
+		"삼성전자우": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 3.03,
+			"score_buy": 84.8,
+			"score_sell": 1.6,
+			"benefit_money": 3991154.594594594
+		},
+		"삼성바이오로직스": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.05,
+			"score_buy": 74.4,
+			"score_sell": -10.5,
+			"benefit_money": 320153.9600324016
+		},
+		"카카오": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.23,
+			"score_buy": 82.0,
+			"score_sell": -4.1,
+			"benefit_money": 2654694.1011235937
+		},
+		"현대차": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.54,
+			"score_buy": 69.0,
+			"score_sell": 3.3,
+			"benefit_money": 3859697.982708933
+		},
+		"삼성SDI": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.78,
+			"score_buy": 82.4,
+			"score_sell": -4.7,
+			"benefit_money": 4107640.5253283307
+		},
+		"셀트리온": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.79,
+			"score_buy": 70.2,
+			"score_sell": 4.8,
+			"benefit_money": 2207444.575973168
+		},
+		"기아": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 0.98,
+			"score_buy": 77.5,
+			"score_sell": -11.4,
+			"benefit_money": 4433291.56626506
+		},
+		"POSCO": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.73,
+			"score_buy": 76.3,
+			"score_sell": -2.5,
+			"benefit_money": 1339868.3544303812
+		},
+		"현대모비스": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.58,
+			"score_buy": 77.8,
+			"score_sell": 17.0,
+			"benefit_money": 4477881.419624219
+		},
+		"LG전자": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.15,
+			"score_buy": 75.5,
+			"score_sell": 4.3,
+			"benefit_money": 7419485.017421603
+		},
+		"삼성물산": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.68,
+			"score_buy": 79.6,
+			"score_sell": -1.4,
+			"benefit_money": 432981.1764705889
+		},
+		"SK이노베이션": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.18,
+			"score_buy": 74.8,
+			"score_sell": -3.3,
+			"benefit_money": 6878103.75
+		},
+		"SK텔레콤": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 0.71,
+			"score_buy": 69.0,
+			"score_sell": 10.3,
+			"benefit_money": 909023.5294117648
+		},
+		"LG생활건강": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 3.22,
+			"score_buy": 64.0,
+			"score_sell": -1.6,
+			"benefit_money": 482229.5020636916
+		},
+		"KB금융": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.59,
+			"score_buy": 60.1,
+			"score_sell": 16.5,
+			"benefit_money": 1338666.2162974235
+		},
+		"SK": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.32,
+			"score_buy": 77.7,
+			"score_sell": -2.5,
+			"benefit_money": 4356965.217391305
+		},
+		"엔씨소프트": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.43,
+			"score_buy": 72.7,
+			"score_sell": -3.4,
+			"benefit_money": 2867169.6361355092
+		},
+		"신한지주": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.4,
+			"score_buy": 73.4,
+			"score_sell": 4.4,
+			"benefit_money": 245729.39041619748
+		},
+		"LG": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.47,
+			"score_buy": 83.5,
+			"score_sell": -4.6,
+			"benefit_money": 3636048.6486486495
+		},
+		"삼성생명": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.79,
+			"score_buy": 83.3,
+			"score_sell": -9.0,
+			"benefit_money": 1445651.7857142854
+		},
+		"한국전력": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.24,
+			"score_buy": 74.8,
+			"score_sell": -2.6,
+			"benefit_money": 1454464.4391408116
+		},
+		"아모레퍼시픽": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.4,
+			"score_buy": 73.3,
+			"score_sell": -17.1,
+			"benefit_money": 2872620.0
+		},
+		"삼성에스디에스": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.11,
+			"score_buy": 77.7,
+			"score_sell": -4.1,
+			"benefit_money": 631563.9306586236
+		},
+		"삼성전기": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.77,
+			"score_buy": 63.3,
+			"score_sell": 6.8,
+			"benefit_money": 4084129.0322580636
+		},
+		"포스코케미칼": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.89,
+			"score_buy": 67.7,
+			"score_sell": 0.7,
+			"benefit_money": 7469748.045874331
+		},
+		"넷마블": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.4,
+			"score_buy": 84.8,
+			"score_sell": -12.9,
+			"benefit_money": 916121.4285714272
+		},
+		"하나금융지주": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 2.95,
+			"score_buy": 66.9,
+			"score_sell": 7.3,
+			"benefit_money": -683595.513929531
+		},
+		"KT&G": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.52,
+			"score_buy": 79.8,
+			"score_sell": -11.9,
+			"benefit_money": -145366.1446631942
+		},
+		"HMM": {
+			"update_day": "2021-05-09",
+			"start_date": "2020-10-11",
+			"w_macd": 1.08,
+			"score_buy": 76.3,
+			"score_sell": -2.9,
+			"benefit_money": 1730115.5378486048
+		},
+		"SK바이오사이언스": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.02,
+			"score_buy": 68.8,
+			"score_sell": -13.7,
+			"benefit_money": 1487734.09090909
+		},
+		"롯데케미칼": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.2,
+			"score_buy": 67.9,
+			"score_sell": 11.1,
+			"benefit_money": 773500.9305909611
+		},
+		"한국조선해양": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.65,
+			"score_buy": 68.5,
+			"score_sell": -3.5,
+			"benefit_money": 3992244.9760765545
+		},
+		"한화솔루션": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.63,
+			"score_buy": 81.1,
+			"score_sell": -2.7,
+			"benefit_money": 871669.4736842103
+		},
+		"한온시스템": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.213464900679979,
+			"score_buy": 74.51797633850508,
+			"score_sell": -2.4298252132151035,
+			"benefit_money": 125900.30769230798
+		},
+		"대한항공": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 2.56,
+			"score_buy": 79.6,
+			"score_sell": 14.4,
+			"benefit_money": 491141.7388697602
+		},
+		"삼성화재": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.73,
+			"score_buy": 78.1,
+			"score_sell": -6.2,
+			"benefit_money": 1536249.2581602354
+		},
+		"S-Oil": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.03,
+			"score_buy": 81.5,
+			"score_sell": -3.9,
+			"benefit_money": 1281900.175776258
+		},
+		"하이브": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.076032534093568,
+			"score_buy": 77.26901358764655,
+			"score_sell": -5.28616820258382,
+			"benefit_money": 727858.9018901885
+		},
+		"LG디스플레이": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.14,
+			"score_buy": 75.6,
+			"score_sell": -3.1,
+			"benefit_money": 1073902.961275626
+		},
+		"SK바이오팜": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.2107560552872183,
+			"score_buy": 74.01489761511476,
+			"score_sell": -7.964838012105508,
+			"benefit_money": 201625.71428571455
+		},
+		"고려아연": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 78.9,
+			"score_sell": -14.9,
+			"benefit_money": 1010302.6338817962
+		},
+		"금호석유": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.092448919534836,
+			"score_buy": 77.05992734885672,
+			"score_sell": -5.822716985676256,
+			"benefit_money": 274875.4491017964
+		},
+		"KT": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.3,
+			"score_buy": 82.5,
+			"score_sell": -5.3,
+			"benefit_money": 1691077.777777778
+		},
+		"우리금융지주": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.47,
+			"score_buy": 81.1,
+			"score_sell": -13.2,
+			"benefit_money": 1501739.0476190466
+		},
+		"현대글로비스": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 2.99,
+			"score_buy": 84.8,
+			"score_sell": 11.6,
+			"benefit_money": 453002.9702031817
+		},
+		"기업은행": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.34,
+			"score_buy": 82.7,
+			"score_sell": 1.9,
+			"benefit_money": 1092476.7414403763
+		},
+		"현대제철": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.24,
+			"score_buy": 77.2,
+			"score_sell": -4.6,
+			"benefit_money": 4143845.5569461826
+		},
+		"미래에셋증권": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 3.36,
+			"score_buy": 69.3,
+			"score_sell": 13.7,
+			"benefit_money": 412038.28743941523
+		},
+		"CJ제일제당": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.9,
+			"score_buy": 67.6,
+			"score_sell": 9.4,
+			"benefit_money": 256316.75115026906
+		},
+		"한국타이어앤테크놀로지": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 82.9,
+			"score_sell": 12.6,
+			"benefit_money": 948198.7381703481
+		},
+		"두산중공업": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.76,
+			"score_buy": 77.6,
+			"score_sell": 8.8,
+			"benefit_money": 1004955.652173914
+		},
+		"한국금융지주": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 2.25,
+			"score_buy": 66.5,
+			"score_sell": 16.3,
+			"benefit_money": 2853440.0004793666
+		},
+		"아모레G": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.15,
+			"score_buy": 76.7,
+			"score_sell": -13.1,
+			"benefit_money": 1513269.4136291612
+		},
+		"LG유플러스": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.3049754696884195,
+			"score_buy": 78.12014473466239,
+			"score_sell": -6.641961888671712,
+			"benefit_money": 883665.5601659752
+		},
+		"SKC": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9309057945860884,
+			"score_buy": 74.89923938887279,
+			"score_sell": -5.799852855229162,
+			"benefit_money": 2197926.315789474
+		},
+		"현대건설": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.31,
+			"score_buy": 80.6,
+			"score_sell": 0.8,
+			"benefit_money": 2613460.2352941185
+		},
+		"강원랜드": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 0.92,
+			"score_buy": 67.3,
+			"score_sell": 11.7,
+			"benefit_money": 769867.0375164729
+		},
+		"LG이노텍": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.5,
+			"score_buy": 76.0,
+			"score_sell": -10.6,
+			"benefit_money": -271145.2177449465
+		},
+		"코웨이": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.94,
+			"score_buy": 82.2,
+			"score_sell": 2.5,
+			"benefit_money": 178656.1456752643
+		},
+		"오리온": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.76,
+			"score_buy": 81.3,
+			"score_sell": -0.7,
+			"benefit_money": 228891.49797570892
+		},
+		"신풍제약": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.932423374760622,
+			"score_buy": 95.33999739478429,
+			"score_sell": 2.1996493165384265,
+			"benefit_money": 0.0
+		},
+		"이마트": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"유한양행": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.26043861293914,
+			"score_buy": 79.85734118633168,
+			"score_sell": -5.1748629072125985,
+			"benefit_money": 297236.06557377055
+		},
+		"현대중공업지주": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.6,
+			"score_buy": 68.3,
+			"score_sell": -11.2,
+			"benefit_money": 2524828.195488721
+		},
+		"삼성중공업": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.67,
+			"score_buy": 66.7,
+			"score_sell": -12.8,
+			"benefit_money": 1203951.1520737335
+		},
+		"녹십자": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.41,
+			"score_buy": 83.1,
+			"score_sell": -0.4,
+			"benefit_money": 546288.8198757768
+		},
+		"KODEX 200": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.234038092570956,
+			"score_buy": 77.69036129545063,
+			"score_sell": -0.03627861313571401,
+			"benefit_money": 419342.77049501054
+		},
+		"맥쿼리인프라": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.78,
+			"score_buy": 69.6,
+			"score_sell": -14.9,
+			"benefit_money": 1029066.6666666679
+		},
+		"한미사이언스": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.2982030266252003,
+			"score_buy": 75.81912089444485,
+			"score_sell": -1.4118141284419217,
+			"benefit_money": 1833162.7118644062
+		},
+		"한미약품": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.254647746841521,
+			"score_buy": 75.49622577454049,
+			"score_sell": -0.3473676521680771,
+			"benefit_money": 726796.208530806
+		},
+		"두산밥캣": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.09,
+			"score_buy": 70.5,
+			"score_sell": -15.3,
+			"benefit_money": 3211157.8947368413
+		},
+		"CJ대한통운": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.93,
+			"score_buy": 83.8,
+			"score_sell": 11.1,
+			"benefit_money": 152399.78090204485
+		},
+		"삼성카드": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.61,
+			"score_buy": 75.1,
+			"score_sell": -14.1,
+			"benefit_money": 300424.99684864655
+		},
+		"현대차2우B": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.1313787506811352,
+			"score_buy": 75.44336377888447,
+			"score_sell": -4.334562181509955,
+			"benefit_money": 819786.228160331
+		},
+		"GS": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.68,
+			"score_buy": 65.5,
+			"score_sell": -5.1,
+			"benefit_money": 952435.7940978706
+		},
+		"쌍용C&E": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.09,
+			"score_buy": 76.3,
+			"score_sell": -12.4,
+			"benefit_money": 1095769.4304457493
+		},
+		"GS건설": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.74,
+			"score_buy": 63.7,
+			"score_sell": -1.5,
+			"benefit_money": 2512760.3851444293
+		},
+		"삼성증권": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.73,
+			"score_buy": 78.6,
+			"score_sell": 14.5,
+			"benefit_money": 1287171.3168187737
+		},
+		"한진칼": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"롯데지주": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.65,
+			"score_buy": 77.6,
+			"score_sell": 13.1,
+			"benefit_money": 860374.0641088709
+		},
+		"씨에스윈드": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.51,
+			"score_buy": 66.7,
+			"score_sell": 6.4,
+			"benefit_money": 487225.1147837918
+		},
+		"키움증권": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.18,
+			"score_buy": 67.0,
+			"score_sell": -1.9,
+			"benefit_money": 126650.78271716088
+		},
+		"롯데쇼핑": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.68,
+			"score_buy": 81.5,
+			"score_sell": 12.4,
+			"benefit_money": 541021.0084033608
+		},
+		"일진머티리얼즈": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.62,
+			"score_buy": 74.7,
+			"score_sell": -8.6,
+			"benefit_money": 1099941.5730337072
+		},
+		"한국항공우주": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"팬오션": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.9,
+			"score_buy": 80.4,
+			"score_sell": 7.0,
+			"benefit_money": 2317230.3015158027
+		},
+		"NH투자증권": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.097517450352154,
+			"score_buy": 77.16514193407042,
+			"score_sell": -2.3045067780194275,
+			"benefit_money": 747344.0
+		},
+		"두산퓨얼셀": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"호텔신라": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.77,
+			"score_buy": 70.6,
+			"score_sell": 2.1,
+			"benefit_money": 282721.1750306003
+		},
+		"현대오토에버": {
+			"update_day": "2021-05-08",
+			"w_macd": 3.716960286644339,
+			"score_buy": 65.09856352410256,
+			"score_sell": -15.44043216961419,
+			"benefit_money": 0.0
+		},
+		"SK케미칼": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"DB손해보험": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.78,
+			"score_buy": 81.6,
+			"score_sell": -5.9,
+			"benefit_money": 2225664.84375
+		},
+		"메리츠증권": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.8,
+			"score_buy": 65.6,
+			"score_sell": 0.6,
+			"benefit_money": 2642402.4930747934
+		},
+		"동서": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"LG화학우": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9405031266195758,
+			"score_buy": 77.43569826702192,
+			"score_sell": -4.096245097234786,
+			"benefit_money": 1495326.8041237108
+		},
+		"OCI": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.52,
+			"score_buy": 73.4,
+			"score_sell": -7.4,
+			"benefit_money": 1693313.1607254017
+		},
+		"에스원": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.41,
+			"score_buy": 80.2,
+			"score_sell": 0.2,
+			"benefit_money": 110228.78411910683
+		},
+		"한국가스공사": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"대우조선해양": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.01,
+			"score_buy": 80.9,
+			"score_sell": -9.7,
+			"benefit_money": 3039244.8275862075
+		},
+		"만도": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.79,
+			"score_buy": 79.3,
+			"score_sell": 5.9,
+			"benefit_money": 628577.6649746187
+		},
+		"효성티앤씨": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.8,
+			"score_buy": 68.4,
+			"score_sell": -11.0,
+			"benefit_money": 5980037.01923077
+		},
+		"한솔케미칼": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.57,
+			"score_buy": 65.6,
+			"score_sell": -9.9,
+			"benefit_money": 449613.96685652435
+		},
+		"GS리테일": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.76,
+			"score_buy": 68.2,
+			"score_sell": -14.0,
+			"benefit_money": 518341.7721518986
+		},
+		"삼성엔지니어링": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.200556935387195,
+			"score_buy": 76.82850985517334,
+			"score_sell": -1.3334873446785886,
+			"benefit_money": 2389560.9022556394
+		},
+		"CJ": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.1284448589814073,
+			"score_buy": 74.9052418990046,
+			"score_sell": -5.452790595135859,
+			"benefit_money": 346997.62419006415
+		},
+		"대우건설": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 0.98,
+			"score_buy": 65.5,
+			"score_sell": 3.3,
+			"benefit_money": 3797035.1201478746
+		},
+		"휠라홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.71,
+			"score_buy": 82.7,
+			"score_sell": -6.8,
+			"benefit_money": 763168.122786304
+		},
+		"한화생명": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.82,
+			"score_buy": 71.7,
+			"score_sell": 10.2,
+			"benefit_money": 1506543.6725599747
+		},
+		"한샘": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.69,
+			"score_buy": 71.5,
+			"score_sell": -13.8,
+			"benefit_money": 365904.67289719544
+		},
+		"BGF리테일": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.2749077062996137,
+			"score_buy": 73.45862150422664,
+			"score_sell": -24.1333340703937,
+			"benefit_money": 0.0
+		},
+		"신세계": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.63,
+			"score_buy": 67.5,
+			"score_sell": -12.1,
+			"benefit_money": 1772325.7426256277
+		},
+		"현대차우": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.064428015141616,
+			"score_buy": 75.92093135115479,
+			"score_sell": -0.9335205893369558,
+			"benefit_money": 686612.6213592216
+		},
+		"더존비즈온": {
+			"update_day": "2021-05-08",
+			"w_macd": 4.760033666508389,
+			"score_buy": 58.18845669113737,
+			"score_sell": -31.1717845061722,
+			"benefit_money": 0.0
+		},
+		"현대미포조선": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.69,
+			"score_buy": 76.7,
+			"score_sell": 4.6,
+			"benefit_money": 5274558.7462082915
+		},
+		"DL이앤씨": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.24,
+			"score_buy": 72.1,
+			"score_sell": -4.1,
+			"benefit_money": 2258251.401869159
+		},
+		"제일기획": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.74,
+			"score_buy": 82.1,
+			"score_sell": -12.9,
+			"benefit_money": 772967.5810473841
+		},
+		"포스코인터내셔널": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.74,
+			"score_buy": 81.8,
+			"score_sell": 1.6,
+			"benefit_money": 2989252.8312775493
+		},
+		"하이트진로": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 3.22,
+			"score_buy": 76.0,
+			"score_sell": 14.3,
+			"benefit_money": 948360.1756954622
+		},
+		"KCC": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.57,
+			"score_buy": 67.5,
+			"score_sell": 4.9,
+			"benefit_money": 4593426.659438169
+		},
+		"DB하이텍": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.52,
+			"score_buy": 77.3,
+			"score_sell": -7.6,
+			"benefit_money": 578916.7883211691
+		},
+		"F&F": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.36,
+			"score_buy": 65.4,
+			"score_sell": 3.5,
+			"benefit_money": 3664617.4287140016
+		},
+		"한화": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.44,
+			"score_buy": 72.0,
+			"score_sell": -3.7,
+			"benefit_money": 788856.1643835604
+		},
+		"두산인프라코어": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.91,
+			"score_buy": 68.2,
+			"score_sell": 12.6,
+			"benefit_money": 3028855.7791658957
+		},
+		"TIGER 200": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.416590270469321,
+			"score_buy": 77.46422362905754,
+			"score_sell": -4.932884096532793,
+			"benefit_money": 422128.81513344496
+		},
+		"메리츠금융지주": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.63,
+			"score_buy": 64.8,
+			"score_sell": 8.0,
+			"benefit_money": 6963848.6622058265
+		},
+		"한화시스템": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.5,
+			"score_buy": 83.5,
+			"score_sell": -6.5,
+			"benefit_money": 577390.514088707
+		},
+		"현대로템": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"메리츠화재": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.6,
+			"score_buy": 72.9,
+			"score_sell": -11.8,
+			"benefit_money": 3654109.09090909
+		},
+		"KODEX 200선물인버스2X": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.81,
+			"score_buy": 71.0,
+			"score_sell": 11.5,
+			"benefit_money": 12862.171218771487
+		},
+		"BNK금융지주": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.94,
+			"score_buy": 69.9,
+			"score_sell": -7.4,
+			"benefit_money": 2326978.856152514
+		},
+		"LS": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.181756908730393,
+			"score_buy": 79.30995675684994,
+			"score_sell": -7.294131329070417,
+			"benefit_money": 1295476.777251184
+		},
+		"현대해상": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.76,
+			"score_buy": 65.0,
+			"score_sell": 11.6,
+			"benefit_money": 1905546.519380644
+		},
+		"현대위아": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"오뚜기": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"대웅": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.1236865573528467,
+			"score_buy": 74.34740469678782,
+			"score_sell": -4.850215164902156,
+			"benefit_money": 1357147.9452054799
+		},
+		"현대백화점": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.46,
+			"score_buy": 81.5,
+			"score_sell": 13.2,
+			"benefit_money": 876800.241837969
+		},
+		"한화에어로스페이스": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.49,
+			"score_buy": 84.8,
+			"score_sell": 4.0,
+			"benefit_money": 157982.67515923642
+		},
+		"대한유화": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 84.8,
+			"score_sell": -1.4,
+			"benefit_money": 279500.1615508888
+		},
+		"프레스티지바이오파마": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.459109758858026,
+			"score_buy": 77.2176266585343,
+			"score_sell": -3.307463486395669,
+			"benefit_money": 912174.2251223493
+		},
+		"현대엘리베이": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.42,
+			"score_buy": 72.5,
+			"score_sell": -13.4,
+			"benefit_money": 354245.30011324957
+		},
+		"녹십자홀딩스": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.4617221316252307,
+			"score_buy": 75.85938785716822,
+			"score_sell": -6.541157769748201,
+			"benefit_money": 600370.4347826075
+		},
+		"아이에스동서": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.63,
+			"score_buy": 65.2,
+			"score_sell": -5.8,
+			"benefit_money": 1960562.180142859
+		},
+		"KODEX 삼성그룹": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.6,
+			"score_buy": 85.0,
+			"score_sell": 10.5,
+			"benefit_money": 588000.4399287738
+		},
+		"효성": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.011799278475057,
+			"score_buy": 75.99910044370601,
+			"score_sell": -4.788603548085187,
+			"benefit_money": 2058391.4320685435
+		},
+		"동국제강": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.54,
+			"score_buy": 82.2,
+			"score_sell": -5.7,
+			"benefit_money": 18646974.46808511
+		},
+		"HDC현대산업개발": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.33,
+			"score_buy": 66.8,
+			"score_sell": -11.4,
+			"benefit_money": 1004424.4660194162
+		},
+		"효성첨단소재": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 69.4,
+			"score_sell": -4.8,
+			"benefit_money": 3402110.13986014
+		},
+		"농심": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"영원무역": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 2.42,
+			"score_buy": 62.7,
+			"score_sell": -1.9,
+			"benefit_money": 1649729.0436432697
+		},
+		"LS ELECTRIC": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"롯데정밀화학": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.07,
+			"score_buy": 84.8,
+			"score_sell": -7.6,
+			"benefit_money": 2205485.106382979
+		},
+		"종근당": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"한국앤컴퍼니": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9484159253975444,
+			"score_buy": 75.9806376624382,
+			"score_sell": -3.0430697383061487,
+			"benefit_money": 1072842.3529411778
+		},
+		"부광약품": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.17,
+			"score_buy": 68.1,
+			"score_sell": -9.8,
+			"benefit_money": 730749.5327102803
+		},
+		"코오롱인더": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.68,
+			"score_buy": 76.4,
+			"score_sell": 2.7,
+			"benefit_money": 2206895.3156822827
+		},
+		"대웅제약": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.57,
+			"score_buy": 72.5,
+			"score_sell": -12.9,
+			"benefit_money": 211161.7021276597
+		},
+		"한전KPS": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.94,
+			"score_buy": 67.4,
+			"score_sell": 12.9,
+			"benefit_money": 1739923.452159429
+		},
+		"KODEX 레버리지": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9058962454235742,
+			"score_buy": 77.29068808447295,
+			"score_sell": -3.9463844392235004,
+			"benefit_money": 831972.2439405788
+		},
+		"한미반도체": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.99,
+			"score_buy": 74.5,
+			"score_sell": -3.5,
+			"benefit_money": 5645136.40776699
+		},
+		"KODEX 200TR": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.48,
+			"score_buy": 82.1,
+			"score_sell": 7.6,
+			"benefit_money": 387685.4260089677
+		},
+		"KODEX MSCI Korea TR": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.44,
+			"score_buy": 84.6,
+			"score_sell": -3.7,
+			"benefit_money": 346387.5846501123
+		},
+		"KG동부제철": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.83,
+			"score_buy": 67.3,
+			"score_sell": 1.5,
+			"benefit_money": 7147995.65217391
+		},
+		"신세계인터내셔날": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.48,
+			"score_buy": 79.5,
+			"score_sell": 13.3,
+			"benefit_money": 1189177.297297297
+		},
+		"솔루스첨단소재": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9488319886451908,
+			"score_buy": 75.22872392215481,
+			"score_sell": -2.310312669476244,
+			"benefit_money": 334782.6180257518
+		},
+		"NHN": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.55,
+			"score_buy": 62.9,
+			"score_sell": -12.6,
+			"benefit_money": 343680.3544040639
+		},
+		"DL": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.299572258354064,
+			"score_buy": 76.01008518121373,
+			"score_sell": -7.5031727853578065,
+			"benefit_money": 1780934.5195729528
+		},
+		"LG생활건강우": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9954943473154505,
+			"score_buy": 76.22535932495498,
+			"score_sell": -0.7117849635106053,
+			"benefit_money": 342644.73684210517
+		},
+		"한전기술": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 74.1,
+			"score_sell": 1.0,
+			"benefit_money": 9624579.603399437
+		},
+		"KODEX 2차전지산업": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.79,
+			"score_buy": 72.9,
+			"score_sell": -1.9,
+			"benefit_money": 1509880.5021624211
+		},
+		"SK네트웍스": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"DGB금융지주": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.57,
+			"score_buy": 74.5,
+			"score_sell": -2.0,
+			"benefit_money": 1256702.9957203995
+		},
+		"LG전자우": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.254463036271418,
+			"score_buy": 79.06486129438561,
+			"score_sell": -5.132839239897812,
+			"benefit_money": 660781.2949640285
+		},
+		"한국콜마": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 3.46,
+			"score_buy": 66.5,
+			"score_sell": 11.5,
+			"benefit_money": 630017.3980454523
+		},
+		"KODEX 종합채권(AA-이상)액티브": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"코스맥스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.66,
+			"score_buy": 65.1,
+			"score_sell": -10.9,
+			"benefit_money": 782690.2325581405
+		},
+		"솔루엠": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.05,
+			"score_buy": 73.1,
+			"score_sell": -0.9,
+			"benefit_money": 622994.7019867562
+		},
+		"롯데관광개발": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.74,
+			"score_buy": 65.1,
+			"score_sell": 6.3,
+			"benefit_money": 1769660.729166668
+		},
+		"롯데리츠": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.1296428586836518,
+			"score_buy": 75.41205907272922,
+			"score_sell": -8.107970499570994,
+			"benefit_money": 635800.7952286284
+		},
+		"한올바이오파마": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 3.21,
+			"score_buy": 86.4,
+			"score_sell": 11.4,
+			"benefit_money": 250828.37837837823
+		},
+		"지누스": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"세방전지": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.489803130495642,
+			"score_buy": 74.34276947391774,
+			"score_sell": -4.891161428470254,
+			"benefit_money": 1387367.0588235296
+		},
+		"LG상사": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"JB금융지주": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.41,
+			"score_buy": 70.2,
+			"score_sell": 6.4,
+			"benefit_money": 2077945.0957906935
+		},
+		"다우기술": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.98,
+			"score_buy": 66.6,
+			"score_sell": 1.1,
+			"benefit_money": 712438.2941538468
+		},
+		"더블유게임즈": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.44,
+			"score_buy": 77.1,
+			"score_sell": -12.6,
+			"benefit_money": 2172940.7265774366
+		},
+		"TIGER 단기통안채": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"동원시스템즈": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"보령제약": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.75,
+			"score_buy": 70.4,
+			"score_sell": -9.9,
+			"benefit_money": 2034994.5
+		},
+		"이노션": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.45,
+			"score_buy": 78.6,
+			"score_sell": -0.4,
+			"benefit_money": 78462.39460371062
+		},
+		"KBSTAR 200": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.4445986503197643,
+			"score_buy": 74.27383709884171,
+			"score_sell": -6.836680726868169,
+			"benefit_money": 424465.9327246994
+		},
+		"명신산업": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.0053593672442465,
+			"score_buy": 76.88399788561028,
+			"score_sell": -3.5772489857394225,
+			"benefit_money": 2009268.7872763425
+		},
+		"KODEX 인버스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.6,
+			"score_buy": 66.8,
+			"score_sell": -8.7,
+			"benefit_money": 23750.099160172045
+		},
+		"롯데칠성": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.86,
+			"score_buy": 66.3,
+			"score_sell": 6.5,
+			"benefit_money": 1406600.273530107
+		},
+		"영진약품": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.944078212866304,
+			"score_buy": 76.73966170587374,
+			"score_sell": -3.917196437805364,
+			"benefit_money": 304707.692307692
+		},
+		"태광산업": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.0345298424263856,
+			"score_buy": 74.14467046234722,
+			"score_sell": -6.879436837288841,
+			"benefit_money": 1606866.08505998
+		},
+		"금호타이어": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.01,
+			"score_buy": 71.5,
+			"score_sell": 12.5,
+			"benefit_money": 546499.2299269512
+		},
+		"한화투자증권": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.75,
+			"score_buy": 74.4,
+			"score_sell": -2.1,
+			"benefit_money": 6794732.342007432
+		},
+		"화승엔터프라이즈": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.93,
+			"score_buy": 71.9,
+			"score_sell": -12.3,
+			"benefit_money": 2947914.068441065
+		},
+		"아시아나항공": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.67,
+			"score_buy": 81.4,
+			"score_sell": 14.5,
+			"benefit_money": 237266.8983159177
+		},
+		"코리안리": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.61,
+			"score_buy": 83.4,
+			"score_sell": -5.5,
+			"benefit_money": 1258728.75
+		},
+		"오리온홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.69,
+			"score_buy": 78.3,
+			"score_sell": -10.8,
+			"benefit_money": 2538441.0565269105
+		},
+		"SK디스커버리": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"현대건설기계": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.17,
+			"score_buy": 66.1,
+			"score_sell": -1.5,
+			"benefit_money": 5700443.478260871
+		},
+		"티와이홀딩스": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 3.4,
+			"score_buy": 75.7,
+			"score_sell": 17.2,
+			"benefit_money": 1412292.1830876414
+		},
+		"미원상사": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.99,
+			"score_buy": 69.8,
+			"score_sell": 13.7,
+			"benefit_money": 4811655.272727273
+		},
+		"한섬": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.04,
+			"score_buy": 66.9,
+			"score_sell": 4.2,
+			"benefit_money": 2954673.651771955
+		},
+		"풍산": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.44,
+			"score_buy": 80.1,
+			"score_sell": -1.4,
+			"benefit_money": 1795502.9990288783
+		},
+		"TIGER MSCI Korea TR": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.45,
+			"score_buy": 77.4,
+			"score_sell": 14.0,
+			"benefit_money": 583326.1180679798
+		},
+		"두산": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.55,
+			"score_buy": 75.9,
+			"score_sell": 1.6,
+			"benefit_money": 3413645.599151643
+		},
+		"한일시멘트": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.98,
+			"score_buy": 82.0,
+			"score_sell": 1.0,
+			"benefit_money": 3520945.2914798204
+		},
+		"GKL": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.92,
+			"score_buy": 69.2,
+			"score_sell": 12.0,
+			"benefit_money": 910968.229795387
+		},
+		"쿠쿠홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.47,
+			"score_buy": 68.7,
+			"score_sell": 11.7,
+			"benefit_money": 2616572.404784985
+		},
+		"동원산업": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9301971632058985,
+			"score_buy": 77.08921484408077,
+			"score_sell": -5.067957984659646,
+			"benefit_money": 312566.9201520905
+		},
+		"파미셀": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.01,
+			"score_buy": 85.5,
+			"score_sell": -15.4,
+			"benefit_money": 648741.8530351445
+		},
+		"대신증권": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.6,
+			"score_buy": 77.3,
+			"score_sell": -9.1,
+			"benefit_money": 3897559.550561797
+		},
+		"대한전선": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.0,
+			"score_buy": 73.9,
+			"score_sell": -12.9,
+			"benefit_money": 187404.10351612978
+		},
+		"한세실업": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.52,
+			"score_buy": 65.6,
+			"score_sell": -12.3,
+			"benefit_money": 2636541.7269228026
+		},
+		"진에어": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.93,
+			"score_buy": 77.8,
+			"score_sell": 10.9,
+			"benefit_money": 2430373.770491803
+		},
+		"후성": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.86,
+			"score_buy": 70.3,
+			"score_sell": -9.3,
+			"benefit_money": 842759.2397043295
+		},
+		"케이씨씨글라스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.86,
+			"score_buy": 71.8,
+			"score_sell": -9.6,
+			"benefit_money": 4317375.184079153
+		},
+		"현대그린푸드": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.84,
+			"score_buy": 81.7,
+			"score_sell": -10.0,
+			"benefit_money": 917815.1785714291
+		},
+		"쿠쿠홈시스": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"현대홈쇼핑": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"아모레퍼시픽우": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.68,
+			"score_buy": 69.1,
+			"score_sell": 7.4,
+			"benefit_money": 811595.0495049506
+		},
+		"세아베스틸": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.56,
+			"score_buy": 72.8,
+			"score_sell": 9.7,
+			"benefit_money": 10656450.000000004
+		},
+		"TIGER 200 IT": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.48,
+			"score_buy": 75.1,
+			"score_sell": -15.0,
+			"benefit_money": 186636.56663212925
+		},
+		"제주항공": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.58,
+			"score_buy": 80.1,
+			"score_sell": 14.0,
+			"benefit_money": 1592581.7767653745
+		},
+		"SK가스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.49,
+			"score_buy": 85.0,
+			"score_sell": -3.6,
+			"benefit_money": 168072.2891566269
+		},
+		"ESR켄달스퀘어리츠": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.46,
+			"score_buy": 66.3,
+			"score_sell": -12.1,
+			"benefit_money": 1139987.3684210535
+		},
+		"하나투어": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.65,
+			"score_buy": 80.1,
+			"score_sell": 11.6,
+			"benefit_money": 823772.6384364814
+		},
+		"CJ CGV": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"롯데하이마트": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.96,
+			"score_buy": 84.0,
+			"score_sell": 14.3,
+			"benefit_money": 761148.0484522227
+		},
+		"KODEX 코스닥150 레버리지": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.52,
+			"score_buy": 69.0,
+			"score_sell": -2.3,
+			"benefit_money": 876918.4615384601
+		},
+		"TIGER TOP10": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.44,
+			"score_buy": 71.5,
+			"score_sell": -14.7,
+			"benefit_money": 127355.53631289303
+		},
+		"대상": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.2258204990649957,
+			"score_buy": 74.94811762667383,
+			"score_sell": -5.735702089415913,
+			"benefit_money": 420265.73146292754
+		},
+		"SNT모티브": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 69.4,
+			"score_sell": 12.8,
+			"benefit_money": 673342.2155649643
+		},
+		"미원에스씨": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.51,
+			"score_buy": 65.9,
+			"score_sell": 4.6,
+			"benefit_money": 6016526.213592233
+		},
+		"TIGER KRX2차전지K-뉴딜": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.4419881635004144,
+			"score_buy": 76.32309051635585,
+			"score_sell": -4.4916374897302465,
+			"benefit_money": 1294956.5560302325
+		},
+		"휴켐스": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"롯데제과": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.96,
+			"score_buy": 73.2,
+			"score_sell": -10.6,
+			"benefit_money": 234309.12710739113
+		},
+		"LIG넥스원": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.65,
+			"score_buy": 77.7,
+			"score_sell": -14.4,
+			"benefit_money": 637065.2406417094
+		},
+		"유안타증권": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.23,
+			"score_buy": 63.3,
+			"score_sell": -4.6,
+			"benefit_money": 2965576.8670794517
+		},
+		"대한해운": {
+			"update_day": "2021-05-08",
+			"w_macd": 4.272253404240878,
+			"score_buy": 67.84297914741157,
+			"score_sell": -7.7131931902447235,
+			"benefit_money": 104851.959361393
+		},
+		"넥센타이어": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.89,
+			"score_buy": 80.8,
+			"score_sell": -3.7,
+			"benefit_money": 1271378.598229967
+		},
+		"유나이티드제약": {
+			"update_day": "2021-05-08",
+			"w_macd": 4.7154855049172,
+			"score_buy": 63.92809521591457,
+			"score_sell": -3.4487239928491853,
+			"benefit_money": 56161.37667303905
+		},
+		"제이알글로벌리츠": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.47,
+			"score_buy": 80.1,
+			"score_sell": -5.5,
+			"benefit_money": 26899.22779922746
+		},
+		"TIGER 2차전지테마": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.65,
+			"score_buy": 75.9,
+			"score_sell": -11.3,
+			"benefit_money": 1646744.6932814028
+		},
+		"TIGER 차이나전기차SOLACTIVE": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.374595444732029,
+			"score_buy": 79.66861346980812,
+			"score_sell": -0.6312007587990855,
+			"benefit_money": 918386.6732968669
+		},
+		"LG하우시스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.99,
+			"score_buy": 69.9,
+			"score_sell": -7.0,
+			"benefit_money": 2983114.2857142873
+		},
+		"락앤락": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"ARIRANG 200": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.4,
+			"score_buy": 83.6,
+			"score_sell": 7.0,
+			"benefit_money": 425453.0845928043
+		},
+		"현대일렉트릭": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.91,
+			"score_buy": 66.3,
+			"score_sell": 14.4,
+			"benefit_money": 1772514.758522652
+		},
+		"코스모신소재": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.0952499640439237,
+			"score_buy": 77.69775495754395,
+			"score_sell": -1.040237199505568,
+			"benefit_money": 3729282.0652173925
+		},
+		"진원생명과학": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.0708065077018687,
+			"score_buy": 74.7517923990383,
+			"score_sell": -7.3947208058599125,
+			"benefit_money": 4785076.859504133
+		},
+		"동원F&B": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.76,
+			"score_buy": 67.4,
+			"score_sell": -2.3,
+			"benefit_money": 761698.1772824023
+		},
+		"DL건설": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.82,
+			"score_buy": 84.6,
+			"score_sell": 11.4,
+			"benefit_money": 1128029.6754250396
+		},
+		"한국단자": {
+			"update_day": "2021-05-09",
+			"w_macd": 0.91,
+			"score_buy": 74.6,
+			"score_sell": 2.9,
+			"benefit_money": 361664.1985424068
+		},
+		"동양생명": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.8,
+			"score_buy": 73.8,
+			"score_sell": -14.7,
+			"benefit_money": 959322.5941036157
+		},
+		"제이콘텐트리": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.8,
+			"score_buy": 69.3,
+			"score_sell": 5.5,
+			"benefit_money": 1363271.9986771308
+		},
+		"유니드": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.75,
+			"score_buy": 70.4,
+			"score_sell": -8.5,
+			"benefit_money": 4343447.872340426
+		},
+		"동아쏘시오홀딩스": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.4039826561405304,
+			"score_buy": 79.74123178555176,
+			"score_sell": -6.965073268880649,
+			"benefit_money": 1736155.4502369668
+		},
+		"우리종금": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.5,
+			"score_buy": 81.6,
+			"score_sell": -6.3,
+			"benefit_money": 4726806.382978724
+		},
+		"대덕전자": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.66,
+			"score_buy": 80.8,
+			"score_sell": -5.0,
+			"benefit_money": 644644.2332452163
+		},
+		"넥스트사이언스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.86,
+			"score_buy": 74.1,
+			"score_sell": 0.6,
+			"benefit_money": 37171689.473684214
+		},
+		"경동나비엔": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 67.3,
+			"score_sell": -11.4,
+			"benefit_money": 876183.9103869647
+		},
+		"KINDEX 200": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.44,
+			"score_buy": 82.3,
+			"score_sell": 3.9,
+			"benefit_money": 413183.4525873661
+		},
+		"TIGER 미국나스닥100": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 2.56,
+			"score_buy": 62.8,
+			"score_sell": 0.4,
+			"benefit_money": 672337.5044869408
+		},
+		"NICE": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.44,
+			"score_buy": 83.6,
+			"score_sell": 6.6,
+			"benefit_money": 926493.9130434766
+		},
+		"일양약품": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.398625442214663,
+			"score_buy": 76.47795354763238,
+			"score_sell": -0.1866285204169884,
+			"benefit_money": 1443741.6909620985
+		},
+		"삼성SDI우": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.74,
+			"score_buy": 67.6,
+			"score_sell": 14.0,
+			"benefit_money": 557337.0307623483
+		},
+		"HDC": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.6,
+			"score_buy": 84.5,
+			"score_sell": 7.4,
+			"benefit_money": 265207.6845488604
+		},
+		"한진중공업": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.97,
+			"score_buy": 65.5,
+			"score_sell": -9.8,
+			"benefit_money": 975580.4971997123
+		},
+		"미래에셋생명": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.97,
+			"score_buy": 80.1,
+			"score_sell": -13.2,
+			"benefit_money": 409826.7515923567
+		},
+		"동아에스티": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.1750085385560953,
+			"score_buy": 75.4468918707361,
+			"score_sell": -7.360027918847652,
+			"benefit_money": 206157.95868772827
+		},
+		"SK디앤디": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.58,
+			"score_buy": 84.9,
+			"score_sell": -14.0,
+			"benefit_money": 147911.11111111194
+		},
+		"삼양식품": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.44,
+			"score_buy": 74.2,
+			"score_sell": -5.5,
+			"benefit_money": 277918.7986651845
+		},
+		"한일현대시멘트": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.95,
+			"score_buy": 67.2,
+			"score_sell": -8.3,
+			"benefit_money": 910668.1233933158
+		},
+		"부산가스": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.1885373729285145,
+			"score_buy": 76.02724224943087,
+			"score_sell": -0.8446784631606468,
+			"benefit_money": 802709.0592334494
+		},
+		"애경산업": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.260962435450779,
+			"score_buy": 79.05853458693299,
+			"score_sell": -6.596017230757018,
+			"benefit_money": 282481.9672131147
+		},
+		"우리금융캐피탈": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.35,
+			"score_buy": 81.0,
+			"score_sell": -10.7,
+			"benefit_money": 1112339.423076924
+		},
+		"미래에셋증권2우B": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9023071844982005,
+			"score_buy": 75.88205879187925,
+			"score_sell": -5.670165031063311,
+			"benefit_money": 1086478.3410138264
+		},
+		"SGC에너지": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.74,
+			"score_buy": 71.8,
+			"score_sell": -13.8,
+			"benefit_money": 2330855.401662048
+		},
+		"삼화콘덴서": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.51,
+			"score_buy": 77.3,
+			"score_sell": -13.1,
+			"benefit_money": 285017.9527559038
+		},
+		"BGF": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.0478202867856483,
+			"score_buy": 76.02859240314672,
+			"score_sell": -0.9947419709452472,
+			"benefit_money": 1241519.0163934417
+		},
+		"덴티움": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.61,
+			"score_buy": 70.9,
+			"score_sell": -13.3,
+			"benefit_money": 1890718.6046511624
+		},
+		"풀무원": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.58,
+			"score_buy": 83.3,
+			"score_sell": 4.7,
+			"benefit_money": 200644.0967892334
+		},
+		"효성중공업": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"KBSTAR 국고채3년선물인버스": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"영원무역홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.52,
+			"score_buy": 65.8,
+			"score_sell": -11.3,
+			"benefit_money": 1422811.139240509
+		},
+		"신성이엔지": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"제일약품": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.071590547864622,
+			"score_buy": 74.09991048740414,
+			"score_sell": -2.3650710099799364,
+			"benefit_money": 1248028.0098280087
+		},
+		"드림텍": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.2812695416244835,
+			"score_buy": 78.24414285368809,
+			"score_sell": -5.151403349952905,
+			"benefit_money": 497996.84873949736
+		},
+		"JW중외제약": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"케이씨텍": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.0811705772819327,
+			"score_buy": 75.3623902635166,
+			"score_sell": -1.883008696565315,
+			"benefit_money": 1424590.4942965787
+		},
+		"고려제강": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.76,
+			"score_buy": 75.3,
+			"score_sell": 2.1,
+			"benefit_money": 8521882.75862069
+		},
+		"서흥": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.54,
+			"score_buy": 75.3,
+			"score_sell": 10.2,
+			"benefit_money": 144960.40814179182
+		},
+		"율촌화학": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.49,
+			"score_buy": 67.7,
+			"score_sell": 13.7,
+			"benefit_money": 1474356.4699588362
+		},
+		"빙그레": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.57,
+			"score_buy": 66.8,
+			"score_sell": -13.9,
+			"benefit_money": 964544.6584938709
+		},
+		"코오롱글로벌": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.41,
+			"score_buy": 69.9,
+			"score_sell": -11.0,
+			"benefit_money": 1498502.1897810213
+		},
+		"SPC삼립": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"삼양사": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.69,
+			"score_buy": 80.1,
+			"score_sell": -9.2,
+			"benefit_money": 299358.4055459276
+		},
+		"해성디에스": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.045814483985348,
+			"score_buy": 79.08554677004872,
+			"score_sell": -0.21439493749781757,
+			"benefit_money": 610962.5196850393
+		},
+		"일진다이아": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.067834285746463,
+			"score_buy": 79.74094209269614,
+			"score_sell": -5.460326046724559,
+			"benefit_money": 333553.846153846
+		},
+		"한진": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"롯데정보통신": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"한국토지신탁": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.85,
+			"score_buy": 76.9,
+			"score_sell": 12.1,
+			"benefit_money": 1393290.8285716493
+		},
+		"신영증권": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.5,
+			"score_buy": 72.2,
+			"score_sell": -16.7,
+			"benefit_money": 1169881.7518248186
+		},
+		"디피씨": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.4612174870269095,
+			"score_buy": 76.01671288428643,
+			"score_sell": -2.356521131947301,
+			"benefit_money": 1734182.278481014
+		},
+		"롯데손해보험": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.52,
+			"score_buy": 74.0,
+			"score_sell": 14.7,
+			"benefit_money": 855482.4207492787
+		},
+		"한국자산신탁": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.32,
+			"score_buy": 73.9,
+			"score_sell": 10.5,
+			"benefit_money": 1871574.8743718602
+		},
+		"잇츠한불": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"한국카본": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.26,
+			"score_buy": 77.0,
+			"score_sell": -2.2,
+			"benefit_money": 665224.2677824255
+		},
+		"한화손해보험": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.5,
+			"score_buy": 65.3,
+			"score_sell": -13.9,
+			"benefit_money": 3603309.677419355
+		},
+		"KOSEF 200": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.218163867688423,
+			"score_buy": 74.16271267693173,
+			"score_sell": -5.585445615102538,
+			"benefit_money": 414819.68376737833
+		},
+		"KODEX 미국FANG플러스(H)": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.53,
+			"score_buy": 80.3,
+			"score_sell": -3.3,
+			"benefit_money": 423617.61341974884
+		},
+		"한국콜마홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 83.5,
+			"score_sell": 13.1,
+			"benefit_money": 290136.5492834449
+		},
+		"SK렌터카": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.99,
+			"score_buy": 65.9,
+			"score_sell": 14.7,
+			"benefit_money": 432792.1305204928
+		},
+		"교보증권": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.25,
+			"score_buy": 82.4,
+			"score_sell": -6.8,
+			"benefit_money": 1097353.351206433
+		},
+		"한국철강": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.49,
+			"score_buy": 82.0,
+			"score_sell": -14.2,
+			"benefit_money": 4374318.844221104
+		},
+		"종근당홀딩스": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.1010387474645453,
+			"score_buy": 75.2209548682319,
+			"score_sell": -5.200663150108442,
+			"benefit_money": 114101.4084507022
+		},
+		"QV 코스피 변동성 매칭형 양매도 ETN": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.07,
+			"score_buy": 81.7,
+			"score_sell": -14.0,
+			"benefit_money": 3413953.910614526
+		},
+		"한국금융지주우": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.23,
+			"score_buy": 68.2,
+			"score_sell": -5.7,
+			"benefit_money": 3992184.688995214
+		},
+		"HANARO 200": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.2987512461067823,
+			"score_buy": 74.81418655414616,
+			"score_sell": -4.528009070693332,
+			"benefit_money": 432188.87178359367
+		},
+		"LF": {
+			"update_day": "2021-05-09",
+			"w_macd": 3.0,
+			"score_buy": 73.4,
+			"score_sell": 10.8,
+			"benefit_money": 2281650.0
+		},
+		"대성홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.82,
+			"score_buy": 65.5,
+			"score_sell": 8.4,
+			"benefit_money": 1080768.2584991772
+		},
+		"국도화학": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.83,
+			"score_buy": 84.6,
+			"score_sell": -13.8,
+			"benefit_money": 5923938.461538464
+		},
+		"퍼시스": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.59,
+			"score_buy": 70.8,
+			"score_sell": 2.9,
+			"benefit_money": 5354112.808982411
+		},
+		"대한제강": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.63,
+			"score_buy": 77.0,
+			"score_sell": -1.2,
+			"benefit_money": 6474795.0
+		},
+		"현대퓨처넷": {
+			"update_day": "2021-05-09",
+			"w_macd": 3.0,
+			"score_buy": 84.2,
+			"score_sell": 14.2,
+			"benefit_money": 3212588.2191780824
+		},
+		"교촌에프앤비": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.49,
+			"score_buy": 71.7,
+			"score_sell": -3.6,
+			"benefit_money": 92330.88870047033
+		},
+		"송원산업": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.4647389008776557,
+			"score_buy": 74.77526732962153,
+			"score_sell": -4.767920984088334,
+			"benefit_money": 1317148.8126649093
+		},
+		"SBS": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.47,
+			"score_buy": 84.9,
+			"score_sell": -14.2,
+			"benefit_money": 3295561.643835617
+		},
+		"서울가스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.71,
+			"score_buy": 65.6,
+			"score_sell": -4.6,
+			"benefit_money": 949378.4141715635
+		},
+		"삼성화재우": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 0.98,
+			"score_buy": 79.2,
+			"score_sell": 12.0,
+			"benefit_money": 1428551.4705882352
+		},
+		"아세아제지": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 3.31,
+			"score_buy": 68.8,
+			"score_sell": 15.0,
+			"benefit_money": 2357339.305132523
+		},
+		"KH 필룩스": {
+			"update_day": "2021-05-08",
+			"w_macd": 0,
+			"score_buy": 0,
+			"score_sell": 0,
+			"benefit_money": 0
+		},
+		"지역난방공사": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 0.97,
+			"score_buy": 77.7,
+			"score_sell": 16.2,
+			"benefit_money": 1157607.7925600987
+		},
+		"키다리스튜디오": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.52,
+			"score_buy": 71.9,
+			"score_sell": 4.4,
+			"benefit_money": 1738617.8988326862
+		},
+		"SK증권": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.278996449268461,
+			"score_buy": 79.46848551928512,
+			"score_sell": -2.7812888990791027,
+			"benefit_money": 1718966.8202764988
+		},
+		"KOSEF 200TR": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.3806141086794894,
+			"score_buy": 78.10627666762834,
+			"score_sell": -5.975471196232521,
+			"benefit_money": 413612.5784868747
+		},
+		"에이프로젠제약": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.4934789463462543,
+			"score_buy": 78.46858255428555,
+			"score_sell": -6.681888528721389,
+			"benefit_money": 491656.0344827585
+		},
+		"선진": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.6,
+			"score_buy": 80.3,
+			"score_sell": 2.0,
+			"benefit_money": 2093169.23076923
+		},
+		"아세아시멘트": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 3.38,
+			"score_buy": 64.4,
+			"score_sell": 8.4,
+			"benefit_money": 2715925.0026331805
+		},
+		"TIGER KRX BBIG K-뉴딜": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.48,
+			"score_buy": 79.3,
+			"score_sell": -11.0,
+			"benefit_money": 521330.3389830515
+		},
+		"광동제약": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.25,
+			"score_buy": 80.9,
+			"score_sell": -4.6,
+			"benefit_money": 1044942.9620563034
+		},
+		"웅진씽크빅": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.6,
+			"score_buy": 81.2,
+			"score_sell": 14.0,
+			"benefit_money": 2079531.1307324152
+		},
+		"KODEX 자동차": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.64,
+			"score_buy": 83.7,
+			"score_sell": -2.0,
+			"benefit_money": 114577.19267191738
+		},
+		"애경유화": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.73,
+			"score_buy": 83.2,
+			"score_sell": 4.6,
+			"benefit_money": 2723887.2965745647
+		},
+		"남해화학": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.32,
+			"score_buy": 64.4,
+			"score_sell": -15.0,
+			"benefit_money": 551425.3195522036
+		},
+		"DI동일": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.16,
+			"score_buy": 65.5,
+			"score_sell": 14.6,
+			"benefit_money": 2909912.653160345
+		},
+		"KODEX 코스닥150선물인버스": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.93,
+			"score_buy": 80.6,
+			"score_sell": 7.3,
+			"benefit_money": 608416.8754991535
+		},
+		"맵스리얼티1": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.56,
+			"score_buy": 69.7,
+			"score_sell": -9.3,
+			"benefit_money": 2071369.465648856
+		},
+		"유진투자증권": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 0.92,
+			"score_buy": 84.7,
+			"score_sell": 1.4,
+			"benefit_money": 1585344.125326369
+		},
+		"서연": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.33,
+			"score_buy": 84.4,
+			"score_sell": 8.9,
+			"benefit_money": 14099286.193548389
+		},
+		"화승인더": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.66,
+			"score_buy": 75.5,
+			"score_sell": -5.9,
+			"benefit_money": 562575.9686744977
+		},
+		"SMART 200TR": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.2805295490486035,
+			"score_buy": 77.9982883661168,
+			"score_sell": -0.18807501176273078,
+			"benefit_money": 460179.7122302167
+		},
+		"롯데푸드": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 2.91,
+			"score_buy": 74.4,
+			"score_sell": -0.8,
+			"benefit_money": 890505.6162559427
+		},
+		"신영증권우": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.33,
+			"score_buy": 82.5,
+			"score_sell": 11.9,
+			"benefit_money": 710252.4982450847
+		},
+		"삼성출판사": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.03,
+			"score_buy": 68.4,
+			"score_sell": -1.5,
+			"benefit_money": 9019473.773987208
+		},
+		"동화약품": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.131320933198539,
+			"score_buy": 76.77266740636324,
+			"score_sell": -4.282847298518775,
+			"benefit_money": 365066.4335664343
+		},
+		"남선알미늄": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.3566988009528504,
+			"score_buy": 78.84550155802815,
+			"score_sell": -7.954704829360302,
+			"benefit_money": 162497.27626459114
+		},
+		"한라홀딩스": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.13,
+			"score_buy": 86.4,
+			"score_sell": -3.4,
+			"benefit_money": 234314.21446384117
+		},
+		"신한알파리츠": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.55,
+			"score_buy": 73.5,
+			"score_sell": -8.3,
+			"benefit_money": 1368063.920454545
+		},
+		"현대차증권": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.79,
+			"score_buy": 72.8,
+			"score_sell": -4.5,
+			"benefit_money": 919620.7171314731
+		},
+		"대신증권우": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.44,
+			"score_buy": 77.3,
+			"score_sell": 1.8,
+			"benefit_money": 6006044.999999998
+		},
+		"스카이라이프": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.49,
+			"score_buy": 66.9,
+			"score_sell": 13.0,
+			"benefit_money": 509438.48160525784
+		},
+		"엔에스쇼핑": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.01450733695889,
+			"score_buy": 75.61695104056513,
+			"score_sell": -2.543732528727422,
+			"benefit_money": 454659.7402597405
+		},
+		"모토닉": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.0704238854150705,
+			"score_buy": 77.47459955341847,
+			"score_sell": -7.411248707578391,
+			"benefit_money": 561356.1752988044
+		},
+		"LG헬로비전": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.86,
+			"score_buy": 67.9,
+			"score_sell": 12.0,
+			"benefit_money": 911118.3406113554
+		},
+		"AK홀딩스": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 1.24,
+			"score_buy": 79.2,
+			"score_sell": -3.6,
+			"benefit_money": 561973.9209326617
+		},
+		"세진중공업": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.244070611545673,
+			"score_buy": 79.14278205389397,
+			"score_sell": -6.80050509833302,
+			"benefit_money": 2720571.9165085386
+		},
+		"아이마켓코리아": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.48,
+			"score_buy": 75.6,
+			"score_sell": 8.7,
+			"benefit_money": 4599892.154926645
+		},
+		"알루코": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.3175548036269742,
+			"score_buy": 66.4410106245801,
+			"score_sell": -21.992441564694502,
+			"benefit_money": 201190.9090909101
+		},
+		"종근당바이오": {
+			"update_day": "2021-05-08",
+			"w_macd": 1.9204923783127987,
+			"score_buy": 79.07818987101612,
+			"score_sell": -5.114336630481577,
+			"benefit_money": 1715300.8347245418
+		},
+		"대상홀딩스": {
+			"update_day": "2021-05-08",
+			"w_macd": 2.0807920599178393,
+			"score_buy": 79.9748987534116,
+			"score_sell": -1.193897598803935,
+			"benefit_money": 1598524.0740740746
+		},
+		"삼성 코스피 양매도 5% OTM ETN": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.81,
+			"score_buy": 73.9,
+			"score_sell": -11.0,
+			"benefit_money": 444581.1764705889
+		},
+		"KODEX 코스닥 150": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.81,
+			"score_buy": 68.8,
+			"score_sell": -11.1,
+			"benefit_money": 393129.12585059553
+		},
+		"KODEX Top5PlusTR": {
+			"update_day": "2021-05-09",
+			"start_date": "2021-01-01",
+			"w_macd": 0.94,
+			"score_buy": 67.2,
+			"score_sell": -12.8,
+			"benefit_money": 403541.9337887559
+		},
+		"HSD엔진": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.67,
+			"score_buy": 84.2,
+			"score_sell": -1.1,
+			"benefit_money": 2446709.0163934436
+		},
+		"코오롱": {
+			"update_day": "2021-05-09",
+			"w_macd": 3.0,
+			"score_buy": 68.6,
+			"score_sell": -8.2,
+			"benefit_money": 3129011.730739003
+		},
+		"코람코에너지리츠": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.48,
+			"score_buy": 66.4,
+			"score_sell": 3.8,
+			"benefit_money": 1685513.2075471692
+		},
+		"세아홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.59,
+			"score_buy": 81.1,
+			"score_sell": 7.0,
+			"benefit_money": 3923281.4713896457
+		},
+		"한독": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.43,
+			"score_buy": 66.2,
+			"score_sell": 1.4,
+			"benefit_money": 305631.7022686824
+		},
+		"현대비앤지스틸": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.49,
+			"score_buy": 66.5,
+			"score_sell": 14.4,
+			"benefit_money": 7507799.311414804
+		},
+		"이리츠코크렙": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.66,
+			"score_buy": 81.1,
+			"score_sell": -10.6,
+			"benefit_money": 1652115.6069364175
+		},
+		"제일파마홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.46,
+			"score_buy": 65.4,
+			"score_sell": 13.9,
+			"benefit_money": 1976674.0527941436
+		},
+		"한일홀딩스": {
+			"update_day": "2021-05-09",
+			"w_macd": 2.72,
+			"score_buy": 82.1,
+			"score_sell": 6.5,
+			"benefit_money": 3069763.7864483874
+		},
+		"케이씨": {
+			"update_day": "2021-05-09",
+			"w_macd": 1.62,
+			"score_buy": 71.0,
+			"score_sell": -8.0,
+			"benefit_money": 713663.3092695288
+		}
+	}
+}

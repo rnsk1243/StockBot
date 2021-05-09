@@ -128,7 +128,7 @@ class MarketDB:
             self.__logger.write_log(f"ValueError: chart_type({chart_type}) doesn't exist.", log_lv=3)
             return None
 
-        self.__logger.write_log(f"start_date is initialized to {start_date.strftime('%Y-%m-%d %H:%M:%S')}", log_lv=1)
+        #self.__logger.write_log(f"start_date is initialized to {start_date.strftime('%Y-%m-%d %H:%M:%S')}", log_lv=1)
         return sql, start_date, is_sort, method_name
 
     def __df_week_sort(self, df):
@@ -193,7 +193,7 @@ class MarketDB:
 
                     return False
 
-            self.__logger.write_log(f"株価正常 株名前：{stock_name}、chart区分：{chart_type}", log_lv=1)
+            #self.__logger.write_log(f"株価正常 株名前：{stock_name}、chart区分：{chart_type}", log_lv=1)
             return True
 
         else:
@@ -290,11 +290,11 @@ class MarketDB:
 
         if end_date is None:
             end_date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-            self.__logger.write_log(f"end_date is initialized to {end_date}", log_lv=1)
+            #self.__logger.write_log(f"end_date is initialized to {end_date}", log_lv=1)
         else:
             end_date = self.__date_normalization(end_date)
 
-        self.__logger.write_log(f"検索期間：{start_date}～{end_date}", log_lv=1)
+        #self.__logger.write_log(f"検索期間：{start_date}～{end_date}", log_lv=1)
          
         #codes_keys = list(self.__codes.keys())
         #codes_values = list(self.__codes.values())
@@ -321,7 +321,7 @@ class MarketDB:
             self.__logger.write_log(f"株コード：{code}は分割または併合発生のため、アップデート必要", log_lv=3)
             return None
         else:
-            self.__logger.write_log(f"【正常】株コード：{code} / 取得完了。取得件数：{len(df)}", log_lv=1)
+            #self.__logger.write_log(f"【正常】株コード：{code} / 取得完了。取得件数：{len(df)}", log_lv=1)
             return df
 
     def get_stock_close(self, code, start_date=None, end_date=None):
