@@ -8,11 +8,9 @@
 		"threadAmount": 1,
 		"is_select_update": true,
 		"update_stock_list": [
-			"A302440",
-			"A035720",
-			"A003550",
-			"A003550",
-			"A003550"
+			"A013890",
+			"A013890",
+			"A013890"
 		]
 	},
 	"section_M": {

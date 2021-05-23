@@ -22,6 +22,11 @@ def get_stock_combination(target_list, split_target_list, combi_r):
 
     return combination_list
 
+def json_clean(path, path2):
+    null_json = {path2:{}}
+    with open(path, 'w', encoding='utf-8') as clean_json:
+        json.dump(null_json, clean_json, indent="\t")
+
 def write_json(path, path2, naiyou):
     try:
         if type(naiyou) is not dict:

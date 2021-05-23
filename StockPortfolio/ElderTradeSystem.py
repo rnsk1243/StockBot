@@ -58,7 +58,7 @@ class ElderTradeSystem:
         except Exception as e:
             self.__logger.write_log(f"Exception occured {self} print_chart : {str(e)}", log_lv=3)
 
-    def get_macd_stochastic(self, stock_name, start_date=None, end_data=None, days_long=None):
+    def get_macd_stochastic(self, stock_name, start_date=None, end_date=None, days_long=None):
         """
         MACD,ストキャスティクスを抽出
         :param stock_name: 株の名前または株のコード
@@ -72,7 +72,7 @@ class ElderTradeSystem:
             days_middle = round(days_long*0.46) # 130日:60日:45日の比率で63:(63*0.46):(63*0.35)に決め
             days_short = round(days_long*0.35)
 
-            df = self.__market_db.get_stock_price(stock_name, "D", start_date=start_date, end_date=end_data) # DBからデータ取得
+            df = self.__market_db.get_stock_price(stock_name, "D", start_date=start_date, end_date=end_date) # DBからデータ取得
             ema_middle = df.close.ewm(span=days_middle).mean()  # close days_middle 移動平均
             ema_long = df.close.ewm(span=days_long).mean()  # close days_long 移動平均
             macd = ema_middle - ema_long  # MACD線
@@ -132,42 +132,43 @@ class ElderTradeSystem:
         except Exception as e:
             self.__logger.write_log(f"Exception occured {self} macd_sec_dpc : {str(e)}", log_lv=3)
 
-
-    def is_buy_sell(self, macd_sec_dpc, slow_d, w_macd=None, score_buy=None, score_sell=None, code=None):
+    def is_buy_sell_learning(self, macd_sec_dpc, macd_buy, macd_sell):
         """
         株を買うか売るか見守るか選択
-        :param stock_name:対象の株名前またはコード
-        :param w_macd:macd加重値
-        :param w_stochastic:ストキャスティクス加重値
+        :param macd_sec_dpc:
+        :param w_macd: macd加重値
         :return: タプル(True=買う,False=売る,None=見守る／点数=高いほど買う)
         """
-
         try:
-            if macd_sec_dpc is None or slow_d is None:
+            if macd_sec_dpc is None:
                 return None, None
 
-            if w_macd is None:
-                w_macd = 1
-
-            score_macd = w_macd * macd_sec_dpc
-            score_stochastic = (100 - slow_d)
-            score_end = score_macd + score_stochastic
-
-            if macd_sec_dpc > 0 and slow_d < 20:
+            if macd_sec_dpc > macd_buy:
                 result = True
-            elif macd_sec_dpc < 0 and slow_d > 80:
+            elif macd_sec_dpc < macd_sell:
                 result = False
             else:
                 result = None
+            #print(f"macd_sec_dpc=========={macd_sec_dpc}")
 
-            if score_buy is None or score_sell is None:
-                result2 = None
-            elif score_end > score_buy:
-                result2 = True
-            elif score_end < score_sell:
-                result2 = False
-            else:
-                result2 = None
+            # if macd_sec_dpc > macd_buy:
+            #     #print(f"산다")
+            #     result = True
+            # elif macd_sec_dpc < macd_sell:
+            #     #print(f"판다")
+            #     result = False
+            # else:
+            #     #print(f"관망")
+            #     result = None
+
+            # if score_buy is None or score_sell is None:
+            #     result2 = None
+            # elif score_end > score_buy:
+            #     result2 = True
+            # elif score_end < score_sell:
+            #     result2 = False
+            # else:
+            #     result2 = None
 
             # self.__logger.write_log(f"\n株名：{code}\n"
             #                         f"増加率平均：{macd_sec_dpc}\n"
@@ -176,7 +177,114 @@ class ElderTradeSystem:
             #                         f"点数：{score_end}\n"
             #                         f"結果２：{result2}", log_lv=2)
 
-            return result, result2
+            return result
+
+        except Exception as e:
+            self.__logger.write_log(f"Exception occured {self} is_buy_sell : {str(e)}", log_lv=3)
+
+    def is_buy_sell_challenge(self, print_info_list, macd_sec_dpc, slow_d, macd_buy, macd_sell):
+        """
+        株を買うか売るか見守るか選択
+        :param macd_sec_dpc:
+        :param slow_d:
+        :param w_macd: macd加重値
+        :return: タプル(True=買う,False=売る,None=見守る／点数=高いほど買う)
+        """
+        try:
+            if macd_sec_dpc is None or slow_d is None:
+                return None, None
+
+            if macd_sec_dpc > macd_buy and slow_d < 30:
+                self.__logger.write_log(f"\t산다\tdate \t{print_info_list[1]}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tcode \t{print_info_list[0]}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tmacd_sec_dpc \t{macd_sec_dpc}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tslow_d \t{slow_d}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tclose \t{print_info_list[2]}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tdelta_hist \t{print_info_list[3]}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tmacd_sec_dpc \t{print_info_list[4]}\t", log_lv=2)
+                self.__logger.write_log(f"------------------------------------", log_lv=2)
+                result = True
+            elif macd_sec_dpc < macd_sell and slow_d > 70:
+                self.__logger.write_log(f"\t판다\tdate \t{print_info_list[1]}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tcode \t{print_info_list[0]}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tmacd_sec_dpc \t{macd_sec_dpc}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tslow_d \t{slow_d}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tclose \t{print_info_list[2]}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tdelta_hist \t{print_info_list[3]}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tmacd_sec_dpc \t{print_info_list[4]}\t", log_lv=2)
+                self.__logger.write_log(f"------------------------------------", log_lv=2)
+                result = False
+            else:
+                result = None
+            #print(f"macd_sec_dpc=========={macd_sec_dpc}")
+
+            # if macd_sec_dpc > macd_buy:
+            #     #print(f"산다")
+            #     result = True
+            # elif macd_sec_dpc < macd_sell:
+            #     #print(f"판다")
+            #     result = False
+            # else:
+            #     #print(f"관망")
+            #     result = None
+
+            # if score_buy is None or score_sell is None:
+            #     result2 = None
+            # elif score_end > score_buy:
+            #     result2 = True
+            # elif score_end < score_sell:
+            #     result2 = False
+            # else:
+            #     result2 = None
+
+            # self.__logger.write_log(f"\n株名：{code}\n"
+            #                         f"増加率平均：{macd_sec_dpc}\n"
+            #                         f"ストキャスティクス：{slow_d}\n"
+            #                         f"結果１：{result}\n"
+            #                         f"点数：{score_end}\n"
+            #                         f"結果２：{result2}", log_lv=2)
+
+            return result
+
+        except Exception as e:
+            self.__logger.write_log(f"Exception occured {self} is_buy_sell : {str(e)}", log_lv=3)
+
+
+    def is_buy_sell_nomal(self, print_info_list, macd_sec_dpc, slow_d, slow_d_buy, slow_d_sell):
+        """
+        株を買うか売るか見守るか選択
+        :param macd_sec_dpc:
+        :param slow_d:
+        :return: タプル(True=買う,False=売る,None=見守る／点数=高いほど買う)
+        """
+        try:
+            if macd_sec_dpc is None or slow_d is None:
+                return None
+
+            if macd_sec_dpc > 0 and slow_d < slow_d_buy:
+                self.__logger.write_log(f"\t산다\tdate \t{print_info_list[1]}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tcode \t{print_info_list[0]}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tmacd_sec_dpc \t{macd_sec_dpc}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tslow_d \t{slow_d}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tclose \t{print_info_list[2]}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tdelta_hist \t{print_info_list[3]}\t", log_lv=2)
+                self.__logger.write_log(f"\t산다\tmacd_sec_dpc \t{print_info_list[4]}\t", log_lv=2)
+                self.__logger.write_log(f"------------------------------------", log_lv=2)
+                result = True
+            elif macd_sec_dpc < 0 and slow_d > slow_d_sell:
+                self.__logger.write_log(f"\t판다\tdate \t{print_info_list[1]}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tcode \t{print_info_list[0]}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tmacd_sec_dpc \t{macd_sec_dpc}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tslow_d \t{slow_d}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tclose \t{print_info_list[2]}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tdelta_hist \t{print_info_list[3]}\t", log_lv=2)
+                self.__logger.write_log(f"\t판다\tmacd_sec_dpc \t{print_info_list[4]}\t", log_lv=2)
+                self.__logger.write_log(f"------------------------------------", log_lv=2)
+                result = False
+            else:
+                result = None
+
+            return result
 
         except Exception as e:
             self.__logger.write_log(f"Exception occured {self} is_buy_sell : {str(e)}", log_lv=3)
